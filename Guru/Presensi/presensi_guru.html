@@ -1,22 +1,149 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Presensi Guru • AI Assessment Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="../../style.css" />
   <style>
+    /* ─── TOKENS & DESIGN SYSTEM ──────────────────────────────────── */
+    :root {
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-dim: rgba(99, 102, 241, .12);
+      --accent-glow: rgba(99, 102, 241, .25);
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, .12);
+      --green-border: rgba(34, 197, 94, .3);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, .12);
+      --amber-border: rgba(245, 158, 11, .3);
+      --orange: #f97316;
+      --orange-dim: rgba(249, 115, 22, .12);
+      --orange-border: rgba(249, 115, 22, .3);
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --bg-panel: #0d0d10;
+      --s1: #111114;
+      --s2: #18181c;
+      --s3: #1e1e23;
+      --s4: #242429;
+      --line: #27272d;
+      --line2: #32323a;
+      --t1: #fafafa;
+      --t2: #e4e4e7;
+      --t3: #a1a1aa;
+      --t4: #71717a;
+      --token-c: var(--accent-light);
+      --kbd-bg: #1e1e23;
+      --inp-bg: #111114;
+      --drop-bg: rgba(255, 255, 255, .02);
+      --schedule-c: #60a5fa;
+      --sb-thumb: #3f3f46;
+      --sb-thumb-hover: #52525b;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f2f6;
+      --bg-panel: #e8e9ef;
+      --s1: #ffffff;
+      --s2: #f7f8fc;
+      --s3: #eef0f6;
+      --s4: #e4e6ef;
+      --line: #e2e4ec;
+      --line2: #d0d3de;
+      --t1: #111118;
+      --t2: #2d2d3a;
+      --t3: #52525b;
+      --t4: #a1a1aa;
+      --token-c: var(--accent);
+      --kbd-bg: #e4e6ef;
+      --inp-bg: #ffffff;
+      --drop-bg: rgba(0, 0, 0, .02);
+      --schedule-c: #1d4ed8;
+      --sb-thumb: #cbd5e1;
+      --sb-thumb-hover: #94a3b8;
+      --accent-light: #4f46e5;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--t1);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background .25s, color .25s;
+      padding: 12px 8px;
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      font: inherit;
+      color: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ─── SCROLLBAR ───────────────────────────────────────────────── */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--sb-thumb-hover);
+    }
+
+    /* ─── WRAPPER ──────────────────────────────────────────────── */
     .wrap {
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
-      padding: 12px 8px;
     }
 
+    /* ─── CARD ──────────────────────────────────────────────────── */
     .card {
       background: var(--s1);
       border: 1px solid var(--line);
@@ -25,10 +152,10 @@
       margin-bottom: 20px;
     }
 
-    .card .head {
+    .card-header {
       border-bottom: 1px solid var(--line);
       padding-bottom: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -48,73 +175,92 @@
       border-radius: 10px;
       display: grid;
       place-items: center;
-      background: var(--accent-dim);
-      border: 1px solid var(--accent-light);
-      color: var(--accent-light);
+      background: var(--accent);
+      color: #ffffff;
       font-size: 20px;
     }
 
-    .t1 {
+    .brand-text h1 {
       font-family: 'Poppins', sans-serif;
       font-size: 18px;
       font-weight: 700;
       color: var(--t1);
+      line-height: 1.2;
     }
 
-    .t2 {
+    .brand-text span {
       font-size: 11px;
       color: var(--t3);
       font-weight: 500;
-      margin-top: 2px;
     }
 
-    .row {
+    .actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
     }
 
+    /* ─── BUTTONS ─────────────────────────────────────────────────── */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border: 1px solid var(--line);
-      background: var(--s2);
-      color: var(--t1);
-      border-radius: 8px;
-      padding: 10px 16px;
       font-size: 12px;
       font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s;
       text-decoration: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
     }
 
-    .btn:hover {
+    .btn.accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn.accent:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn.green {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    .btn.green:hover {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .btn.rose {
+      background: #f43f5e;
+      color: #fff;
+      border-color: #f43f5e;
+    }
+
+    .btn.rose:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+    }
+
+    .btn.slate {
       background: var(--s3);
+      color: var(--t1);
       border-color: var(--line2);
     }
 
-    .btn.primary {
-      background: var(--accent);
-      border-color: var(--accent-light);
-      color: #ffffff;
-    }
-
-    .btn.primary:hover {
-      background: var(--accent-light);
-    }
-
-    .btn.bad {
-      background: #f43f5e;
-      border-color: #f43f5e;
-      color: #ffffff;
-    }
-
-    .btn.bad:hover {
-      background: #e11d48;
+    .btn.slate:hover {
+      background: var(--s4);
+      border-color: var(--line2);
     }
 
     .theme-toggle-btn {
@@ -128,57 +274,96 @@
       cursor: pointer;
       color: var(--t1);
       transition: all 0.15s;
+      font-size: 16px;
     }
+
     .theme-toggle-btn:hover {
-      background: var(--s3);
+      background: var(--s4);
       border-color: var(--line2);
     }
 
+    /* ─── PILLS & TAGS (SOLID) ───────────────────────────────────── */
     .pill {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
-      border-radius: 20px;
+      gap: 6px;
       padding: 6px 12px;
-      border: 1px solid var(--line);
-      background: var(--s2);
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
-      color: var(--t2);
-    }
-
-    /* SOLID BADGES (as in monitor_ujian) */
-    .pill.ok {
-      border-color: var(--green) !important;
-      background: var(--green) !important;
-      color: #ffffff !important;
-    }
-
-    .pill.warn {
-      border-color: var(--amber) !important;
-      background: var(--amber) !important;
-      color: #ffffff !important;
-    }
-
-    .pill.bad {
-      border-color: #f43f5e !important;
-      background: #f43f5e !important;
-      color: #ffffff !important;
+      border: none;
     }
 
     .pill.blue {
-      border-color: var(--accent) !important;
-      background: var(--accent) !important;
-      color: #ffffff !important;
+      background: var(--accent);
+      color: #ffffff;
     }
 
     .pill.gray {
-      border-color: var(--line) !important;
-      background: var(--s3) !important;
-      color: var(--t3) !important;
+      background: var(--s3);
+      color: var(--t3);
+      border: 1px solid var(--line);
     }
 
-    /* Sub config cards inside grid2 */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      color: #ffffff;
+    }
+
+    .tag.ok {
+      background: var(--green);
+    }
+
+    .tag.warn {
+      background: var(--amber);
+      color: #000;
+    }
+
+    .tag.bad {
+      background: #f43f5e;
+    }
+
+    .tag.blue {
+      background: var(--accent);
+    }
+
+    /* ─── GRID 2 KOLOM - STRETCH ────────────────────────────────── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .grid-2>.config-card {
+      height: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2>.config-card {
+        height: auto;
+      }
+    }
+
+    /* ─── GRID 3 KOLOM ──────────────────────────────────────────── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    /* ─── CONFIG CARD ───────────────────────────────────────────── */
     .config-card {
       background: var(--s2);
       border: 1px solid var(--line);
@@ -202,35 +387,22 @@
     }
 
     .config-header i {
-      color: var(--accent-light);
+      color: var(--accent);
     }
 
-    .grid2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 12px;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .grid2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Camera Panel */
+    /* ─── CAMERA ────────────────────────────────────────────────── */
     .camera-wrapper {
       position: relative;
       background: #000;
       border-radius: 10px;
       overflow: hidden;
-      aspect-ratio: 4/3;
+      aspect-ratio: 4 / 3;
       max-height: 340px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .camera-placeholder {
       display: flex;
       flex-direction: column;
@@ -242,19 +414,25 @@
       width: 100%;
       background: var(--s3);
     }
+
     .camera-placeholder i {
       font-size: 40px;
     }
-    .camera-placeholder span {
-      font-size: 13px;
+
+    /* ─── MOOD SELECTOR ─────────────────────────────────────────── */
+    .mood-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--t2);
+      margin-bottom: 8px;
     }
 
-    /* Mood selector */
     .mood-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 8px;
     }
+
     .mood-btn {
       display: flex;
       flex-direction: column;
@@ -270,21 +448,91 @@
       color: var(--t3);
       font-weight: 600;
     }
+
     .mood-btn:hover {
       border-color: var(--accent);
       color: var(--t1);
       background: var(--accent-dim);
     }
+
     .mood-btn.active {
       border-color: var(--accent);
-      background: var(--accent-dim);
-      color: var(--accent-light);
+      background: var(--accent);
+      color: #ffffff;
     }
+
     .mood-btn .emoji {
       font-size: 22px;
     }
 
-    /* Info rows */
+    /* ─── INFO CARD RIGHT - UX FLOW ─────────────────────────────── */
+    .info-highlight {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-highlight .main-text {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--t1);
+      line-height: 1.4;
+    }
+
+    .info-highlight .sub-text {
+      font-size: 11px;
+      color: var(--t3);
+      line-height: 1.5;
+    }
+
+    .info-highlight .sub-text b {
+      color: var(--t2);
+    }
+
+    .schedule-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .schedule-chip {
+      flex: 1;
+      min-width: 100px;
+      background: var(--s3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .schedule-chip i {
+      font-size: 14px;
+    }
+
+    .schedule-chip .chip-label {
+      color: var(--t3);
+      font-weight: 500;
+    }
+
+    .schedule-chip .chip-value {
+      color: var(--t1);
+      font-weight: 700;
+      margin-left: auto;
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     .info-row {
       display: flex;
       align-items: center;
@@ -293,27 +541,82 @@
       border-bottom: 1px solid var(--line);
       font-size: 13px;
     }
+
     .info-row:last-child {
       border-bottom: none;
     }
+
     .info-row i {
-      color: var(--accent-light);
+      color: var(--accent);
       width: 18px;
+      text-align: center;
     }
+
     .info-row .label {
       color: var(--t3);
-      min-width: 120px;
+      min-width: 110px;
+      font-weight: 500;
     }
+
     .info-row .value {
       color: var(--t1);
       font-weight: 600;
+      margin-left: auto;
+      text-align: right;
     }
 
-    /* Table styles */
+    .stat-box {
+      background: var(--s3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-box .number {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .stat-box .label {
+      font-size: 10px;
+      color: var(--t3);
+      margin-top: 2px;
+    }
+
+    .attendance-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .attendance-summary .rate {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .attendance-summary .rate-label {
+      font-size: 11px;
+      color: var(--t3);
+    }
+
+    /* ─── TABLE ─────────────────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
+      white-space: nowrap;
     }
+
     th {
       padding: 10px 14px;
       background: var(--s3);
@@ -325,6 +628,7 @@
       text-align: left;
       border-bottom: 1px solid var(--line);
     }
+
     td {
       padding: 10px 14px;
       font-size: 12px;
@@ -332,47 +636,44 @@
       border-bottom: 1px solid var(--line);
       vertical-align: middle;
     }
+
     tr:last-child td {
       border-bottom: none;
     }
+
     tr:hover td {
       background: var(--s3);
     }
   </style>
 </head>
+
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="head">
-      <div class="brand">
-        <div class="logo"><i class="fa-solid fa-camera"></i></div>
-        <div>
-          <div class="t1">Presensi Guru</div>
-          <div class="t2">AI Assessment Intelligence • Mirror + Lokasi • Wali Kelas X-10</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="pill blue" style="border-radius: 8px;"><i class="fa-regular fa-clock"></i> <span id="timeNow">23:07:14</span></div>
-        <div class="theme-toggle-btn" id="theme-toggle"><i class="fa-solid fa-sun"></i></div>
-        <a class="btn primary" href="https://serverap.sapda.id/lms/admin/guru_dashboard.php"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
-        <a class="btn bad" href="https://serverap.sapda.id/lms/admin/guru_logout.php"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
-      </div>
-    </div>
-    
-    <div class="body" style="padding-top:12px">
-      <!-- Info Alert Bar -->
-      <div style="background:var(--s2); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px">
-        <div>
-          <div style="font-weight:700; font-size:13px; color:var(--t1)">Ambil foto, pilih mood, lalu klik <b>Absen Sekarang</b>.</div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px">
-            Datang: <b>05:00:00 - 10:30:00</b> • Pulang: <b>14:00:00 - 23:00:00</b> • Mode Lokasi: <b>radius</b> (2000m)
+  <div class="wrap">
+    <!-- Main Card -->
+    <div class="card">
+      <!-- Header -->
+      <div class="card-header">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-camera"></i></div>
+          <div class="brand-text">
+            <h1>Presensi Guru</h1>
+            <span>AI Assessment Intelligence • Mirror + Lokasi</span>
           </div>
         </div>
-        <div class="pill gray"><i class="fa-solid fa-person-badge"></i> <strong>Wali Kelas X-10</strong></div>
+        <div class="actions">
+          <span class="pill blue"><i class="fa-regular fa-clock"></i> <span id="timeNow">23:07:14</span></span>
+          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+              class="fa-solid fa-sun"></i></button>
+          <a href="https://serverap.sapda.id/lms/admin/guru_dashboard.php" class="btn slate"><i
+              class="fa-solid fa-arrow-left"></i> Dashboard</a>
+          <a href="https://serverap.sapda.id/lms/admin/guru_logout.php" class="btn rose"><i
+              class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </div>
       </div>
 
-      <div class="grid2">
-        <!-- Kamera & Mood -->
+      <!-- Main Grid - 2 Kolom PAKSA SAMA TINGGI -->
+      <div class="grid-2">
+        <!-- KIRI: Kamera & Mood -->
         <div class="config-card">
           <div class="config-header"><i class="fa-solid fa-video"></i> Kamera Kehadiran</div>
           <div class="camera-wrapper">
@@ -381,97 +682,149 @@
               <span>Menginisialisasi Kamera...</span>
             </div>
           </div>
-          
-          <div style="display:flex; gap:8px; margin-top:4px">
-            <button class="btn primary" style="flex:1"><i class="fa-solid fa-camera"></i> Ambil Foto</button>
-            <button class="btn" style="flex:1"><i class="fa-solid fa-rotate-right"></i> Ulangi</button>
+          <div style="display:flex; gap:8px;">
+            <button class="btn accent" style="flex:1"><i class="fa-solid fa-camera"></i> Ambil Foto</button>
+            <button class="btn slate" style="flex:1"><i class="fa-solid fa-rotate-right"></i> Ulangi</button>
           </div>
-
-          <div style="margin-top:8px">
-            <div style="font-size:12px; font-weight:600; color:var(--t2); margin-bottom:8px">Pilih Mood Hari Ini</div>
+          <div>
+            <div class="mood-label">Pilih Mood Hari Ini</div>
             <div class="mood-grid">
-              <div class="mood-btn active">
-                <span class="emoji">😊</span>
-                <span>Senang</span>
+              <div class="mood-btn active"><span class="emoji">😊</span><span>Senang</span></div>
+              <div class="mood-btn"><span class="emoji">😐</span><span>Biasa</span></div>
+              <div class="mood-btn"><span class="emoji">😴</span><span>Ngantuk</span></div>
+              <div class="mood-btn"><span class="emoji">😤</span><span>Semangat</span></div>
+              <div class="mood-btn"><span class="emoji">🤒</span><span>Sakit</span></div>
+            </div>
+          </div>
+          <button class="btn green" style="padding:12px; font-size:14px;"><i class="fa-solid fa-check-circle"></i> Absen
+            Sekarang</button>
+        </div>
+
+        <!-- KANAN: Informasi, Jadwal, Statistik (UX Flow) -->
+        <div class="config-card" style="justify-content: space-between;">
+          <!-- Bagian Atas: Highlight Info + Identitas -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <!-- Highlight: Instruksi & Jadwal -->
+            <div class="info-highlight">
+              <div class="main-text">
+                <i class="fa-solid fa-circle-info" style="color:var(--accent); margin-right:6px;"></i>
+                Ambil foto, pilih mood, lalu klik <b>Absen Sekarang</b>.
               </div>
-              <div class="mood-btn">
-                <span class="emoji">😐</span>
-                <span>Biasa</span>
+              <div class="sub-text">
+                Datang: <b style="color:var(--green);">05:00 - 10:30</b> &nbsp;•&nbsp; Pulang: <b
+                  style="color:var(--accent-light);">14:00 - 23:00</b> &nbsp;•&nbsp; Mode Lokasi: <b>radius</b> (2000m)
               </div>
-              <div class="mood-btn">
-                <span class="emoji">😴</span>
-                <span>Ngantuk</span>
+            </div>
+
+            <!-- Identitas Guru -->
+            <div class="config-header" style="margin-bottom:0;">
+              <i class="fa-solid fa-id-card"></i> Identitas & Jadwal
+            </div>
+            <div class="info-list">
+              <div class="info-row">
+                <i class="fa-solid fa-user"></i><span class="label">Nama Guru</span><span class="value">Wali Kelas
+                  X-10</span>
               </div>
-              <div class="mood-btn">
-                <span class="emoji">😤</span>
-                <span>Semangat</span>
+              <div class="info-row">
+                <i class="fa-solid fa-school"></i><span class="label">School ID</span><span class="value">8</span>
               </div>
-              <div class="mood-btn">
-                <span class="emoji">🤒</span>
-                <span>Sakit</span>
+              <div class="info-row">
+                <i class="fa-solid fa-location-crosshairs"></i><span class="label">Mode Lokasi</span><span
+                  class="value">Radius (2000m)</span>
+              </div>
+            </div>
+
+            <!-- Jadwal Chips -->
+            <div class="schedule-row">
+              <div class="schedule-chip">
+                <i class="fa-regular fa-clock" style="color:var(--green);"></i>
+                <span class="chip-label">Datang</span>
+                <span class="chip-value" style="color:var(--green);">05:00 - 10:30</span>
+              </div>
+              <div class="schedule-chip">
+                <i class="fa-solid fa-moon" style="color:var(--accent-light);"></i>
+                <span class="chip-label">Pulang</span>
+                <span class="chip-value" style="color:var(--accent-light);">14:00 - 23:00</span>
               </div>
             </div>
           </div>
 
-          <button class="btn primary" style="margin-top:8px; background:var(--green); border-color:var(--green); color:#fff; font-size:14px; padding:12px"><i class="fa-solid fa-check-circle"></i> Absen Sekarang</button>
-        </div>
+          <!-- Bagian Bawah: Statistik & Tingkat Kehadiran -->
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="config-header" style="margin-bottom:0;">
+              <i class="fa-solid fa-chart-bar"></i> Statistik Bulan Ini
+            </div>
+            <div class="grid-3">
+              <!-- <div class="stat-box">
+                <div class="number" style="color:var(--green);">22</div>
+                <div class="label">Hadir</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color:var(--amber);">1</div>
+                <div class="label">Terlambat</div>
+              </div>
+              <div class="stat-box">
+                <div class="number" style="color:#f43f5e;">1</div>
+                <div class="label">Alpha</div>
+              </div> -->
+              <div
+                style="background: var(--s1); border: 1px solid var(--line); border-radius: 10px; padding: 14px 10px; text-align: center; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s ease; position: relative; overflow: hidden;"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--line2)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.05)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--line)'; this.style.boxShadow='none';">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--green);">
+                </div>
+                <div
+                  style="font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em;">
+                  Hadir</div>
+                <div
+                  style="font-size: 20px; font-weight: 800; color: var(--green); font-family: 'Poppins', sans-serif;">22
+                </div>
+              </div>
 
-        <!-- Detail & Statistik -->
-        <div class="config-card">
-          <div class="config-header"><i class="fa-solid fa-circle-info"></i> Informasi & Status</div>
-          <div class="info-row">
-            <i class="fa-solid fa-user"></i>
-            <span class="label">Nama Guru</span>
-            <span class="value">Wali Kelas X-10</span>
-          </div>
-          <div class="info-row">
-            <i class="fa-solid fa-school"></i>
-            <span class="label">School ID</span>
-            <span class="value">8</span>
-          </div>
-          <div class="info-row">
-            <i class="fa-solid fa-location-crosshairs"></i>
-            <span class="label">Mode Lokasi</span>
-            <span class="value">Radius (2000m)</span>
-          </div>
-          <div class="info-row">
-            <i class="fa-regular fa-clock"></i>
-            <span class="label">Jam Datang</span>
-            <span class="value" style="color:var(--green)">05:00:00 - 10:30:00</span>
-          </div>
-          <div class="info-row">
-            <i class="fa-solid fa-moon"></i>
-            <span class="label">Jam Pulang</span>
-            <span class="value" style="color:var(--accent-light)">14:00:00 - 23:00:00</span>
-          </div>
+              <div
+                style="background: var(--s1); border: 1px solid var(--line); border-radius: 10px; padding: 14px 10px; text-align: center; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s ease; position: relative; overflow: hidden;"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--line2)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.05)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--line)'; this.style.boxShadow='none';">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--amber);">
+                </div>
+                <div
+                  style="font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em;">
+                  Terlambat</div>
+                <div
+                  style="font-size: 20px; font-weight: 800; color: var(--amber); font-family: 'Poppins', sans-serif;">1
+                </div>
+              </div>
 
-          <div style="margin-top:8px">
-            <div style="font-size:12px; font-weight:600; color:var(--t2); margin-bottom:8px">Statistik Bulan Ini</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px">
-              <div style="background:var(--s3); border:1px solid var(--line); border-radius:8px; padding:12px; text-align:center">
-                <div style="font-size:20px; font-weight:800; color:var(--green)">22</div>
-                <div style="font-size:10px; color:var(--t3)">Hadir</div>
+              <div
+                style="background: var(--s1); border: 1px solid var(--line); border-radius: 10px; padding: 14px 10px; text-align: center; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s ease; position: relative; overflow: hidden;"
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.borderColor='var(--line2)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.05)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--line)'; this.style.boxShadow='none';">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: #f43f5e;"></div>
+                <div
+                  style="font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em;">
+                  Alpha</div>
+                <div style="font-size: 20px; font-weight: 800; color: #f43f5e; font-family: 'Poppins', sans-serif;">1
+                </div>
               </div>
-              <div style="background:var(--s3); border:1px solid var(--line); border-radius:8px; padding:12px; text-align:center">
-                <div style="font-size:20px; font-weight:800; color:var(--amber)">1</div>
-                <div style="font-size:10px; color:var(--t3)">Terlambat</div>
+            </div>
+            <div class="attendance-summary">
+              <div>
+                <div class="rate-label">Tingkat Kehadiran</div>
+                <div class="rate">92%</div>
               </div>
-              <div style="background:var(--s3); border:1px solid var(--line); border-radius:8px; padding:12px; text-align:center">
-                <div style="font-size:20px; font-weight:800; color:#f43f5e">1</div>
-                <div style="font-size:10px; color:var(--t3)">Alpha</div>
-              </div>
+              <span class="tag blue"><i class="fa-solid fa-person-badge"></i> Wali Kelas X-10</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Riwayat Table -->
-      <div class="config-card" style="margin-top: 16px">
+      <div class="config-card" style="margin-top:16px">
         <div class="config-header" style="justify-content:space-between">
           <span><i class="fa-solid fa-calendar-check"></i> Riwayat Kehadiran Bulan Ini</span>
-          <span class="pill gray">92% Tingkat Kehadiran</span>
+          <span class="tag blue">92% Tingkat Kehadiran</span>
         </div>
-        <div style="overflow-x:auto">
+        <div class="table-wrapper">
           <table>
             <thead>
               <tr>
@@ -489,24 +842,27 @@
                 <td>07:12</td>
                 <td>—</td>
                 <td>😊</td>
-                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 12m (dalam radius)</span></td>
-                <td><span class="pill ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
+                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 12m
+                    (dalam radius)</span></td>
+                <td><span class="tag ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
               </tr>
               <tr>
                 <td><strong>27 Jun</strong></td>
                 <td>07:45</td>
                 <td>15:10</td>
                 <td>😐</td>
-                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--amber)"></i> 1850m (radius)</span></td>
-                <td><span class="pill warn"><i class="fa-solid fa-clock"></i> Terlambat</span></td>
+                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--amber)"></i> 1850m
+                    (radius)</span></td>
+                <td><span class="tag warn"><i class="fa-solid fa-clock"></i> Terlambat</span></td>
               </tr>
               <tr>
                 <td><strong>26 Jun</strong></td>
                 <td>06:58</td>
                 <td>15:02</td>
                 <td>😊</td>
-                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 5m (dalam radius)</span></td>
-                <td><span class="pill ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
+                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 5m
+                    (dalam radius)</span></td>
+                <td><span class="tag ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
               </tr>
               <tr>
                 <td><strong>25 Jun</strong></td>
@@ -514,60 +870,56 @@
                 <td>—</td>
                 <td>—</td>
                 <td><span style="font-size:11px;color:var(--t3)">—</span></td>
-                <td><span class="pill bad"><i class="fa-solid fa-xmark"></i> Alpha</span></td>
+                <td><span class="tag bad"><i class="fa-solid fa-xmark"></i> Alpha</span></td>
               </tr>
               <tr>
                 <td><strong>24 Jun</strong></td>
                 <td>07:03</td>
                 <td>15:00</td>
                 <td>😤</td>
-                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 8m (dalam radius)</span></td>
-                <td><span class="pill ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
+                <td><span style="font-size:11px"><i class="fa-solid fa-map-pin" style="color:var(--green)"></i> 8m
+                    (dalam radius)</span></td>
+                <td><span class="tag ok"><i class="fa-solid fa-check"></i> Hadir</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
   </div>
-</div>
 
-<script>
-  // Live Clock
-  function updateTime() {
-    const now = new Date();
-    document.getElementById('timeNow').textContent =
-      now.toLocaleTimeString('id-ID', { hour12: false });
-  }
-  updateTime();
-  setInterval(updateTime, 1000);
-
-  // Theme Toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  const getTheme = () => localStorage.getItem('theme') || 'dark';
-  const setTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-      icon.className = 'fa-solid fa-sun';
-    } else {
-      icon.className = 'fa-solid fa-moon';
+  <script>
+    // Live Clock
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('timeNow').textContent =
+        now.toLocaleTimeString('id-ID', { hour12: false });
     }
-  };
-  setTheme(getTheme());
-  themeToggle.addEventListener('click', () => {
-    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-  });
+    updateTime();
+    setInterval(updateTime, 1000);
 
-  // Mood selector toggle
-  document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const getTheme = () => localStorage.getItem('theme') || 'dark';
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const icon = themeToggle.querySelector('i');
+      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    };
+    setTheme(getTheme());
+    themeToggle.addEventListener('click', () => {
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
     });
-  });
-</script>
+
+    // Mood selector toggle
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
 </body>
+
 </html>
