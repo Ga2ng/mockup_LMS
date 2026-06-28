@@ -1,0 +1,75 @@
+<div class="wizard-section" style="display:flex; flex-direction:column; gap:12px;">
+  <div style="font-weight:700; font-size:12px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+    <i class="fa-solid fa-circle-info"></i> 1. Info Evaluasi &amp; Sasaran
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label required-dot">Judul Ujian</label>
+    <input class="inp" name="judul" placeholder="contoh: Tryout UNBK Paket 1" required />
+  </div>
+
+  <div class="form-group">
+    <label class="form-label required-dot">Sumber Soal</label>
+    <select class="sel" name="source_card" id="source_card_select" required>
+      <option value="bank" selected>Bank Soal — Ambil otomatis</option>
+      <option value="ai">AI Cloud — Generate soal</option>
+      <option value="manual">Manual — Ketik biasa</option>
+    </select>
+  </div>
+
+  <!-- Conditional Panels for Source Selection -->
+  <div id="bank_panel" style="display:none; background:var(--s3); padding:10px; border-radius:6px; border:1px solid var(--line); font-size:11px; color:var(--t3); line-height:1.4;">
+    <i class="fa-solid fa-database" style="color:var(--accent-light); margin-right:4px;"></i> <strong>Bank Soal:</strong> Soal akan diambil otomatis dari database bank sekolah sesuai mata pelajaran.
+  </div>
+
+  <div id="ai_panel" style="display:none; flex-direction:column; gap:8px; background:var(--s3); padding:10px; border-radius:6px; border:1px solid var(--line);">
+    <div style="font-size:11px; font-weight:700; color:var(--t2);"><i class="fa-solid fa-robot"></i> AI Cloud Generator</div>
+    <div style="font-size:10px; color:var(--t3); line-height:1.4;">Prompt AI Opsional untuk generate soal:</div>
+    <textarea class="txt-area" name="ai_prompt" rows="2" placeholder="Masukkan instruksi khusus (contoh: tingkat kesulitan tinggi)..." style="font-size:11px;"></textarea>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div class="form-group">
+      <label class="form-label">Total Nilai</label>
+      <input class="inp" type="number" step="0.01" name="total_score" value="100" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Sesi Ujian</label>
+      <input class="inp" name="exam_session" placeholder="contoh: Sesi 1 / Pagi" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Alokasi waktu / kisi-kisi singkat</label>
+    <textarea class="txt-area" name="time_allocation_note" rows="2" placeholder="Opsional: contoh literasi 30 menit, numerasi 40 menit"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Jenis Ujian</label>
+    <select class="sel" name="ujian_kind" id="ujian_kind_gen">
+      <option value="mapel" selected>Ujian Mata Pelajaran</option>
+      <option value="tryout">Tryout UNBK / AKM</option>
+      <option value="custom">Ujian Kustom Mandiri</option>
+    </select>
+  </div>
+
+  <div class="form-group" id="single_mapel_box_gen">
+    <label class="form-label required-dot">Mata Pelajaran</label>
+    <select class="sel" name="mapel_id" id="mapel_id_gen" required>
+      <option value="">-- pilih mapel --</option>
+      <option value="181" selected>X-INF — Informatika [X]</option>
+      <option value="182">X-MAT — Matematika [X]</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label required-dot">Kelas Target</label>
+    <div style="display:flex; gap:6px; margin-bottom:4px;">
+      <button type="button" class="btn sm primary" id="btnSelectAllClass" style="padding:4px 8px; font-size:9px;"><i class="fa-solid fa-check-double"></i> Semua</button>
+      <button type="button" class="btn sm" id="btnClearClass" style="padding:4px 8px; font-size:9px;"><i class="fa-solid fa-circle-xmark"></i> Kosongkan</button>
+    </div>
+    <div class="checklist-grid" id="kelas_choices_gen">
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-10" checked> <span>X-10</span></label>
+    </div>
+  </div>
+</div>

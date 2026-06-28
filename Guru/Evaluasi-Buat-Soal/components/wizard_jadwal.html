@@ -1,0 +1,58 @@
+<div class="wizard-section" style="display:flex; flex-direction:column; gap:12px;">
+  <div style="font-weight:700; font-size:12px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+    <i class="fa-solid fa-calendar-days"></i> 3. Jadwal &amp; Kisi-Kisi
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">Mode Jadwal</label>
+    <select class="sel" name="schedule_mode" id="schedule_mode">
+      <option value="global" selected>Global untuk semua kelas</option>
+      <option value="per_class">Per kelas</option>
+    </select>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div class="form-group">
+      <label class="form-label">Jadwal Mulai</label>
+      <input class="inp" type="datetime-local" name="jadwal_mulai" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Jadwal Selesai</label>
+      <input class="inp" type="datetime-local" name="jadwal_selesai" />
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div class="form-group">
+      <label class="form-label">Durasi Menit</label>
+      <input class="inp" type="number" name="durasi_menit" min="1" value="60" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Jumlah Opsi PG</label>
+      <input class="inp" type="number" id="opsi_pg" name="opsi_pg" min="2" max="12" value="5" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Tombol Selesai aktif saat sisa waktu</label>
+    <div style="display:flex; align-items:center; gap:6px;">
+      <input class="inp" type="number" name="finish_unlock_minutes" min="0" max="1440" placeholder="Kosong = bebas" />
+      <span style="font-size:12px; color:var(--t3); font-weight:600; white-space:nowrap;">menit</span>
+    </div>
+    <div style="font-size:10px; color:var(--t4); margin-top:2px;">Contoh 5: siswa baru boleh klik Selesai pada 5 menit terakhir.</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div class="form-group">
+      <label class="form-label">Bab</label>
+      <input class="inp" name="bab" placeholder="opsional" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tag / Kategori</label>
+      <input class="inp" name="tag" placeholder="PTS, Latihan, Tryout, TKA, UNBK" />
+    </div>
+  </div>
+
+  <!-- Dynamic panel placeholder -->
+  <div id="class_schedule_box" style="display:none; padding:10px; border:1px dashed var(--line); border-radius:8px; background:var(--s3);"></div>
+</div>

@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evaluasi &amp; Ujian Guru • AI Assessment Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .wrap {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 12px 8px;
+    }
+
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card .head {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-light);
+      color: var(--accent-light);
+      font-size: 20px;
+    }
+
+    .t1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--t1);
+    }
+
+    .t2 {
+      font-size: 11px;
+      color: var(--t3);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .row-btn {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--s2);
+      color: var(--t1);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent-light);
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-light);
+    }
+
+    .btn.bad {
+      background: #f43f5e;
+      border-color: #f43f5e;
+      color: #ffffff;
+    }
+
+    .btn.bad:hover {
+      background: #e11d48;
+    }
+
+    .btn.accent-dim {
+      background: var(--accent-dim);
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+    }
+
+    .btn.accent-dim:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn.sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    .theme-toggle-btn {
+      border: 1px solid var(--line);
+      background: var(--s2);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--t1);
+      transition: all 0.15s;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      border-radius: 20px;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      background: var(--s2);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--t2);
+    }
+
+    .pill.ok {
+      border-color: var(--green) !important;
+      background: var(--green) !important;
+      color: #ffffff !important;
+    }
+
+    .pill.warn {
+      border-color: var(--amber) !important;
+      background: var(--amber) !important;
+      color: #ffffff !important;
+    }
+
+    .pill.bad {
+      border-color: #f43f5e !important;
+      background: #f43f5e !important;
+      color: #ffffff !important;
+    }
+
+    .pill.blue {
+      border-color: var(--accent) !important;
+      background: var(--accent) !important;
+      color: #ffffff !important;
+    }
+
+    .pill.gray {
+      border-color: var(--line) !important;
+      background: var(--s3) !important;
+      color: var(--t3) !important;
+    }
+
+    /* Sub config cards inside grid2 */
+    .config-card {
+      background: var(--s2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--t1);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .config-header i {
+      color: var(--accent-light);
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 38% 1fr;
+      gap: 16px;
+      margin-top: 12px;
+      align-items: start;
+    }
+
+    @media (max-width: 1050px) {
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--t2);
+    }
+    .required-dot::after {
+      content: " *";
+      color: #f43f5e;
+    }
+    .inp, .sel, .txt-area {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--inp-bg);
+      color: var(--t1);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+    .inp:focus, .sel:focus, .txt-area:focus {
+      border-color: var(--accent);
+    }
+    .form-label {
+      font-size: 13px;
+    }
+    
+    /* Source grid cards styling */
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .source-card {
+      border: 1px solid var(--line);
+      background: var(--s3);
+      border-radius: 8px;
+      padding: 10px 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .source-card.active {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+    .source-card-title {
+      font-weight: 700;
+      font-size: 11px;
+      color: var(--t1);
+    }
+    .source-card-sub {
+      font-size: 9px;
+      color: var(--t3);
+      margin-top: 2px;
+    }
+
+    /* Checklist grids */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .checklist-card {
+      border: 1px solid var(--line);
+      background: var(--s3);
+      padding: 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--t2);
+      transition: all 0.15s;
+    }
+    .checklist-card input {
+      accent-color: var(--accent);
+    }
+    .checklist-card:hover {
+      border-color: var(--accent-light);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .setting-card {
+      border: 1px solid var(--line);
+      background: var(--s3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--t2);
+      transition: all 0.15s;
+    }
+    .setting-card input {
+      accent-color: var(--accent);
+    }
+
+    /* KPI Grid & Cards */
+    .kpi-grid-full {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 900px) {
+      .kpi-grid-full {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .kpi-grid-full {
+        grid-template-columns: 1fr;
+      }
+    }
+    .kpi-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--line);
+    }
+    .kpi-card.kpi-total::before { background: var(--t3); }
+    .kpi-card.kpi-publish::before { background: var(--green); }
+    .kpi-card.kpi-draft::before { background: var(--t4); }
+    .kpi-card.kpi-token::before { background: var(--amber); }
+
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--t1);
+      font-family: 'Poppins', sans-serif;
+    }
+    .kpi-card.kpi-token .kpi-value { color: var(--amber); }
+    .kpi-card.kpi-publish .kpi-value { color: var(--green); }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      padding: 10px 14px;
+      background: var(--s3);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--t3);
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+    td {
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--t2);
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    tr:hover td {
+      background: var(--s3);
+    }
+
+    /* Compact Action Cell Styling */
+    .action-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 320px;
+    }
+    .action-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      color: #ffffff;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-action:hover {
+      opacity: 0.85;
+    }
+    .btn-action.edit { background: #3b82f6; }
+    .btn-action.score { background: #22c55e; }
+    .btn-action.try { background: #a855f7; }
+    .btn-action.reuse { background: #6b7280; }
+    
+    .utility-row {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .btn-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: var(--s3);
+      border: 1px solid var(--line);
+      color: var(--t2);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-icon:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+    }
+    .btn-icon.delete {
+      color: #f43f5e;
+    }
+    .btn-icon.delete:hover {
+      background: rgba(244, 63, 94, 0.1);
+      border-color: #f43f5e;
+      color: #f43f5e;
+    }
+
+    .publish-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      background: var(--s3);
+      border: 1px solid var(--line);
+      padding: 4px;
+      border-radius: 6px;
+    }
+    .inp-sm {
+      background: var(--inp-bg);
+      border: 1px solid var(--line);
+      color: var(--t1);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      outline: none;
+    }
+    .btn-action.publish { background: #10b981; }
+    .btn-action.token { background: #f59e0b; color: #000; }
+    
+    /* Wizard Section Styles */
+    .wizard-section {
+      background: var(--s3);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    
+    <!-- HEADER (Modularized in components/header.html) -->
+    <div class="head">
+      <div class="brand">
+        <div class="logo"><i class="fa-solid fa-file-signature"></i></div>
+        <div>
+          <div class="t1">Ujian &amp; Evaluasi Guru</div>
+          <div class="t2">AI Assessment Intelligence • Panel Pembuatan Soal &amp; Jadwal Ujian</div>
+        </div>
+      </div>
+      <div class="row-btn">
+        <div class="theme-toggle-btn" id="theme-toggle"><i class="fa-solid fa-sun"></i></div>
+        <a class="btn primary" href="../Dashboard/dashboard.html"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <a class="btn" href="evaluasi_buat_soal_guru.html"><i class="fa-solid fa-rotate"></i> Refresh</a>
+        <a class="btn bad" href="../Login/login.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body" style="padding-top:12px">
+      
+      <!-- KPI METRIC GRID (Modularized in components/kpi_stats.html) -->
+      <div class="kpi-grid-full">
+        <div class="kpi-card kpi-total">
+          <span class="kpi-value">94</span>
+          <span class="kpi-label"><i class="fa-solid fa-file-lines"></i> Total Ujian</span>
+        </div>
+        <div class="kpi-card kpi-publish">
+          <span class="kpi-value">91</span>
+          <span class="kpi-label"><i class="fa-solid fa-circle-check"></i> Publish / Aktif</span>
+        </div>
+        <div class="kpi-card kpi-draft">
+          <span class="kpi-value">3</span>
+          <span class="kpi-label"><i class="fa-solid fa-circle-notch"></i> Draft / Persiapan</span>
+        </div>
+        <div class="kpi-card kpi-token">
+          <span class="kpi-value">50</span>
+          <span class="kpi-label"><i class="fa-solid fa-key"></i> Token Berjalan</span>
+        </div>
+      </div>
+
+      <!-- COLLAPSIBLE TOKEN MANAGER (Modularized in components/token_box.html) -->
+      <div class="collapse sf-hidden" id="tokenBox" style="margin-bottom:16px;">
+        <div style="background:var(--s2); border:1px solid var(--line); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:12px;">
+          <div style="font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; color:var(--t1); display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-key" style="color:var(--amber);"></i> Token Dinamis Keamanan Ujian
+          </div>
+          <div style="font-size:11px; color:var(--t3); line-height:1.5;">
+            Gunakan token dinamis untuk mengunci kelas ujian agar hanya siswa yang hadir fisik / terverifikasi yang bisa memulai pengerjaan. Token akan otomatis kedaluwarsa sesuai waktu durasi token.
+          </div>
+          
+          <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <button type="button" class="btn sm primary" style="background:var(--green); border-color:var(--green);"><i class="fa-solid fa-plus"></i> Generate Token Baru</button>
+            <button type="button" class="btn sm"><i class="fa-solid fa-ban"></i> Matikan Semua Token</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN 2-COLUMN GRID -->
+      <div class="grid2">
+        
+        <!-- COLUMN LEFT: CREATE FORM (Sticky, 420px wide) -->
+        <div style="position: sticky; top: 12px; z-index: 10; display: flex; flex-direction: column; gap: 16px;">
+          <div class="config-card">
+            <div class="config-header" style="justify-content:space-between; align-items:center; width:100%;">
+              <span><i class="fa-solid fa-pen-to-square"></i> Buat Ujian Baru</span>
+              <button class="btn sm" id="btnBuilderFull" type="button"><i class="fa-solid fa-expand"></i> Full Input</button>
+            </div>
+            
+            <form style="display:flex; flex-direction:column; gap:12px;" method="post" id="formUjianGen">
+              <div class="alert alert-light border small mt-2 draft-server-status" style="border-left: 4px solid var(--accent); padding:8px 12px; font-size:11px; background:var(--s3); border-radius:6px;">
+                <i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent-light);"></i> <strong>Auto Save Server aktif</strong>
+              </div>
+
+              <!-- WIZARD TABS -->
+              <div class="wizard-tabs" style="display:flex; gap:6px; flex-wrap:wrap; margin:4px 0;">
+                <span class="pill gray" style="padding:4px 8px; font-size:9px; font-weight:700;"><i class="fa-solid fa-info-circle"></i> 1. Info</span>
+                <span class="pill gray" style="padding:4px 8px; font-size:9px; font-weight:700;"><i class="fa-solid fa-sliders"></i> 2. Setting</span>
+                <span class="pill gray" style="padding:4px 8px; font-size:9px; font-weight:700;"><i class="fa-solid fa-calendar-days"></i> 3. Jadwal</span>
+                <span class="pill gray" style="padding:4px 8px; font-size:9px; font-weight:700;"><i class="fa-solid fa-pen-nib"></i> 4. Soal</span>
+                <span class="pill gray" style="padding:4px 8px; font-size:9px; font-weight:700;"><i class="fa-solid fa-shield-halved"></i> 5. Kesulitan</span>
+              </div>
+              
+              <!-- SECTION 1 (components/wizard_info.html) -->
+              <div class="wizard-section">
+                <div style="font-weight:700; font-size:12px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+                  <i class="fa-solid fa-circle-info"></i> 1. Info Evaluasi &amp; Sasaran
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label required-dot">Judul Ujian</label>
+                  <input class="inp" name="judul" placeholder="contoh: Tryout UNBK Paket 1" required />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required-dot">Sumber Soal</label>
+                  <select class="sel" name="source_card" id="source_card_select" required>
+                    <option value="bank" selected>Bank Soal — Ambil otomatis</option>
+                    <option value="ai">AI Cloud — Generate soal</option>
+                    <option value="manual">Manual — Ketik biasa</option>
+                  </select>
+                </div>
+
+                <!-- Conditional Panels for Source Selection -->
+                <div id="bank_panel" style="display:none; background:var(--s3); padding:10px; border-radius:6px; border:1px solid var(--line); font-size:11px; color:var(--t3); line-height:1.4;">
+                  <i class="fa-solid fa-database" style="color:var(--accent-light); margin-right:4px;"></i> <strong>Bank Soal:</strong> Soal akan diambil otomatis dari database bank sekolah sesuai mata pelajaran.
+                </div>
+
+                <div id="ai_panel" style="display:none; flex-direction:column; gap:8px; background:var(--s3); padding:10px; border-radius:6px; border:1px solid var(--line);">
+                  <div style="font-size:11px; font-weight:700; color:var(--t2);"><i class="fa-solid fa-robot"></i> AI Cloud Generator</div>
+                  <div style="font-size:10px; color:var(--t3); line-height:1.4;">Prompt AI Opsional untuk generate soal:</div>
+                  <textarea class="txt-area" name="ai_prompt" rows="2" placeholder="Masukkan instruksi khusus (contoh: tingkat kesulitan tinggi)..." style="font-size:11px;"></textarea>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="form-group">
+                    <label class="form-label">Total Nilai</label>
+                    <input class="inp" type="number" step="0.01" name="total_score" value="100" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Sesi Ujian</label>
+                    <input class="inp" name="exam_session" placeholder="contoh: Sesi 1 / Pagi" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Kisi-Kisi / Alokasi Waktu</label>
+                  <textarea class="txt-area" name="time_allocation_note" rows="2" placeholder="contoh: literasi 30 menit, numerasi 40 menit"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Jenis Ujian</label>
+                  <select class="sel" name="ujian_kind" id="ujian_kind_gen">
+                    <option value="mapel" selected>Ujian Mata Pelajaran</option>
+                    <option value="tryout">Tryout UNBK / AKM</option>
+                    <option value="custom">Ujian Kustom Mandiri</option>
+                  </select>
+                </div>
+
+                <div class="form-group" id="single_mapel_box_gen">
+                  <label class="form-label required-dot">Mata Pelajaran</label>
+                  <select class="sel" name="mapel_id" id="mapel_id_gen" required>
+                    <option value="">-- pilih mapel --</option>
+                    <option value="181" selected>X-INF — Informatika [X]</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required-dot">Kelas Target</label>
+                  <div style="display:flex; gap:6px; margin-bottom:4px;">
+                    <button type="button" class="btn sm primary" id="btnSelectAllClass" style="padding:3px 6px; font-size:8px;"><i class="fa-solid fa-check-double"></i> Semua</button>
+                    <button type="button" class="btn sm" id="btnClearClass" style="padding:3px 6px; font-size:8px;"><i class="fa-solid fa-circle-xmark"></i> Kosongkan</button>
+                  </div>
+                  <div class="checklist-grid" id="kelas_choices_gen">
+                    <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-10" checked> <span>X-10</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 2 (components/wizard_settings.html) -->
+              <div class="wizard-section">
+                <div style="font-weight:700; font-size:11px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+                  <i class="fa-solid fa-sliders"></i> 2. Setting Ujian / Keamanan
+                </div>
+                <div class="settings-grid">
+                  <label class="setting-card"><input type="checkbox" name="require_exambro" value="1"> <span>Wajib pakai EXAMBRO</span></label>
+                  <label class="setting-card"><input type="checkbox" name="use_access_code" value="1" checked> <span>Pakai token soal</span></label>
+                  <label class="setting-card"><input type="checkbox" name="show_score_after_finish" value="1" checked> <span>Tampilkan nilai langsung</span></label>
+                  <label class="setting-card"><input type="checkbox" name="show_answer_after_finish" value="1"> <span>Tampilkan jawaban selesai</span></label>
+                  <label class="setting-card"><input type="checkbox" name="require_webcam" value="1"> <span>Wajib pakai webcam</span></label>
+                  <label class="setting-card"><input type="checkbox" name="essay_text_enabled" value="1" checked> <span>Uraian diisi teks sistem</span></label>
+                </div>
+              </div>
+
+              <!-- SECTION 3 (components/wizard_jadwal.html) -->
+              <div class="wizard-section">
+                <div style="font-weight:700; font-size:11px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+                  <i class="fa-solid fa-calendar-days"></i> 3. Jadwal &amp; Kisi-Kisi
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label">Mode Jadwal</label>
+                  <select class="sel" name="schedule_mode" id="schedule_mode">
+                    <option value="global" selected>Global untuk semua kelas</option>
+                    <option value="per_class">Per kelas</option>
+                  </select>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="form-group">
+                    <label class="form-label">Mulai</label>
+                    <input class="inp" type="datetime-local" name="jadwal_mulai" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Selesai</label>
+                    <input class="inp" type="datetime-local" name="jadwal_selesai" />
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="form-group">
+                    <label class="form-label">Durasi Menit</label>
+                    <input class="inp" type="number" name="durasi_menit" min="1" value="60" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Opsi PG</label>
+                    <input class="inp" type="number" id="opsi_pg" name="opsi_pg" min="2" max="12" value="5" />
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="form-group">
+                    <label class="form-label">Bab</label>
+                    <input class="inp" name="bab" placeholder="opsional" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Tag</label>
+                    <input class="inp" name="tag" placeholder="PTS, Latihan, Tryout" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 4: Sumber Soal & Builder -->
+              <div class="wizard-section">
+                <div style="font-weight:700; font-size:12px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+                  <i class="fa-solid fa-pen-nib"></i> 4. Sumber Soal &amp; Builder
+                </div>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">PG</label>
+                    <input class="inp" type="number" id="cnt_pg_form" name="cnt_pg" min="0" max="100" value="10" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">PG Kompleks</label>
+                    <input class="inp" type="number" id="cnt_pgk_form" name="cnt_pgk" min="0" max="100" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">Benar/Salah</label>
+                    <input class="inp" type="number" id="cnt_bs_form" name="cnt_bs" min="0" max="100" value="0" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">Essay</label>
+                    <input class="inp" type="number" id="cnt_essay_form" name="cnt_essay" min="0" max="100" value="0" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION 5: Tingkat Kesulitan & Anti Mencontek -->
+              <div class="wizard-section">
+                <div style="font-weight:700; font-size:12px; color:var(--accent-light); text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:6px; margin-bottom:4px;">
+                  <i class="fa-solid fa-shield-halved"></i> 5. Tingkat Kesulitan &amp; Anti Mencontek
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Tingkat Kesulitan</label>
+                  <select class="sel" name="mix_mode" id="mix_mode">
+                    <option value="campur" selected>Campur Otomatis (30/50/20)</option>
+                    <option value="set">Manual</option>
+                  </select>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+                  <label class="setting-card"><input type="checkbox" name="shuffle_questions" value="1" checked> <span>Acak soal</span></label>
+                  <label class="setting-card"><input type="checkbox" name="shuffle_opsi" value="1" checked> <span>Acak opsi</span></label>
+                </div>
+              </div>
+
+              <!-- MANUAL BUILDER DYNAMIC PANEL (components/form_manual.html) -->
+              <div id="manual_panel" style="display:none; border-top:1px dashed var(--line); padding-top:12px; margin-top:8px; display:flex; flex-direction:column; gap:12px;">
+                <div class="alert alert-light border small" style="border-left: 4px solid var(--accent); padding:8px 12px; font-size:11px; background:var(--s3); border-radius:6px; line-height:1.4; margin:0;">
+                  <strong>Mode Manual Mudah:</strong> Guru tidak perlu format JSON. Isi jumlah soal, klik tombol di bawah, lalu ketik pertanyaan/kunci. Soal dan opsi jawaban bisa berupa teks, gambar upload, drag & drop, atau copy-paste screenshot.
+                </div>
+
+                <!-- Toolbar Eksak (LaTeX / Formula Helper) -->
+                <div class="exact-toolbar" id="exactToolbar" style="background:var(--s3); border:1px solid var(--line); border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px;">
+                  <div style="font-family:'Poppins', sans-serif; font-weight:700; font-size:11px; color:var(--t1);">
+                    <i class="fa-solid fa-calculator" style="color:var(--accent-light);"></i> Toolbar Eksak tanpa TinyMCE
+                  </div>
+                  <div style="font-size:9px; color:var(--t3); line-height:1.4;">
+                    Klik kolom pertanyaan/opsi teks, lalu pilih tombol di bawah untuk LaTeX <code>\( ... \)</code>.
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:3px;">
+                    <button type="button" class="btn sm exact-tool-btn" data-exact="sup" style="font-size:9px; padding:2px 4px;">x²</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-exact="sub" style="font-size:9px; padding:2px 4px;">H₂O</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="²" style="font-size:9px; padding:2px 4px;">²</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="³" style="font-size:9px; padding:2px 4px;">³</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="π" style="font-size:9px; padding:2px 4px;">π</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="√" style="font-size:9px; padding:2px 4px;">√</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="±" style="font-size:9px; padding:2px 4px;">±</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="×" style="font-size:9px; padding:2px 4px;">×</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="÷" style="font-size:9px; padding:2px 4px;">÷</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="≤" style="font-size:9px; padding:2px 4px;">≤</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="≥" style="font-size:9px; padding:2px 4px;">≥</button>
+                    <button type="button" class="btn sm exact-tool-btn" data-insert="→" style="font-size:9px; padding:2px 4px;">→</button>
+                  </div>
+                  <div style="display:flex; gap:4px; align-items:center;">
+                    <input class="inp" id="equationInput" style="padding:4px 8px; font-size:10px;" placeholder="contoh: x^2 + y^2 = z^2" />
+                    <button type="button" class="btn sm primary" id="btnInsertEquation" style="padding:4px 8px;"><i class="fa-solid fa-square-root-variable"></i> Sisipkan</button>
+                  </div>
+                </div>
+
+                <button class="btn w-100 primary" type="button" id="btnBuildManual" style="justify-content:center; padding:10px 14px;">
+                  <i class="fa-solid fa-folder-plus"></i> Buat Form Soal Manual
+                </button>
+
+                <div id="manual_container" style="display:flex; flex-direction:column; gap:16px;">
+                  <!-- Dynamic forms will be appended here -->
+                </div>
+              </div>
+
+              <button class="btn primary" type="submit" style="margin-top:8px; justify-content:center;"><i class="fa-solid fa-floppy-disk"></i> Simpan &amp; Buat Ujian</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- COLUMN RIGHT: DAFTAR UJIAN TABLE (1fr wide - components/daftar_ujian.html) -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          
+          <div class="config-card">
+            <div class="config-header" style="justify-content:space-between; flex-wrap:wrap; gap:8px;">
+              <span><i class="fa-solid fa-list-check"></i> Daftar Ujian &amp; Workspace Aktif</span>
+              <span class="pill gray"><i class="fa-solid fa-hashtag"></i> 24 Data</span>
+            </div>
+
+            <!-- Custom Info Box / Token Dinamis -->
+            <div style="font-size:11px; background:var(--s3); padding:10px 14px; border-radius:10px; border:1px solid var(--line); color:var(--t2); line-height:1.4;">
+              <i class="fa-solid fa-key" style="color:var(--amber);"></i>
+              <strong>Token Dinamis &amp; Keamanan Ujian:</strong> Klik tombol **Token Dinamis** di atas untuk mengaktifkan kode akses sementara demi menghindari kecurangan siswa saat ujian berlangsung.
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:60px;">ID</th>
+                    <th>Judul Ujian &amp; Detail Kelas</th>
+                    <th style="width:80px;">Status</th>
+                    <th style="width:80px;">Detail</th>
+                    <th style="text-align:right; width:340px;">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <!-- ROW 1 -->
+                  <tr>
+                    <td><span class="pill gray">126</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Tryout UNBK</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: X-10 • Tryout UNBK<br>
+                        <span class="pill" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar"></i> Jadwal: bebas / belum diset</span>
+                        <span class="pill" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-shuffle"></i> Shuffle soal/opsi</span>
+                      </div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:4px;">
+                        Token statis: <code style="background:var(--s3); border:1px solid var(--line); padding:1px 4px; border-radius:4px; font-family:monospace; color:var(--accent-light)">2d19defec915f6c19f94e4daecc17e20</code>
+                      </div>
+                    </td>
+                    <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">12 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 2 -->
+                  <tr>
+                    <td><span class="pill gray">124</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">PTS Informatika Ganjil</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: X-1 • Tryout TKA<br>
+                        <span class="pill ok" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-check"></i> Jadwal: Aktif Terjadwal</span>
+                      </div>
+                    </td>
+                    <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">25 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">90 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="X-1" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 3 -->
+                  <tr>
+                    <td><span class="pill gray">123</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Latihan Aljabar &amp; Numerasi</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: Semua Kelas • Latihan Mandiri<br>
+                        <span class="pill ok" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-check"></i> Bebas Akses</span>
+                      </div>
+                    </td>
+                    <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">15 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">45 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="ALL" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 4 -->
+                  <tr>
+                    <td><span class="pill gray">122</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Tryout TKA Campuran</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: XI-1 • UTBK/SBMPTN<br>
+                        <span class="pill warn" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-clock"></i> Terjadwal: 2026-07-05 08:00</span>
+                      </div>
+                    </td>
+                    <td><span class="pill warn"><i class="fa-solid fa-calendar-plus"></i> Terjadwal</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">40 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">120 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="XI-1" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 5 -->
+                  <tr>
+                    <td><span class="pill gray">121</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Ujian Susulan PTS Ganjil</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: X-10 • Ujian Tertulis<br>
+                        <span class="pill bad" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-xmark"></i> Kedaluwarsa: 2026-06-25</span>
+                      </div>
+                    </td>
+                    <td><span class="pill bad"><i class="fa-solid fa-circle-xmark"></i> Expired</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">20 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 6 -->
+                  <tr>
+                    <td><span class="pill gray">120</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Kuis Harian Logika Informatika</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: X-6 • Latihan Rutin
+                      </div>
+                    </td>
+                    <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">10 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">30 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="X-6" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 7 -->
+                  <tr>
+                    <td><span class="pill gray">119</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Ujian Praktik Web &amp; Coding</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: XI-2 • Ujian Praktik
+                      </div>
+                    </td>
+                    <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">5 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="XI-2" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 8 -->
+                  <tr>
+                    <td><span class="pill gray">118</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Evaluasi Akhir Semester Genap</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: Semua Kelas • Ujian Akhir
+                      </div>
+                    </td>
+                    <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">50 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">120 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="ALL" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 9 -->
+                  <tr>
+                    <td><span class="pill gray">117</span></td>
+                    <td>
+                      <div style="color:var(--t3); font-style:italic;">(Koreksi Soal Draft Kosong)</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: — • Belum diset
+                      </div>
+                    </td>
+                    <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">0 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">— Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ROW 10 -->
+                  <tr>
+                    <td><span class="pill gray">116</span></td>
+                    <td>
+                      <div style="font-weight:700; color:var(--t1);">Latihan Dasar Algoritma</div>
+                      <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+                        Kelas: X-10 • Latihan Mandiri
+                      </div>
+                    </td>
+                    <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+                    <td>
+                      <div style="font-size:11px; color:var(--t2);">15 Soal</div>
+                      <div style="font-size:10px; color:var(--t3); margin-top:2px;">45 Menit</div>
+                    </td>
+                    <td style="text-align:right;">
+                      <div class="action-cell">
+                        <div class="action-row">
+                          <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                          <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                          <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                          <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+                        </div>
+                        <div class="utility-row">
+                          <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                          <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                          <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                          <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                          <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+                        </div>
+                        <form method="post" class="publish-panel">
+                          <div style="display:flex; gap:3px;">
+                            <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                            <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                          </div>
+                          <div style="display:flex; gap:3px;">
+                            <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                            <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                          </div>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Footer Row -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; border-top:1px solid var(--line); padding-top:12px; flex-wrap:wrap; gap:8px;">
+              <span style="font-size:11px; color:var(--t3);"><i class="fa-solid fa-layer-group"></i> Menampilkan 1-10 dari 94 Ujian</span>
+              <div style="display:flex; gap:6px;">
+                <a class="btn" style="padding:6px 12px;" href="#"><i class="fa-solid fa-chevron-left"></i></a>
+                <span class="pill gray" style="padding:6px 12px; border-radius:8px;">1</span>
+                <span style="align-self:center; color:var(--t3); padding:0 4px;">...</span>
+                <span class="pill gray" style="padding:6px 12px; border-radius:8px;">10</span>
+                <a class="btn" style="padding:6px 12px;" href="#"><i class="fa-solid fa-chevron-right"></i></a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== THEME TOGGLE =====
+  const themeToggle = document.getElementById('theme-toggle');
+  const getTheme = () => localStorage.getItem('theme') || 'dark';
+  const setTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+    } else {
+      icon.className = 'fa-solid fa-moon';
+    }
+  };
+  setTheme(getTheme());
+  themeToggle.addEventListener('click', () => {
+    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+  });
+
+  // ===== DYNAMIC PANELS & ACTIONS TOGGLE =====
+  const tokenBtn = document.querySelector('[data-bs-target="#tokenBox"]');
+  if (!tokenBtn) {
+    // Add event listener to Token Dinamis button in head row
+    const headButtons = document.querySelectorAll('.row-btn .btn');
+    const tokenTrigger = document.createElement('button');
+    tokenTrigger.className = 'btn';
+    tokenTrigger.innerHTML = '<i class="fa-solid fa-key"></i> Token Dinamis';
+    tokenTrigger.onclick = () => {
+      const box = document.getElementById('tokenBox');
+      if (box.classList.contains('sf-hidden')) {
+        box.classList.remove('sf-hidden');
+      } else {
+        box.classList.add('sf-hidden');
+      }
+    };
+    document.querySelector('.row-btn').insertBefore(tokenTrigger, document.querySelector('.row-btn').firstChild);
+  }
+
+  // ===== FULLSCREEN MODE TOGGLE =====
+  const btnBuilderFull = document.getElementById('btnBuilderFull');
+  const examListCol = document.querySelector('.grid2 > div:last-child');
+  const grid2 = document.querySelector('.grid2');
+  let isFull = false;
+
+  if (btnBuilderFull && examListCol && grid2) {
+    btnBuilderFull.onclick = () => {
+      isFull = !isFull;
+      if (isFull) {
+        grid2.style.gridTemplateColumns = '1fr';
+        examListCol.style.display = 'none';
+        btnBuilderFull.innerHTML = '<i class="fa-solid fa-compress"></i> Exit Full';
+      } else {
+        grid2.style.gridTemplateColumns = '420px 1fr';
+        examListCol.style.display = 'block';
+        btnBuilderFull.innerHTML = '<i class="fa-solid fa-expand"></i> Full Input';
+      }
+    };
+  }
+
+  // ===== SOURCE SELECT CHANGE INTERACTION =====
+  const sourceSelect = document.getElementById('source_card_select');
+  const manualPanel = document.getElementById('manual_panel');
+
+  if (sourceSelect && manualPanel) {
+    const handleSourceChange = () => {
+      const val = sourceSelect.value;
+      if (val === 'manual') {
+        manualPanel.style.display = 'flex';
+      } else {
+        manualPanel.style.display = 'none';
+      }
+    };
+    sourceSelect.addEventListener('change', handleSourceChange);
+    // Trigger initially
+    handleSourceChange();
+  }
+
+  // ===== DYNAMIC FORM MANUAL BUILDER =====
+  const btnBuildManual = document.getElementById('btnBuildManual');
+  const manualContainer = document.getElementById('manual_container');
+  let questionCount = 0;
+
+  // Track currently focused text field for LaTeX toolbar insertions
+  let lastFocusedInput = null;
+  document.addEventListener('focusin', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      lastFocusedInput = e.target;
+    }
+  });
+
+  const createQuestionBlockHtml = (index) => {
+    return `
+      <div class="manual-box" id="q_box_${index}" style="background:var(--s2); border:1px solid var(--line); border-radius:10px; padding:14px; display:flex; flex-direction:column; gap:12px; margin-bottom:12px; position:relative;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-weight:700; font-size:12px; color:var(--t1);">Pilihan Ganda #${index + 1}</div>
+          <button type="button" class="btn sm bad delete-q-btn" onclick="document.getElementById('q_box_${index}').remove()" style="padding:2px 6px; font-size:9px;"><i class="fa-solid fa-trash"></i> Hapus</button>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Pertanyaan Teks <span style="color:var(--t4);">(opsional jika menggunakan gambar)</span></label>
+          <textarea class="txt-area" name="manual_q[pg][${index}][stem]" rows="3" placeholder="Tulis pertanyaan, atau kosongkan jika soalnya berupa gambar..."></textarea>
+        </div>
+
+        <!-- Image Drop Zone -->
+        <div class="img-drop" style="background:var(--s3); border:1.5px dashed var(--line2); border-radius:8px; padding:12px; text-align:center;">
+          <div class="drop-title" style="font-size:11px; font-weight:700; color:var(--t2); margin-bottom:4px;">
+            <i class="fa-solid fa-image" style="color:var(--accent-light);"></i> Gambar Soal / Pertanyaan
+          </div>
+          <div class="drop-help" style="font-size:10px; color:var(--t3); line-height:1.4; margin-bottom:8px;">
+            Klik area ini lalu <b>Ctrl+V</b> untuk paste screenshot, atau drag & drop gambar. Boleh dikosongkan.
+          </div>
+          <input class="img-file" type="file" name="manual_img[pg][${index}][q]" accept="image/*" hidden />
+          <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center;">
+            <button class="btn sm primary btn-pick-img" type="button" onclick="this.parentElement.previousElementSibling.click()"><i class="fa-solid fa-file-image"></i> Pilih Gambar</button>
+            <input class="inp" style="max-width:240px; padding:4px 8px; font-size:10px;" name="manual_q[pg][${index}][q_image_url]" placeholder="atau URL gambar https://..." />
+          </div>
+          <div class="img-preview" style="margin-top:8px;"></div>
+        </div>
+
+        <!-- Scores Weight -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div class="form-group">
+            <label class="form-label" style="font-size:10px;">Skor jika benar</label>
+            <input class="inp" type="number" step="0.01" min="0" name="manual_q[pg][${index}][score_weight]" value="1" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="font-size:10px;">Minus jika salah</label>
+            <input class="inp" type="number" step="0.01" min="0" name="manual_q[pg][${index}][score_minus]" value="0" />
+          </div>
+        </div>
+
+        <!-- Auto Paste Option Area -->
+        <div style="background:var(--s3); border:1px dashed var(--accent-light); border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px;">
+          <label class="form-label" style="font-size:10px;"><i class="fa-solid fa-paste"></i> Paste otomatis opsi jawaban</label>
+          <textarea class="txt-area paste-options" id="paste_opt_${index}" data-tipe="pg" data-index="${index}" rows="3" placeholder="Paste 5 opsi sekaligus, contoh:
+A. opsi pertama
+B. opsi kedua
+C. opsi ketiga
+D. opsi keempat
+E. opsi kelima" style="font-size:10px;"></textarea>
+          <button type="button" class="btn sm" onclick="parseOptions(${index})" style="background:var(--accent-dim); border-color:var(--accent-light); color:var(--accent-light); align-self:flex-start;"><i class="fa-solid fa-wand-magic-sparkles"></i> Isi otomatis opsi</button>
+        </div>
+
+        <!-- Choices inputs A-E (2-column layout) -->
+        <div class="choices-grid" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:4px;">
+          ${['A', 'B', 'C', 'D', 'E'].map(opt => `
+            <div class="option-box" style="background:var(--s3); border:1px solid var(--line); padding:12px; border-radius:8px; display:flex; flex-direction:column; gap:6px;">
+              <label class="form-label" style="font-size:11px; font-weight:700; margin-bottom:2px;">Opsi ${opt} — teks opsional</label>
+              <input class="inp" id="opt_input_${index}_${opt}" name="manual_q[pg][${index}][choices][${opt}]" placeholder="Tulis opsi ${opt}..." style="margin-bottom:4px;" />
+              <div class="img-drop" style="background:var(--s4); border:1px dashed var(--line2); padding:10px; border-radius:6px; text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center; gap:4px;">
+                <div class="drop-title" style="font-size:10px; font-weight:700; color:var(--t2);"><i class="fa-solid fa-image"></i> Gambar Opsi ${opt}</div>
+                <div class="drop-help" style="font-size:9px; color:var(--t4); line-height:1.2; margin-bottom:4px;">Ctrl+V atau drag gambar disini</div>
+                <input class="img-file" type="file" name="manual_img[pg][${index}][choices][${opt}]" accept="image/*" hidden />
+                <div style="display:flex; gap:4px; flex-wrap:wrap; justify-content:center; align-items:center; margin-top:2px;">
+                  <button class="btn sm btn-pick-img" type="button" onclick="this.previousElementSibling.click()" style="padding:4px 8px; font-size:9px;">Pilih Gambar</button>
+                  <input class="inp" style="padding:4px 6px; font-size:9px; max-width:110px;" name="manual_q[pg][${index}][choice_image_url][${opt}]" placeholder="URL..." />
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="form-group" style="margin-top:6px;">
+          <label class="form-label required-dot">Kunci Jawaban</label>
+          <select class="sel" name="manual_q[pg][${index}][correct]" required>
+            <option value="">-- pilih --</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+          </select>
+        </div>
+      </div>
+    `;
+  };
+
+  if (btnBuildManual && manualContainer) {
+    btnBuildManual.onclick = () => {
+      const htmlStr = createQuestionBlockHtml(questionCount);
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlStr;
+      manualContainer.appendChild(tempDiv.firstElementChild);
+      questionCount++;
+    };
+  }
+
+  // ===== LAATEX FORMULA INSERTION HELPER =====
+  const equationInput = document.getElementById('equationInput');
+  const btnInsertEquation = document.getElementById('btnInsertEquation');
+
+  if (btnInsertEquation && equationInput) {
+    btnInsertEquation.onclick = () => {
+      const eqVal = equationInput.value.trim();
+      if (eqVal && lastFocusedInput) {
+        const start = lastFocusedInput.selectionStart || 0;
+        const end = lastFocusedInput.selectionEnd || 0;
+        const oldVal = lastFocusedInput.value;
+        const formula = `\\(${eqVal}\\)`;
+        lastFocusedInput.value = oldVal.substring(0, start) + formula + oldVal.substring(end);
+        lastFocusedInput.focus();
+      }
+    };
+  }
+
+  // Toolbar button insertions
+  document.querySelectorAll('.exact-tool-btn').forEach(btn => {
+    btn.onclick = () => {
+      const insertVal = btn.getAttribute('data-insert');
+      const exactVal = btn.getAttribute('data-exact');
+      if (lastFocusedInput) {
+        const start = lastFocusedInput.selectionStart || 0;
+        const end = lastFocusedInput.selectionEnd || 0;
+        const oldVal = lastFocusedInput.value;
+        
+        let tag = '';
+        if (insertVal) {
+          tag = insertVal;
+        } else if (exactVal === 'sup') {
+          tag = '²';
+        } else if (exactVal === 'sub') {
+          tag = '₂';
+        }
+
+        lastFocusedInput.value = oldVal.substring(0, start) + tag + oldVal.substring(end);
+        lastFocusedInput.focus();
+      }
+    };
+  });
+
+  // ===== PARSE OPTIONS HELPER =====
+  window.parseOptions = (index) => {
+    const txt = document.getElementById(`paste_opt_${index}`).value;
+    const lines = txt.split('\n').map(l => l.trim()).filter(Boolean);
+    const opts = ['A', 'B', 'C', 'D', 'E'];
+    let optIdx = 0;
+    lines.forEach(line => {
+      const cleanLine = line.replace(/^[A-E][\.\)\:\-\s]+/i, '').trim();
+      if (optIdx < opts.length) {
+        const input = document.getElementById(`opt_input_${index}_${opts[optIdx]}`);
+        if (input) input.value = cleanLine;
+        optIdx++;
+      }
+    });
+  };
+</script>
+</body>
+</html>

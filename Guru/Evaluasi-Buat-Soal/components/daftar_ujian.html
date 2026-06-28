@@ -1,0 +1,481 @@
+<div class="config-card">
+  <div class="config-header" style="justify-content:space-between; flex-wrap:wrap; gap:8px;">
+    <span><i class="fa-solid fa-list-check"></i> Daftar Ujian &amp; Workspace Aktif</span>
+    <span class="pill gray"><i class="fa-solid fa-hashtag"></i> 94 Data</span>
+  </div>
+
+  <!-- Custom Info Box / Token Dinamis -->
+  <div style="font-size:11px; background:var(--s3); padding:10px 14px; border-radius:10px; border:1px solid var(--line); color:var(--t2); line-height:1.4;">
+    <i class="fa-solid fa-key" style="color:var(--amber);"></i>
+    <strong>Token Dinamis &amp; Keamanan Ujian:</strong> Klik tombol **Token Dinamis** di atas untuk mengaktifkan kode akses sementara demi menghindari kecurangan siswa saat ujian berlangsung.
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:60px;">ID</th>
+          <th>Judul Ujian &amp; Detail Kelas</th>
+          <th style="width:80px;">Status</th>
+          <th style="width:80px;">Detail</th>
+          <th style="text-align:right; width:340px;">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <!-- ROW 1 -->
+        <tr>
+          <td><span class="pill gray">126</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Tryout UNBK</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: X-10 • Tryout UNBK<br>
+              <span class="pill" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar"></i> Jadwal: bebas / belum diset</span>
+              <span class="pill" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-shuffle"></i> Shuffle soal/opsi</span>
+            </div>
+            <div style="font-size:10px; color:var(--t3); margin-top:4px;">
+              Token statis: <code style="background:var(--s3); border:1px solid var(--line); padding:1px 4px; border-radius:4px; font-family:monospace; color:var(--accent-light)">2d19defec915f6c19f94e4daecc17e20</code>
+            </div>
+          </td>
+          <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">12 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 2 -->
+        <tr>
+          <td><span class="pill gray">124</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">PTS Informatika Ganjil</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: X-1 • Tryout TKA<br>
+              <span class="pill ok" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-check"></i> Jadwal: Aktif Terjadwal</span>
+            </div>
+          </td>
+          <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">25 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">90 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="X-1" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 3 -->
+        <tr>
+          <td><span class="pill gray">123</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Latihan Aljabar &amp; Numerasi</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: Semua Kelas • Latihan Mandiri<br>
+              <span class="pill ok" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-check"></i> Bebas Akses</span>
+            </div>
+          </td>
+          <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">15 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">45 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="ALL" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 4 -->
+        <tr>
+          <td><span class="pill gray">122</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Tryout TKA Campuran</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: XI-1 • UTBK/SBMPTN<br>
+              <span class="pill warn" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-clock"></i> Terjadwal: 2026-07-05 08:00</span>
+            </div>
+          </td>
+          <td><span class="pill warn"><i class="fa-solid fa-calendar-plus"></i> Terjadwal</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">40 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">120 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="XI-1" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 5 -->
+        <tr>
+          <td><span class="pill gray">121</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Ujian Susulan PTS Ganjil</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: X-10 • Ujian Tertulis<br>
+              <span class="pill bad" style="font-size:9px; padding:1px 5px;"><i class="fa-solid fa-calendar-xmark"></i> Kedaluwarsa: 2026-06-25</span>
+            </div>
+          </td>
+          <td><span class="pill bad"><i class="fa-solid fa-circle-xmark"></i> Expired</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">20 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 6 -->
+        <tr>
+          <td><span class="pill gray">120</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Kuis Harian Logika Informatika</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: X-6 • Latihan Rutin
+            </div>
+          </td>
+          <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">10 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">30 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="X-6" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 7 -->
+        <tr>
+          <td><span class="pill gray">119</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Ujian Praktik Web &amp; Coding</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: XI-2 • Ujian Praktik
+            </div>
+          </td>
+          <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">5 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">60 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="XI-2" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 8 -->
+        <tr>
+          <td><span class="pill gray">118</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Evaluasi Akhir Semester Genap</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: Semua Kelas • Ujian Akhir
+            </div>
+          </td>
+          <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">50 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">120 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="ALL" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 9 -->
+        <tr>
+          <td><span class="pill gray">117</span></td>
+          <td>
+            <div style="color:var(--t3); font-style:italic;">(Koreksi Soal Draft Kosong)</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: — • Belum diset
+            </div>
+          </td>
+          <td><span class="pill gray"><i class="fa-solid fa-circle-notch"></i> Draft</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">0 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">— Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ROW 10 -->
+        <tr>
+          <td><span class="pill gray">116</span></td>
+          <td>
+            <div style="font-weight:700; color:var(--t1);">Latihan Dasar Algoritma</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px; line-height:1.4;">
+              Kelas: X-10 • Latihan Mandiri
+            </div>
+          </td>
+          <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Aktif</span></td>
+          <td>
+            <div style="font-size:11px; color:var(--t2);">15 Soal</div>
+            <div style="font-size:10px; color:var(--t3); margin-top:2px;">45 Menit</div>
+          </td>
+          <td style="text-align:right;">
+            <div class="action-cell">
+              <div class="action-row">
+                <a href="#" class="btn-action edit" title="Edit"><i class="fa-solid fa-pencil"></i> Edit</a>
+                <a href="#" class="btn-action score" title="Skor"><i class="fa-solid fa-trophy"></i> Skor</a>
+                <a href="#" class="btn-action try" target="_blank" title="Coba"><i class="fa-solid fa-play"></i> Coba</a>
+                <form method="post" style="display:inline;"><button type="submit" class="btn-action reuse" title="Reuse"><i class="fa-solid fa-copy"></i> Reuse</button></form>
+              </div>
+              <div class="utility-row">
+                <a href="#" class="btn-icon view" target="_blank" title="View"><i class="fa-solid fa-eye"></i></a>
+                <a href="#" class="btn-icon preview" target="_blank" title="Preview"><i class="fa-solid fa-desktop"></i></a>
+                <a href="#" class="btn-icon csv" title="CSV"><i class="fa-solid fa-file-csv"></i></a>
+                <a href="#" class="btn-icon pdf" target="_blank" title="PDF"><i class="fa-solid fa-file-pdf"></i></a>
+                <form method="post" style="display:inline;"><button class="btn-icon delete" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>
+              </div>
+              <form method="post" class="publish-panel">
+                <div style="display:flex; gap:3px;">
+                  <input class="inp-sm" name="token_kelas" value="X-10" placeholder="Kelas" style="width:50px;">
+                  <input class="inp-sm" type="number" name="ttl_menit" value="15" placeholder="Mnt" style="width:40px;">
+                </div>
+                <div style="display:flex; gap:3px;">
+                  <button class="btn-action publish" name="action" value="publish_only">Publish</button>
+                  <button class="btn-action token" name="action" value="publish_and_token">+Token</button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Footer Row -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; border-top:1px solid var(--line); padding-top:12px; flex-wrap:wrap; gap:8px;">
+    <span style="font-size:11px; color:var(--t3);"><i class="fa-solid fa-layer-group"></i> Menampilkan 1-10 dari 94 Ujian</span>
+    <div style="display:flex; gap:6px;">
+      <a class="btn" style="padding:6px 12px;" href="#"><i class="fa-solid fa-chevron-left"></i></a>
+      <span class="pill gray" style="padding:6px 12px; border-radius:8px;">1</span>
+      <span style="align-self:center; color:var(--t3); padding:0 4px;">...</span>
+      <span class="pill gray" style="padding:6px 12px; border-radius:8px;">10</span>
+      <a class="btn" style="padding:6px 12px;" href="#"><i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+  </div>
+
+</div>

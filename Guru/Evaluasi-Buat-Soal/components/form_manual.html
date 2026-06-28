@@ -1,0 +1,36 @@
+<!-- Exact Toolbar for Formula LaTeX (LaTeX helper) -->
+<div class="exact-toolbar" id="exactToolbar" style="background:var(--s2); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
+  <div style="font-family:'Poppins', sans-serif; font-weight:700; font-size:12px; color:var(--t1);">
+    <i class="fa-solid fa-calculator" style="color:var(--accent-light);"></i> Toolbar Eksak (LaTeX / Kimia)
+  </div>
+  <div style="font-size:10px; color:var(--t3); line-height:1.4;">
+    Klik kolom pertanyaan/opsi yang ingin diisi, blok teks jika perlu, lalu klik tombol di bawah untuk menyisipkan rumus.
+  </div>
+  <div style="display:flex; flex-wrap:wrap; gap:4px;">
+    <button type="button" class="btn sm" data-exact="sup" style="font-size:10px; padding:3px 6px;">x² Sup</button>
+    <button type="button" class="btn sm" data-exact="sub" style="font-size:10px; padding:3px 6px;">H₂O Sub</button>
+    <button type="button" class="btn sm" data-insert="²" style="font-size:10px; padding:3px 6px;">²</button>
+    <button type="button" class="btn sm" data-insert="³" style="font-size:10px; padding:3px 6px;">³</button>
+    <button type="button" class="btn sm" data-insert="π" style="font-size:10px; padding:3px 6px;">π</button>
+    <button type="button" class="btn sm" data-insert="√" style="font-size:10px; padding:3px 6px;">√</button>
+    <button type="button" class="btn sm" data-insert="±" style="font-size:10px; padding:3px 6px;">±</button>
+    <button type="button" class="btn sm" data-insert="×" style="font-size:10px; padding:3px 6px;">×</button>
+    <button type="button" class="btn sm" data-insert="÷" style="font-size:10px; padding:3px 6px;">÷</button>
+    <button type="button" class="btn sm" data-insert="≤" style="font-size:10px; padding:3px 6px;">≤</button>
+    <button type="button" class="btn sm" data-insert="≥" style="font-size:10px; padding:3px 6px;">≥</button>
+    <button type="button" class="btn sm" data-insert="→" style="font-size:10px; padding:3px 6px;">→</button>
+  </div>
+  <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-top:2px;">
+    <input class="inp" id="equationInput" style="max-width:240px; padding:4px 8px; font-size:10px;" placeholder="contoh: x^2 + y^2 = z^2" />
+    <button type="button" class="btn sm primary" id="btnInsertEquation" style="padding:4px 8px; font-size:10px;"><i class="fa-solid fa-square-root-variable"></i> Sisipkan</button>
+  </div>
+</div>
+
+<!-- Build Manual Button -->
+<button class="btn primary" type="button" id="btnBuildManual" style="width:100%; justify-content:center; margin-bottom:12px; padding:10px 14px;">
+  <i class="fa-solid fa-folder-plus"></i> Buat Form Soal Manual
+</button>
+
+<div id="manual_container" style="display:flex; flex-direction:column; gap:16px;">
+  <!-- Questions will be dynamically appended here -->
+</div>
