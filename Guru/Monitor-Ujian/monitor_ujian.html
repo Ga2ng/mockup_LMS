@@ -1,0 +1,2227 @@
+<!DOCTYPE html> <html lang=id style><!--
+ Page saved with SingleFile 
+ url: https://serverap.sapda.id/lms/admin/monitor_ujian.php 
+ saved date: Sun Jun 28 2026 21:17:41 GMT+0700 (Western Indonesia Time)
+--><meta charset=utf-8>
+<title>Monitor Ujian • AI Assessment Intelligence</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+        .wrap {
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 12px 8px;
+        }
+
+        .card {
+                background: var(--s1);
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+        }
+
+        .card .head {
+                border-bottom: 1px solid var(--line);
+                padding-bottom: 16px;
+                margin-bottom: 16px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+        }
+
+        .brand {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+        }
+
+        .logo {
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                display: grid;
+                place-items: center;
+                background: var(--accent-dim);
+                border: 1px solid var(--accent-light);
+                color: var(--accent-light);
+                font-size: 20px;
+        }
+
+        .t1 {
+                font-family: 'Poppins', sans-serif;
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--t1);
+        }
+
+        .t2 {
+                font-size: 11px;
+                color: var(--t3);
+                font-weight: 500;
+                margin-top: 2px;
+        }
+
+        .row {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+        }
+
+        .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                border: 1px solid var(--line);
+                background: var(--s2);
+                color: var(--t1);
+                border-radius: 8px;
+                padding: 10px 16px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                text-decoration: none;
+        }
+
+        .btn:hover {
+                background: var(--s3);
+                border-color: var(--line2);
+        }
+
+        .btn.primary {
+                background: var(--accent);
+                border-color: var(--accent-light);
+                color: #ffffff;
+        }
+
+        .btn.primary:hover {
+                background: var(--accent-light);
+        }
+
+        .btn.bad {
+                background: #f43f5e;
+                border-color: #f43f5e;
+                color: #ffffff;
+        }
+
+        .btn.bad:hover {
+                background: #e11d48;
+        }
+
+        .sel {
+                border-radius: 8px;
+                padding: 10px 12px;
+                border: 1px solid var(--line);
+                background: var(--inp-bg);
+                color: var(--t1);
+                outline: none;
+                font-size: 12px;
+                font-weight: 600;
+        }
+
+        .sel:focus {
+                border-color: var(--accent);
+        }
+
+        .pill {
+                display: inline-flex;
+                gap: 8px;
+                align-items: center;
+                border-radius: 20px;
+                padding: 6px 12px;
+                border: 1px solid var(--line);
+                background: var(--s2);
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--t2);
+        }
+
+        .pill.ok {
+                border-color: var(--green-border);
+                background: var(--green-dim);
+                color: var(--green);
+        }
+
+        .pill.bad {
+                border-color: var(--orange-border);
+                background: var(--orange-dim);
+                color: var(--orange);
+        }
+
+        .pill.warn {
+                border-color: var(--amber-border);
+                background: var(--amber-dim);
+                color: var(--amber);
+        }
+
+        .pill.blue {
+                border-color: var(--accent-glow);
+                background: var(--accent-dim);
+                color: var(--accent-light);
+        }
+
+        .pill.idle {
+                border-color: #c084fc;
+                background: rgba(192, 132, 252, 0.1);
+                color: #c084fc;
+        }
+
+        .pill.gray {
+                border-color: var(--line);
+                background: var(--s3);
+                color: var(--t3);
+        }
+
+        .grid2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-top: 12px;
+                align-items: start;
+        }
+
+        @media (max-width: 900px) {
+                .grid2 {
+                        grid-template-columns: 1fr;
+                }
+        }
+
+        /* Compact dropdown height */
+        #ujianSel {
+                max-height: 120px;
+                overflow-y: auto;
+        }
+
+        .vclass {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 16px;
+                margin-top: 16px;
+        }
+
+        .seat {
+                border-radius: 12px;
+                border: 1px solid var(--line);
+                background: var(--s1);
+                padding: 0;
+                transition: all 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                border-left: 5px solid var(--line);
+                overflow: hidden;
+        }
+
+        .seat:hover {
+                border-color: var(--line2);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Modern & Colorful Left Borders based on Live Status */
+        .seat:has(.live-ACTIVE) {
+                border-left-color: var(--green);
+                box-shadow: 0 4px 14px rgba(34, 197, 94, 0.08);
+        }
+        .seat:has(.live-IDLE) {
+                border-left-color: var(--amber);
+                box-shadow: 0 4px 14px rgba(245, 158, 11, 0.08);
+        }
+        .seat:has(.live-AWAY) {
+                border-left-color: var(--orange);
+                box-shadow: 0 4px 14px rgba(249, 115, 22, 0.08);
+        }
+        .seat:has(.live-SUBMITTED) {
+                border-left-color: var(--accent);
+                box-shadow: 0 4px 14px rgba(99, 102, 241, 0.08);
+        }
+        .seat:has(.live-STARTED) {
+                border-left-color: #3b82f6;
+                box-shadow: 0 4px 14px rgba(59, 130, 246, 0.08);
+        }
+
+        .sname {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                color: var(--t1);
+                background: var(--s2);
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--line);
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+        }
+
+        /* Dynamic Status-coded Header Backgrounds */
+        .seat:has(.live-ACTIVE) .sname {
+                background: rgba(34, 197, 94, 0.06);
+                border-bottom-color: rgba(34, 197, 94, 0.15);
+                color: var(--green);
+        }
+        .seat:has(.live-IDLE) .sname {
+                background: rgba(245, 158, 11, 0.06);
+                border-bottom-color: rgba(245, 158, 11, 0.15);
+                color: var(--amber);
+        }
+        .seat:has(.live-AWAY) .sname {
+                background: rgba(249, 115, 22, 0.06);
+                border-bottom-color: rgba(249, 115, 22, 0.15);
+                color: var(--orange);
+        }
+        .seat:has(.live-SUBMITTED) .sname {
+                background: rgba(99, 102, 241, 0.06);
+                border-bottom-color: rgba(99, 102, 241, 0.15);
+                color: var(--accent-light);
+        }
+        .seat:has(.live-STARTED) .sname {
+                background: rgba(59, 130, 246, 0.06);
+                border-bottom-color: rgba(59, 130, 246, 0.15);
+                color: #3b82f6;
+        }
+
+        /* Grid Seat Body Element Spacers (No HTML edits required!) */
+        .seat > :not(.sname) {
+                margin-left: 16px;
+                margin-right: 16px;
+        }
+
+        .seat > .smeta {
+                margin-top: 14px;
+        }
+
+        .seat > .seatActions:last-child {
+                margin-bottom: 14px;
+        }
+
+        .smeta {
+                color: var(--t3);
+                font-size: 11px;
+                margin-top: 2px;
+        }
+
+        .liveBadge {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-weight: 700;
+                font-size: 11px;
+                border: 1px solid transparent;
+                margin-top: 6px;
+        }
+
+        .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                display: inline-block;
+        }
+
+        .dot.NONE { background: #94a3b8; }
+        .dot.ACTIVE { background: #ffffff; }
+        .dot.IDLE { background: #ffffff; }
+        .dot.AWAY { background: #ffffff; }
+        .dot.SUBMITTED { background: #ffffff; }
+        .dot.STARTED { background: #ffffff; }
+
+        /* Solid Color Badge Fills based on Status */
+        .live-NONE { 
+                border-color: var(--line) !important; 
+                background: var(--s2) !important; 
+                color: var(--t3) !important; 
+        }
+        .live-ACTIVE { 
+                border-color: var(--green) !important; 
+                background: var(--green) !important; 
+                color: #ffffff !important; 
+        }
+        .live-IDLE { 
+                border-color: var(--amber) !important; 
+                background: var(--amber) !important; 
+                color: #ffffff !important; 
+        }
+        .live-AWAY { 
+                border-color: var(--orange) !important; 
+                background: var(--orange) !important; 
+                color: #ffffff !important; 
+        }
+        .live-SUBMITTED { 
+                border-color: var(--accent) !important; 
+                background: var(--accent) !important; 
+                color: #ffffff !important; 
+        }
+        .live-STARTED { 
+                border-color: #3b82f6 !important; 
+                background: #3b82f6 !important; 
+                color: #ffffff !important; 
+        }
+
+        .kpiRow {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                align-items: center;
+        }
+
+        .progressWrap {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+        }
+
+        .progressTop {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+        }
+
+        .progressBar {
+                height: 8px;
+                border-radius: 4px;
+                background: var(--s2);
+                border: 1px solid var(--line);
+                overflow: hidden;
+        }
+
+        .progressFill {
+                height: 100%;
+                background: var(--accent);
+                border-radius: 4px;
+        }
+
+        .seatActions {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                align-items: center;
+        }
+
+        .actSel {
+                width: 100%;
+        }
+
+        .modal {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
+                z-index: 9999;
+                display: grid;
+                place-items: center;
+                padding: 16px;
+        }
+
+        /* Theme toggler overrides */
+        .theme-toggle-btn {
+                border: 1px solid var(--line);
+                background: var(--s2);
+                border-radius: 8px;
+                width: 36px;
+                height: 36px;
+                display: grid;
+                place-items: center;
+                cursor: pointer;
+                color: var(--t1);
+                transition: all 0.15s;
+        }
+        .theme-toggle-btn:hover {
+                background: var(--s3);
+                border-color: var(--line2);
+        }
+
+        /* Premium Dashboard Configurations & KPIs Panel */
+        .config-card {
+                background: var(--s2);
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                height: 100%;
+        }
+
+        .config-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 700;
+                font-size: 14px;
+                color: var(--t1);
+                border-bottom: 1px solid var(--line);
+                padding-bottom: 12px;
+                margin-bottom: 4px;
+        }
+
+        .config-header i {
+                color: var(--accent-light);
+        }
+
+        /* Token Display Box */
+        .token-container {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-top: 4px;
+        }
+
+        .token-box {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 20px;
+                font-weight: 800;
+                color: var(--accent-light);
+                background: var(--s3);
+                border: 1px dashed var(--accent);
+                padding: 12px;
+                border-radius: 8px;
+                letter-spacing: 0.03em;
+                word-break: break-all;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+        }
+
+        /* Modern KPI Widget Grid */
+        /* Modern KPI Widget Grid - 6 columns full width */
+        .kpi-grid-full {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: 12px;
+                margin-top: 8px;
+        }
+
+        @media (max-width: 900px) {
+                .kpi-grid-full {
+                        grid-template-columns: repeat(3, 1fr);
+                }
+        }
+
+        @media (max-width: 480px) {
+                .kpi-grid-full {
+                        grid-template-columns: repeat(2, 1fr);
+                }
+        }
+
+        .kpi-card {
+                background: var(--s1);
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 14px 10px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                transition: all 0.2s ease;
+                position: relative;
+                overflow: hidden;
+        }
+
+        .kpi-card:hover {
+                transform: translateY(-2px);
+                border-color: var(--line2);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .kpi-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: var(--line);
+        }
+
+        /* Status Colors for KPI Cards */
+        .kpi-card.kpi-siswa::before { background: var(--t3); }
+        .kpi-card.kpi-attempt::before { background: var(--t2); }
+        .kpi-card.kpi-started::before { background: var(--amber); }
+        .kpi-card.kpi-submitted::before { background: var(--green); }
+        .kpi-card.kpi-avg::before { background: var(--accent); }
+        .kpi-card.kpi-live::before { background: var(--orange); }
+
+        .kpi-label {
+                font-size: 9px;
+                font-weight: 700;
+                color: var(--t3);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+        }
+
+        .kpi-value {
+                font-size: 20px;
+                font-weight: 800;
+                color: var(--t1);
+                font-family: 'Poppins', sans-serif;
+        }
+
+        .kpi-card.kpi-started .kpi-value { color: var(--amber); }
+        .kpi-card.kpi-submitted .kpi-value { color: var(--green); }
+        .kpi-card.kpi-avg .kpi-value { color: var(--accent-light); }
+        .kpi-card.kpi-live .kpi-value { color: var(--green); }
+</style>
+<meta name=referrer content=no-referrer><link type=image/x-icon rel="shortcut icon" href=data:,><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://serverap.sapda.id/lms/admin/monitor_ujian.php></head>
+<body cz-shortcut-listen=true>
+<div class=wrap>
+ <div class=card>
+ <div class=head>
+ <div class=brand>
+ <div class=logo><i class="fa-solid fa-desktop"></i></div>
+ <div>
+ <div class=t1>Monitor Ujian (LIVE • Virtual Class)</div>
+ <div class=t2>
+ Wali Kelas X-10 • school_id 8 • LIVE ON </div>
+ </div>
+ </div>
+ <div class=row style="display: flex; align-items: center; gap: 8px;">
+        <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Tema">
+                <i class="fa-solid fa-sun"></i>
+        </button>
+ <a class=btn href=https://serverap.sapda.id/lms/admin/guru_dashboard.php><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+ <a class="btn bad" href=https://serverap.sapda.id/lms/admin/guru_logout.php><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+ </div>
+ </div>
+ 
+ <div class=body>
+  <div class=grid2>
+  <div class="config-card">
+  <div class="config-header"><i class="fa-solid fa-sliders"></i> Pengaturan Ujian</div>
+ <div style=margin-top:10px>
+ <div class=smeta>Pilih Ujian</div>
+ <select class=sel id=ujianSel style=width:100%>
+                                                <option value=126 selected>
+ Tryiut UNBK (draft)
+ </option>
+                                  <option value=125>
+ 17 Juni 2026 (publish)
+ </option>
+                                  <option value=124>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=123>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=122>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=121>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=120>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=119>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=118>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=117>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=116>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=115>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=114>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=113>
+ Uji coba apk 15 Juni (publish)
+ </option>
+                                  <option value=112>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=111>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=108>
+ Reuse - ujian ini (draft)
+ </option>
+                                  <option value=107>
+ Reuse - ujian ini (draft)
+ </option>
+                                  <option value=106>
+ Uji coba apk 13 (draft)
+ </option>
+                                  <option value=105>
+ Uji coba 12 (publish)
+ </option>
+                                  <option value=104>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=103>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=102>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=101>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=100>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=99>
+ Tryout TKAtest (publish)
+ </option>
+                                  <option value=98>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=97>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=96>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=95>
+ Uji coba 11 (publish)
+ </option>
+                                  <option value=94>
+ Uji coba apk 8 (publish)
+ </option>
+                                  <option value=93>
+ Uji apk 8 (draft)
+ </option>
+                                  <option value=92>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=91>
+ Tryout TKAtest (publish)
+ </option>
+                                  <option value=90>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=89>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=88>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=87>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=86>
+ Uji coba apk 7 (publish)
+ </option>
+                                  <option value=85>
+ Uji coba apk 6 (publish)
+ </option>
+                                  <option value=84>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=83>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=82>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=81>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=80>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=79>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=78>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=77>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=76>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=75>
+ Uji apk 6 (publish)
+ </option>
+                                  <option value=74>
+ Uji apk 5 (publish)
+ </option>
+                                  <option value=73>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=72>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=71>
+ Uji coba apk 4 (publish)
+ </option>
+                                  <option value=70>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=69>
+ test ujian (publish)
+ </option>
+                                  <option value=68>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=67>
+ Uji coba apk 3 (publish)
+ </option>
+                                  <option value=66>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=65>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=64>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=63>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=62>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=61>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=60>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=59>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=58>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=57>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=56>
+ Tryout TKA (publish)
+ </option>
+                                  <option value=55>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=54>
+ Uji coba apk 3 (publish)
+ </option>
+                                  <option value=53>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=52>
+ Uji coba apk 2 (publish)
+ </option>
+                                  <option value=51>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=50>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=49>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=48>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=47>
+ Reuse - ujian ini1 (publish)
+ </option>
+                                  <option value=46>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=45>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=44>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=43>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=42>
+ Reuse - ujian ini001 (publish)
+ </option>
+                                  <option value=41>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=40>
+ Reuse - ujian ini007 (publish)
+ </option>
+                                  <option value=39>
+ Reuse - ujian ini777 (publish)
+ </option>
+                                  <option value=38>
+ Reuse - ujian ini101 (publish)
+ </option>
+                                  <option value=37>
+ Uji coba intern apk 1 (publish)
+ </option>
+                                  <option value=36>
+ Reuse - ujian ini999 (publish)
+ </option>
+                                  <option value=35>
+ Reuse - ujian ini999 (publish)
+ </option>
+                                  <option value=34>
+ Uji coba intern 2 (publish)
+ </option>
+                                  <option value=33>
+ Reuse - ujian ini111 (publish)
+ </option>
+                                  <option value=32>
+ Reuse - ujian ini110 (publish)
+ </option>
+                                  <option value=31>
+ Uji coba intern (publish)
+ </option>
+                                  <option value=30>
+ Reuse - ujian ini9 (publish)
+ </option>
+                                  <option value=29>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=28>
+ Uji coba osis (publish)
+ </option>
+                                  <option value=27>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=26>
+ unbk (publish)
+ </option>
+                                  <option value=25>
+ Reuse - ujian UNBK (publish)
+ </option>
+                                  <option value=24>
+ ujian Biologi1 (publish)
+ </option>
+                                  <option value=23>
+ Reuse - ujian ini3 (publish)
+ </option>
+                                  <option value=22>
+ Reuse - ujian ini2 (publish)
+ </option>
+                                  <option value=21>
+ Reuse - ujian ini1 (publish)
+ </option>
+                                  <option value=20>
+ Uji coba all class (publish)
+ </option>
+                                  <option value=19>
+ Uji Coba TO kelas XI (publish)
+ </option>
+                                  <option value=18>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=17>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=16>
+ Reuse - ujian ini (publish)
+ </option>
+                                  <option value=14>
+ Tryout (publish)
+ </option>
+                                  <option value=12>
+ Uji coba (draft)
+ </option>
+                                  <option value=11>
+ Tryout TKA (publish)
+ </option>
+                                  <option value=10>
+ Tryout TKAtest (publish)
+ </option>
+                                  <option value=9>
+ try out TKA (publish)
+ </option>
+                                  <option value=8>
+ Tryout TKA (publish)
+ </option>
+                                  <option value=7>
+ Tryiut UNBK (publish)
+ </option>
+                                  <option value=6>
+ bahasa Inggris (publish)
+ </option>
+                                  <option value=5>
+ Test Bahasa Indonesia kelas X (publish)
+ </option>
+                                  <option value=4>
+ Biologi kelas X (publish)
+ </option>
+                                  <option value=2>
+ bahasa indonesia kelas X (draft)
+ </option>
+                                  <option value=1>
+ bahasa indonesia kelas X (draft)
+ </option>
+                                          </select>
+ </div>
+ <div style=margin-top:10px>
+ <div class=smeta>Pilih Kelas</div>
+ <select class=sel id=kelasSel style=width:100%>
+                                                <option value=X-1 selected>X-1</option>
+                                  <option value=X-10>X-10</option>
+                                  <option value=X-2>X-2</option>
+                                  <option value=X-3>X-3</option>
+                                  <option value=X-4>X-4</option>
+                                  <option value=X-5>X-5</option>
+                                  <option value=X-6>X-6</option>
+                                  <option value=X-7>X-7</option>
+                                  <option value=X-8>X-8</option>
+                                  <option value=XI-1>XI-1</option>
+                                  <option value=XI-2>XI-2</option>
+                                  <option value=XI-3>XI-3</option>
+                                  <option value=XI-4>XI-4</option>
+                                  <option value=XI-5>XI-5</option>
+                                  <option value=XI-6>XI-6</option>
+                                  <option value=XI-7>XI-7</option>
+                                  <option value=XI-8>XI-8</option>
+                                  <option value=XI-9>XI-9</option>
+                                  <option value=XII-1>XII-1</option>
+                                  <option value=XII-2>XII-2</option>
+                                  <option value=XII-3>XII-3</option>
+                                  <option value=XII-4>XII-4</option>
+                                  <option value=XII-5>XII-5</option>
+                                  <option value=XII-6>XII-6</option>
+                                  <option value=XII-7>XII-7</option>
+                                  <option value=XII-8>XII-8</option>
+                                  <option value=XII-9>XII-9</option>
+                                          </select>
+ </div>
+ <div class=kpiRow>
+ <span class="pill bad" id=pillStart><i class="fa-solid fa-power-off"></i> STOPPED</span>
+ <span class="pill gray"><i class="fa-solid fa-sliders"></i> Jadwal</span>
+ <span class="pill blue"><i class="fa-solid fa-list-ol"></i> Soal: <b id=statSoal>12</b></span>
+ <span class="pill gray"><i class="fa-solid fa-arrows-rotate"></i> Auto: <b id=autoTxt>8s</b></span>
+ </div>
+ <div class=row style=margin-top:12px>
+ <form method=post style=display:inline>
+ 
+ 
+ 
+ 
+ <button class="btn primary" type=submit><i class="fa-solid fa-circle-play"></i> Start</button>
+ </form>
+ <form method=post style=display:inline>
+ 
+ 
+ 
+ 
+ <button class="btn bad" type=submit><i class="fa-solid fa-circle-stop"></i> Stop</button>
+ </form>
+ <a class=btn href="https://serverap.sapda.id/lms/admin/monitor_ujian.php?ujian_id=126&amp;kelas=X-1"><i class="fa-solid fa-rotate"></i> Refresh</a>
+  </div>
+  </div>
+  <div class="config-card">
+    <div class="config-header"><i class="fa-solid fa-key"></i> Token &amp; Ringkasan Kelas</div>
+    <div class="smeta" style="margin-bottom:6px">Token sesi aktif — bagikan ke siswa</div>
+    <div class="token-box" id=tokenText>2d19defec915f6c19f94e4daecc17e20</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn" style="flex:1" type=button id=btnCopyToken><i class="fa-solid fa-copy"></i> Copy Token</button>
+      <button class="btn" style="flex:1" type=button id=btnShareLink><i class="fa-solid fa-share-nodes"></i> Share</button>
+      <a class="btn primary" target=_blank style="flex:1.5;justify-content:center" href="https://serverap.sapda.id/lms/siswa/evaluasi.php?token=2d19defec915f6c19f94e4daecc17e20"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Link Siswa</a>
+    </div>
+  </div>
+  </div>
+
+  <!-- Row 2: Metrik Kelas (Full Width) -->
+  <div class="config-card" style="margin-top: 16px;">
+    <div class="config-header"><i class="fa-solid fa-chart-bar"></i> Metrik Kelas (Live)</div>
+    <div class="kpi-grid-full">
+      <div class="kpi-card kpi-siswa">
+        <span class="kpi-label">Siswa</span>
+        <span class="kpi-value" id=statTotal>34</span>
+      </div>
+      <div class="kpi-card kpi-attempt">
+        <span class="kpi-label">Attempt</span>
+        <span class="kpi-value" id=statAttempt>28</span>
+      </div>
+      <div class="kpi-card kpi-started">
+        <span class="kpi-label">Started</span>
+        <span class="kpi-value" id=statStarted>23</span>
+      </div>
+      <div class="kpi-card kpi-submitted">
+        <span class="kpi-label">Submitted</span>
+        <span class="kpi-value" id=statSubmitted>5</span>
+      </div>
+      <div class="kpi-card kpi-avg">
+        <span class="kpi-label">Rata-Rata</span>
+        <span class="kpi-value" id=statAvg>87.6</span>
+      </div>
+      <div class="kpi-card kpi-live">
+        <span class="kpi-label">Live Class</span>
+        <span class="kpi-value"><i class="fa-solid fa-wifi"></i> ON</span>
+      </div>
+    </div>
+    <div class="smeta" style="margin-top:10px;text-align:center">
+      Legend: <span style="color:var(--green)">ACTIVE</span> / <span style="color:var(--amber)">IDLE</span> / <span style="color:var(--orange)">AWAY</span> / <span style="color:#3b82f6">STARTED</span> / <span style="color:var(--accent-light)">SUBMITTED</span> / <span style="color:var(--t3)">NONE</span>
+    </div>
+  </div>
+  </div>
+  </div>
+ 
+ <div class=vclass id=vclass>
+ <div class=seat data-sid=6467>
+ <div class=sname>AABIDAH AYU SYAFAQOH</div>
+ <div class=smeta>NIS: 14552 • ID: 6467</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6467>
+ <span class="dot ACTIVE" id=dot-6467></span>
+ <b id=live-6467>ACTIVE</b>
+ <span id=secAgo-6467 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6467>5/12</div>
+ <div class=smeta id=pctTxt-6467>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6467 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6467 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6467 style=margin-top:3px></div>
+ <div class=smeta id=act-6467 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6467><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6467><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6467 data-siswa-nama="AABIDAH AYU SYAFAQOH">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6468>
+ <div class=sname>ABHISTA EVAN VEASNA</div>
+ <div class=smeta>NIS: 14553 • ID: 6468</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6468>
+ <span class="dot IDLE" id=dot-6468></span>
+ <b id=live-6468>IDLE</b>
+ <span id=secAgo-6468 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6468>3/12</div>
+ <div class=smeta id=pctTxt-6468>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6468 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6468 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6468 style=margin-top:3px></div>
+ <div class=smeta id=act-6468 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6468><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6468><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6468 data-siswa-nama="ABHISTA EVAN VEASNA">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6469>
+ <div class=sname>ALIF FIRMANSYAH</div>
+ <div class=smeta>NIS: 14566 • ID: 6469</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6469>
+ <span class="dot AWAY" id=dot-6469></span>
+ <b id=live-6469>AWAY</b>
+ <span id=secAgo-6469 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6469>7/12</div>
+ <div class=smeta id=pctTxt-6469>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6469 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6469 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6469 style=margin-top:3px></div>
+ <div class=smeta id=act-6469 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6469><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6469><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6469 data-siswa-nama="ALIF FIRMANSYAH">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6470>
+ <div class=sname>ALMIRA JINGGA AZALIA</div>
+ <div class=smeta>NIS: 14569 • ID: 6470</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6470>
+ <span class="dot SUBMITTED" id=dot-6470></span>
+ <b id=live-6470>SUBMITTED</b>
+ <span id=secAgo-6470 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6470>12/12</div>
+ <div class=smeta id=pctTxt-6470>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6470 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6470 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6470 style=margin-top:3px></div>
+ <div class=smeta id=act-6470 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6470><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6470><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6470 data-siswa-nama="ALMIRA JINGGA AZALIA">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6471>
+ <div class=sname>ARDEN RE RONALDO</div>
+ <div class=smeta>NIS: 14587 • ID: 6471</div>
+ <div class="liveBadge live-STARTED" id=liveBadge-6471>
+ <span class="dot STARTED" id=dot-6471></span>
+ <b id=live-6471>STARTED</b>
+ <span id=secAgo-6471 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6471>1/12</div>
+ <div class=smeta id=pctTxt-6471>8%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6471 style=width:8%></div>
+ </div>
+ <div class=smeta id=lastAns-6471 style=margin-top:6px>Last jawab: No. 1 (C)</div>
+ <div class=smeta id=lockTxt-6471 style=margin-top:3px></div>
+ <div class=smeta id=act-6471 style=margin-top:6px>Last activity: Baru mulai</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6471><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6471><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6471 data-siswa-nama="ARDEN RE RONALDO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6472>
+ <div class=sname>ARETHA FATHINAH MYESHIA</div>
+ <div class=smeta>NIS: 14589 • ID: 6472</div>
+ <div class="liveBadge live-NONE" id=liveBadge-6472>
+ <span class="dot NONE" id=dot-6472></span>
+ <b id=live-6472>NONE</b>
+ <span id=secAgo-6472 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6472>0/12</div>
+ <div class=smeta id=pctTxt-6472>0%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6472 style=width:0%></div>
+ </div>
+ <div class=smeta id=lastAns-6472 style=margin-top:6px>Last jawab: —</div>
+ <div class=smeta id=lockTxt-6472 style=margin-top:3px></div>
+ <div class=smeta id=act-6472 style=margin-top:6px>Last activity: —</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6472><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6472><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6472 data-siswa-nama="ARETHA FATHINAH MYESHIA">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6473>
+ <div class=sname>AVIN DAFFA QUDS QOITS</div>
+ <div class=smeta>NIS: 14600 • ID: 6473</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6473>
+ <span class="dot ACTIVE" id=dot-6473></span>
+ <b id=live-6473>ACTIVE</b>
+ <span id=secAgo-6473 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6473>5/12</div>
+ <div class=smeta id=pctTxt-6473>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6473 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6473 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6473 style=margin-top:3px></div>
+ <div class=smeta id=act-6473 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6473><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6473><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6473 data-siswa-nama="AVIN DAFFA QUDS QOITS">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6474>
+ <div class=sname>AZZAHRA DESYAFRENSA SUSANTO</div>
+ <div class=smeta>NIS: 14604 • ID: 6474</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6474>
+ <span class="dot IDLE" id=dot-6474></span>
+ <b id=live-6474>IDLE</b>
+ <span id=secAgo-6474 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6474>3/12</div>
+ <div class=smeta id=pctTxt-6474>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6474 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6474 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6474 style=margin-top:3px></div>
+ <div class=smeta id=act-6474 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6474><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6474><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6474 data-siswa-nama="AZZAHRA DESYAFRENSA SUSANTO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6475>
+ <div class=sname>CITRA FEBRIANTY SAPUTRO</div>
+ <div class=smeta>NIS: 14619 • ID: 6475</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6475>
+ <span class="dot AWAY" id=dot-6475></span>
+ <b id=live-6475>AWAY</b>
+ <span id=secAgo-6475 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6475>7/12</div>
+ <div class=smeta id=pctTxt-6475>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6475 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6475 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6475 style=margin-top:3px></div>
+ <div class=smeta id=act-6475 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6475><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6475><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6475 data-siswa-nama="CITRA FEBRIANTY SAPUTRO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6476>
+ <div class=sname>DANDI WICAKSONO</div>
+ <div class=smeta>NIS: 14623 • ID: 6476</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6476>
+ <span class="dot SUBMITTED" id=dot-6476></span>
+ <b id=live-6476>SUBMITTED</b>
+ <span id=secAgo-6476 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6476>12/12</div>
+ <div class=smeta id=pctTxt-6476>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6476 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6476 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6476 style=margin-top:3px></div>
+ <div class=smeta id=act-6476 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6476><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6476><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6476 data-siswa-nama="DANDI WICAKSONO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6477>
+ <div class=sname>DZAKWAN BAHTRANU RAMADHANI ADIMAR</div>
+ <div class=smeta>NIS: 14638 • ID: 6477</div>
+ <div class="liveBadge live-STARTED" id=liveBadge-6477>
+ <span class="dot STARTED" id=dot-6477></span>
+ <b id=live-6477>STARTED</b>
+ <span id=secAgo-6477 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6477>1/12</div>
+ <div class=smeta id=pctTxt-6477>8%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6477 style=width:8%></div>
+ </div>
+ <div class=smeta id=lastAns-6477 style=margin-top:6px>Last jawab: No. 1 (C)</div>
+ <div class=smeta id=lockTxt-6477 style=margin-top:3px></div>
+ <div class=smeta id=act-6477 style=margin-top:6px>Last activity: Baru mulai</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6477><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6477><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6477 data-siswa-nama="DZAKWAN BAHTRANU RAMADHANI ADIMAR">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6478>
+ <div class=sname>FABITHA INDIRA AL KHALIFI</div>
+ <div class=smeta>NIS: 14647 • ID: 6478</div>
+ <div class="liveBadge live-NONE" id=liveBadge-6478>
+ <span class="dot NONE" id=dot-6478></span>
+ <b id=live-6478>NONE</b>
+ <span id=secAgo-6478 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6478>0/12</div>
+ <div class=smeta id=pctTxt-6478>0%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6478 style=width:0%></div>
+ </div>
+ <div class=smeta id=lastAns-6478 style=margin-top:6px>Last jawab: —</div>
+ <div class=smeta id=lockTxt-6478 style=margin-top:3px></div>
+ <div class=smeta id=act-6478 style=margin-top:6px>Last activity: —</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6478><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6478><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6478 data-siswa-nama="FABITHA INDIRA AL KHALIFI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6479>
+ <div class=sname>FATHIR ALCAESAR HIBRIZI ASH SHIDDIEQY</div>
+ <div class=smeta>NIS: 14653 • ID: 6479</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6479>
+ <span class="dot ACTIVE" id=dot-6479></span>
+ <b id=live-6479>ACTIVE</b>
+ <span id=secAgo-6479 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6479>5/12</div>
+ <div class=smeta id=pctTxt-6479>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6479 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6479 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6479 style=margin-top:3px></div>
+ <div class=smeta id=act-6479 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6479><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6479><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6479 data-siswa-nama="FATHIR ALCAESAR HIBRIZI ASH SHIDDIEQY">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6480>
+ <div class=sname>IQNASYAVA CLEARESTA</div>
+ <div class=smeta>NIS: 14669 • ID: 6480</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6480>
+ <span class="dot IDLE" id=dot-6480></span>
+ <b id=live-6480>IDLE</b>
+ <span id=secAgo-6480 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6480>3/12</div>
+ <div class=smeta id=pctTxt-6480>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6480 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6480 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6480 style=margin-top:3px></div>
+ <div class=smeta id=act-6480 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6480><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6480><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6480 data-siswa-nama="IQNASYAVA CLEARESTA">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6481>
+ <div class=sname>KHABIL TANJUNG</div>
+ <div class=smeta>NIS: 14681 • ID: 6481</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6481>
+ <span class="dot AWAY" id=dot-6481></span>
+ <b id=live-6481>AWAY</b>
+ <span id=secAgo-6481 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6481>7/12</div>
+ <div class=smeta id=pctTxt-6481>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6481 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6481 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6481 style=margin-top:3px></div>
+ <div class=smeta id=act-6481 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6481><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6481><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6481 data-siswa-nama="KHABIL TANJUNG">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6482>
+ <div class=sname>KHANZA KHALILA SHAREN</div>
+ <div class=smeta>NIS: 14684 • ID: 6482</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6482>
+ <span class="dot SUBMITTED" id=dot-6482></span>
+ <b id=live-6482>SUBMITTED</b>
+ <span id=secAgo-6482 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6482>12/12</div>
+ <div class=smeta id=pctTxt-6482>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6482 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6482 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6482 style=margin-top:3px></div>
+ <div class=smeta id=act-6482 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6482><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6482><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6482 data-siswa-nama="KHANZA KHALILA SHAREN">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6483>
+ <div class=sname>MOCH. FAIZ YANUAR ASHARI</div>
+ <div class=smeta>NIS: 14700 • ID: 6483</div>
+ <div class="liveBadge live-STARTED" id=liveBadge-6483>
+ <span class="dot STARTED" id=dot-6483></span>
+ <b id=live-6483>STARTED</b>
+ <span id=secAgo-6483 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6483>1/12</div>
+ <div class=smeta id=pctTxt-6483>8%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6483 style=width:8%></div>
+ </div>
+ <div class=smeta id=lastAns-6483 style=margin-top:6px>Last jawab: No. 1 (C)</div>
+ <div class=smeta id=lockTxt-6483 style=margin-top:3px></div>
+ <div class=smeta id=act-6483 style=margin-top:6px>Last activity: Baru mulai</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6483><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6483><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6483 data-siswa-nama="MOCH. FAIZ YANUAR ASHARI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6484>
+ <div class=sname>MOUNICA QIAN NIAZA</div>
+ <div class=smeta>NIS: 14704 • ID: 6484</div>
+ <div class="liveBadge live-NONE" id=liveBadge-6484>
+ <span class="dot NONE" id=dot-6484></span>
+ <b id=live-6484>NONE</b>
+ <span id=secAgo-6484 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6484>0/12</div>
+ <div class=smeta id=pctTxt-6484>0%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6484 style=width:0%></div>
+ </div>
+ <div class=smeta id=lastAns-6484 style=margin-top:6px>Last jawab: —</div>
+ <div class=smeta id=lockTxt-6484 style=margin-top:3px></div>
+ <div class=smeta id=act-6484 style=margin-top:6px>Last activity: —</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6484><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6484><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6484 data-siswa-nama="MOUNICA QIAN NIAZA">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6485>
+ <div class=sname>MUHAMMAD DAFA APRILIO</div>
+ <div class=smeta>NIS: 14710 • ID: 6485</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6485>
+ <span class="dot ACTIVE" id=dot-6485></span>
+ <b id=live-6485>ACTIVE</b>
+ <span id=secAgo-6485 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6485>5/12</div>
+ <div class=smeta id=pctTxt-6485>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6485 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6485 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6485 style=margin-top:3px></div>
+ <div class=smeta id=act-6485 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6485><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6485><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6485 data-siswa-nama="MUHAMMAD DAFA APRILIO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6500>
+ <div class=sname>MUHAMMAD RAFA ATHA KAMIL</div>
+ <div class=smeta>NIS: 14825 • ID: 6500</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6500>
+ <span class="dot IDLE" id=dot-6500></span>
+ <b id=live-6500>IDLE</b>
+ <span id=secAgo-6500 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6500>3/12</div>
+ <div class=smeta id=pctTxt-6500>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6500 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6500 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6500 style=margin-top:3px></div>
+ <div class=smeta id=act-6500 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6500><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6500><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6500 data-siswa-nama="MUHAMMAD RAFA ATHA KAMIL">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6486>
+ <div class=sname>MUHAMMAD RIZKY HANANDITA WIDIANSYAH</div>
+ <div class=smeta>NIS: 14718 • ID: 6486</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6486>
+ <span class="dot AWAY" id=dot-6486></span>
+ <b id=live-6486>AWAY</b>
+ <span id=secAgo-6486 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6486>7/12</div>
+ <div class=smeta id=pctTxt-6486>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6486 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6486 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6486 style=margin-top:3px></div>
+ <div class=smeta id=act-6486 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6486><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6486><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6486 data-siswa-nama="MUHAMMAD RIZKY HANANDITA WIDIANSYAH">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6487>
+ <div class=sname>NABILA NAJWA NUR KHATIMAH</div>
+ <div class=smeta>NIS: 14726 • ID: 6487</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6487>
+ <span class="dot SUBMITTED" id=dot-6487></span>
+ <b id=live-6487>SUBMITTED</b>
+ <span id=secAgo-6487 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6487>12/12</div>
+ <div class=smeta id=pctTxt-6487>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6487 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6487 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6487 style=margin-top:3px></div>
+ <div class=smeta id=act-6487 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6487><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6487><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6487 data-siswa-nama="NABILA NAJWA NUR KHATIMAH">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6488>
+ <div class=sname>NAZILA NUR HIDAYAH</div>
+ <div class=smeta>NIS: 14735 • ID: 6488</div>
+ <div class="liveBadge live-STARTED" id=liveBadge-6488>
+ <span class="dot STARTED" id=dot-6488></span>
+ <b id=live-6488>STARTED</b>
+ <span id=secAgo-6488 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6488>1/12</div>
+ <div class=smeta id=pctTxt-6488>8%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6488 style=width:8%></div>
+ </div>
+ <div class=smeta id=lastAns-6488 style=margin-top:6px>Last jawab: No. 1 (C)</div>
+ <div class=smeta id=lockTxt-6488 style=margin-top:3px></div>
+ <div class=smeta id=act-6488 style=margin-top:6px>Last activity: Baru mulai</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6488><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6488><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6488 data-siswa-nama="NAZILA NUR HIDAYAH">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6489>
+ <div class=sname>QUEEN JASMINE AZKYA AL AMIN</div>
+ <div class=smeta>NIS: 14750 • ID: 6489</div>
+ <div class="liveBadge live-NONE" id=liveBadge-6489>
+ <span class="dot NONE" id=dot-6489></span>
+ <b id=live-6489>NONE</b>
+ <span id=secAgo-6489 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6489>0/12</div>
+ <div class=smeta id=pctTxt-6489>0%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6489 style=width:0%></div>
+ </div>
+ <div class=smeta id=lastAns-6489 style=margin-top:6px>Last jawab: —</div>
+ <div class=smeta id=lockTxt-6489 style=margin-top:3px></div>
+ <div class=smeta id=act-6489 style=margin-top:6px>Last activity: —</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6489><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6489><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6489 data-siswa-nama="QUEEN JASMINE AZKYA AL AMIN">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6490>
+ <div class=sname>RAFA FAYRUZIA RAMADHAN AL-KHALIFI</div>
+ <div class=smeta>NIS: 14753 • ID: 6490</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6490>
+ <span class="dot ACTIVE" id=dot-6490></span>
+ <b id=live-6490>ACTIVE</b>
+ <span id=secAgo-6490 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6490>5/12</div>
+ <div class=smeta id=pctTxt-6490>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6490 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6490 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6490 style=margin-top:3px></div>
+ <div class=smeta id=act-6490 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6490><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6490><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6490 data-siswa-nama="RAFA FAYRUZIA RAMADHAN AL-KHALIFI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6491>
+ <div class=sname>RENDRA BACHTIAR WIBISONO</div>
+ <div class=smeta>NIS: 14766 • ID: 6491</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6491>
+ <span class="dot IDLE" id=dot-6491></span>
+ <b id=live-6491>IDLE</b>
+ <span id=secAgo-6491 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6491>3/12</div>
+ <div class=smeta id=pctTxt-6491>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6491 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6491 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6491 style=margin-top:3px></div>
+ <div class=smeta id=act-6491 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6491><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6491><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6491 data-siswa-nama="RENDRA BACHTIAR WIBISONO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6492>
+ <div class=sname>REVANO PUTRA DEWANDHARU</div>
+ <div class=smeta>NIS: 14767 • ID: 6492</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6492>
+ <span class="dot AWAY" id=dot-6492></span>
+ <b id=live-6492>AWAY</b>
+ <span id=secAgo-6492 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6492>7/12</div>
+ <div class=smeta id=pctTxt-6492>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6492 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6492 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6492 style=margin-top:3px></div>
+ <div class=smeta id=act-6492 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6492><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6492><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6492 data-siswa-nama="REVANO PUTRA DEWANDHARU">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6493>
+ <div class=sname>REVITA NURFIANI</div>
+ <div class=smeta>NIS: 14768 • ID: 6493</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6493>
+ <span class="dot SUBMITTED" id=dot-6493></span>
+ <b id=live-6493>SUBMITTED</b>
+ <span id=secAgo-6493 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6493>12/12</div>
+ <div class=smeta id=pctTxt-6493>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6493 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6493 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6493 style=margin-top:3px></div>
+ <div class=smeta id=act-6493 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6493><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6493><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6493 data-siswa-nama="REVITA NURFIANI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6494>
+ <div class=sname>SHABRINA RIZQI MEIDIANA PUTRI</div>
+ <div class=smeta>NIS: 14782 • ID: 6494</div>
+ <div class="liveBadge live-STARTED" id=liveBadge-6494>
+ <span class="dot STARTED" id=dot-6494></span>
+ <b id=live-6494>STARTED</b>
+ <span id=secAgo-6494 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6494>1/12</div>
+ <div class=smeta id=pctTxt-6494>8%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6494 style=width:8%></div>
+ </div>
+ <div class=smeta id=lastAns-6494 style=margin-top:6px>Last jawab: No. 1 (C)</div>
+ <div class=smeta id=lockTxt-6494 style=margin-top:3px></div>
+ <div class=smeta id=act-6494 style=margin-top:6px>Last activity: Baru mulai</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6494><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6494><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6494 data-siswa-nama="SHABRINA RIZQI MEIDIANA PUTRI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6495>
+ <div class=sname>SHOLAHUDIN SURYA RACHMAN</div>
+ <div class=smeta>NIS: 14788 • ID: 6495</div>
+ <div class="liveBadge live-NONE" id=liveBadge-6495>
+ <span class="dot NONE" id=dot-6495></span>
+ <b id=live-6495>NONE</b>
+ <span id=secAgo-6495 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6495>0/12</div>
+ <div class=smeta id=pctTxt-6495>0%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6495 style=width:0%></div>
+ </div>
+ <div class=smeta id=lastAns-6495 style=margin-top:6px>Last jawab: —</div>
+ <div class=smeta id=lockTxt-6495 style=margin-top:3px></div>
+ <div class=smeta id=act-6495 style=margin-top:6px>Last activity: —</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6495><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6495><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6495 data-siswa-nama="SHOLAHUDIN SURYA RACHMAN">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6496>
+ <div class=sname>SYAFIRA SEPTIANI PUTRI PRAYITNO</div>
+ <div class=smeta>NIS: 14794 • ID: 6496</div>
+ <div class="liveBadge live-ACTIVE" id=liveBadge-6496>
+ <span class="dot ACTIVE" id=dot-6496></span>
+ <b id=live-6496>ACTIVE</b>
+ <span id=secAgo-6496 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6496>5/12</div>
+ <div class=smeta id=pctTxt-6496>41%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6496 style=width:41%></div>
+ </div>
+ <div class=smeta id=lastAns-6496 style=margin-top:6px>Last jawab: No. 5 (B)</div>
+ <div class=smeta id=lockTxt-6496 style=margin-top:3px></div>
+ <div class=smeta id=act-6496 style=margin-top:6px>Last activity: 12 dtk lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6496><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6496><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6496 data-siswa-nama="SYAFIRA SEPTIANI PUTRI PRAYITNO">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6497>
+ <div class=sname>SYFA ANINDYA RACHMAN</div>
+ <div class=smeta>NIS: 14797 • ID: 6497</div>
+ <div class="liveBadge live-IDLE" id=liveBadge-6497>
+ <span class="dot IDLE" id=dot-6497></span>
+ <b id=live-6497>IDLE</b>
+ <span id=secAgo-6497 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6497>3/12</div>
+ <div class=smeta id=pctTxt-6497>25%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6497 style=width:25%></div>
+ </div>
+ <div class=smeta id=lastAns-6497 style=margin-top:6px>Last jawab: No. 3 (A)</div>
+ <div class=smeta id=lockTxt-6497 style=margin-top:3px></div>
+ <div class=smeta id=act-6497 style=margin-top:6px>Last activity: 2 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6497><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6497><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6497 data-siswa-nama="SYFA ANINDYA RACHMAN">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6498>
+ <div class=sname>TAMELLA TESYA KARLIN</div>
+ <div class=smeta>NIS: 14802 • ID: 6498</div>
+ <div class="liveBadge live-AWAY" id=liveBadge-6498>
+ <span class="dot AWAY" id=dot-6498></span>
+ <b id=live-6498>AWAY</b>
+ <span id=secAgo-6498 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6498>7/12</div>
+ <div class=smeta id=pctTxt-6498>58%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6498 style=width:58%></div>
+ </div>
+ <div class=smeta id=lastAns-6498 style=margin-top:6px>Last jawab: No. 7 (D)</div>
+ <div class=smeta id=lockTxt-6498 style=margin-top:3px></div>
+ <div class=smeta id=act-6498 style=margin-top:6px>Last activity: 5 mnt lalu</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6498><i class="fa-solid fa-award"></i> —</span>
+ <span class="pill blue" id=extra-6498><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6498 data-siswa-nama="TAMELLA TESYA KARLIN">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ <div class=seat data-sid=6499>
+ <div class=sname>YULIA FITRI AZZAHRA WICAKSANTI</div>
+ <div class=smeta>NIS: 14814 • ID: 6499</div>
+ <div class="liveBadge live-SUBMITTED" id=liveBadge-6499>
+ <span class="dot SUBMITTED" id=dot-6499></span>
+ <b id=live-6499>SUBMITTED</b>
+ <span id=secAgo-6499 style=margin-left:auto;color:#6b7280;font-weight:900></span>
+ </div>
+ <div class=progressWrap>
+ <div class=progressTop>
+ <div class=smeta id=progTxt-6499>12/12</div>
+ <div class=smeta id=pctTxt-6499>100%</div>
+ </div>
+ <div class=progressBar>
+ <div class=progressFill id=progBar-6499 style=width:100%></div>
+ </div>
+ <div class=smeta id=lastAns-6499 style=margin-top:6px>Last jawab: Selesai</div>
+ <div class=smeta id=lockTxt-6499 style=margin-top:3px></div>
+ <div class=smeta id=act-6499 style=margin-top:6px>Last activity: Dikumpulkan</div>
+ </div>
+ <div class=seatActions>
+ <span class="pill gray" id=score-6499><i class="fa-solid fa-award"></i> 90</span>
+ <span class="pill blue" id=extra-6499><i class="fa-solid fa-clock-rotate-left"></i> 0 mnt</span>
+ </div>
+ <div class=seatActions>
+ <select class="sel actSel" data-siswa-id=6499 data-siswa-nama="YULIA FITRI AZZAHRA WICAKSANTI">
+                <option value selected>Aksi…</option>
+                <option value=rollback>Rollback attempt</option>
+                <option value=extra>Tambah waktu</option>                                  <option value=lock>Lock jawaban</option>
+                  <option value=unlock>Unlock jawaban</option>
+                              </select>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+ <div class="modal sf-hidden" id=modalExtra>
+  
+ </div>
+ <script>
+      // Theme Switcher Logic
+      const themeToggle = document.getElementById('theme-toggle');
+      const getTheme = () => localStorage.getItem('theme') || 'dark';
+      const setTheme = (theme) => {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+          const icon = themeToggle.querySelector('i');
+          if (theme === 'dark') {
+              icon.className = 'fa-solid fa-sun';
+          } else {
+              icon.className = 'fa-solid fa-moon';
+          }
+      };
+      
+      // Initialize Theme
+      setTheme(getTheme());
+      
+      themeToggle.addEventListener('click', () => {
+          const newTheme = getTheme() === 'dark' ? 'light' : 'dark';
+          setTheme(newTheme);
+      });
+ </script>
+<div class=linkklipper-highlight-overlay style="position:absolute;pointer-events:none;z-index:2147483646;display:none;border:2px solid;box-sizing:border-box"></div><div class=linkklipper-container-tooltip style="position:fixed;background:rgb(51,51,51);color:white;padding:8px 12px;border-radius:4px;font-size:12px;font-family:Arial,sans-serif;z-index:2147483647;display:none;pointer-events:none;box-shadow:rgba(0,0,0,0.3) 0px 2px 8px;max-width:300px;overflow-wrap:break-word"></div><div class=linkklipper-highlight-overlay style="position:absolute;pointer-events:none;z-index:2147483646;display:none;border:2px solid;box-sizing:border-box"></div><div class=linkklipper-container-tooltip style="position:fixed;background:rgb(51,51,51);color:white;padding:8px 12px;border-radius:4px;font-size:12px;font-family:Arial,sans-serif;z-index:2147483647;display:none;pointer-events:none;box-shadow:rgba(0,0,0,0.3) 0px 2px 8px;max-width:300px;overflow-wrap:break-word"></div>

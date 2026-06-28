@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Guru • AI Assessment Intelligence</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Global Stylesheet -->
+    <link rel="stylesheet" href="../../style.css" />
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Left Panel (AI Background Image) */
+        .left-panel {
+            flex: 1.2;
+            background-image: url('lms_login_bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 56px;
+        }
+
+        /* Overlay gradient for premium blending */
+        .left-panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(9, 9, 11, 0.85) 0%, rgba(9, 9, 11, 0.2) 60%, rgba(9, 9, 11, 0.1) 100%);
+        }
+
+        [data-theme="light"] .left-panel::after {
+            background: linear-gradient(to top, rgba(241, 242, 246, 0.85) 0%, rgba(241, 242, 246, 0.2) 60%, rgba(241, 242, 246, 0.1) 100%);
+        }
+
+        /* Text inside Left Panel */
+        .left-content {
+            position: relative;
+            z-index: 10;
+            max-width: 520px;
+            color: var(--t1);
+            transition: color 0.25s;
+        }
+
+        [data-theme="dark"] .left-content {
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .left-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .left-content p {
+            font-size: 14px;
+            color: var(--t2);
+            line-height: 1.6;
+            font-weight: 400;
+            transition: color 0.25s;
+        }
+
+        /* Pill Badge */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--line2);
+            background: var(--s2);
+            font-weight: 700;
+            font-size: 10px;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* Right Panel (Clean Form) */
+        .right-panel {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 64px 48px;
+            background: var(--bg-panel);
+            border-left: 1px solid var(--line);
+            position: relative;
+            transition: background 0.25s, border-color 0.25s;
+        }
+
+        /* Theme Switcher */
+        .top-actions {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+        }
+
+        .theme-toggle-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: var(--s1);
+            border: 1px solid var(--line2);
+            color: var(--t1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            background: var(--s2);
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--t1);
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-text h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--t1);
+            margin-bottom: 8px;
+        }
+
+        .welcome-text p {
+            font-size: 13px;
+            color: var(--t3);
+            line-height: 1.5;
+        }
+
+        .form-content {
+            margin-top: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--t2);
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i.prefix-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--t3);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 11px 14px 11px 38px;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--inp-bg);
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            color: var(--t1);
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .input-field::placeholder {
+            color: var(--t4);
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .password-input {
+            padding-right: 40px;
+        }
+
+        .pwToggle {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--t3);
+            transition: all 0.15s;
+        }
+
+        .pwToggle:hover {
+            color: var(--t1);
+            background: var(--s2);
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: -6px;
+            margin-bottom: 24px;
+            font-size: 12px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--t3);
+            user-select: none;
+        }
+
+        .remember-me input {
+            accent-color: var(--accent);
+            cursor: pointer;
+            width: 14px;
+            height: 14px;
+        }
+
+        .forgot-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.15s;
+        }
+
+        .forgot-link:hover {
+            color: var(--accent);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 11px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            box-shadow: 0 8px 16px var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .foot-info {
+            margin-top: 28px;
+            padding: 14px;
+            border-radius: 8px;
+            background: var(--s2);
+            border: 1px solid var(--line);
+            color: var(--t3);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .foot-info i {
+            color: var(--accent-light);
+            margin-right: 6px;
+        }
+
+        .foot-info span {
+            display: block;
+            margin-top: 6px;
+            color: var(--t2);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .right-panel {
+                width: 440px;
+                padding: 48px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                width: 100%;
+                border-left: none;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true">
+    <div class="container">
+
+        <!-- Left panel (AI generated clean background) -->
+        <div class="left-panel">
+            <div class="left-content">
+                <h1>Website Learning Management System Berbasis AI</h1>
+                <p>Buat soal ujian secara instan, kelola bank soal terstruktur, dan analisis hasil evaluasi siswa secara real-time dalam satu dasbor terpadu.</p>
+            </div>
+        </div>
+
+        <!-- Right panel (Clean Form) -->
+        <div class="right-panel">
+            <!-- Theme Switcher -->
+            <div class="top-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Tema">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+            </div>
+
+            <div class="form-container">
+                <form method="post">
+                    <div class="form-header">
+                        <div class="logo-wrapper">
+                            <div class="logo-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
+                                    aria-label="AP logo">
+                                    <defs>
+                                        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#0b4dff" />
+                                            <stop offset="55%" stop-color="#38bdf8" />
+                                            <stop offset="100%" stop-color="#ffffff" />
+                                        </linearGradient>
+                                        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#ffffff" />
+                                            <stop offset="100%" stop-color="#dbeafe" />
+                                        </linearGradient>
+                                        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                                            <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#0f172a"
+                                                flood-opacity="0.28" />
+                                        </filter>
+                                    </defs>
+                                    <rect width="512" height="512" rx="116" fill="url(#bg)" />
+                                    <circle cx="106" cy="92" r="64" fill="#ffffff" fill-opacity="0.18" />
+                                    <circle cx="410" cy="404" r="84" fill="#ffffff" fill-opacity="0.12" />
+                                    <rect x="54" y="54" width="404" height="404" rx="100" fill="none" stroke="#ffffff"
+                                        stroke-opacity="0.26" stroke-width="4" />
+                                    <g filter="url(#shadow)">
+                                        <text x="256" y="322" text-anchor="middle"
+                                            font-family="Arial, Helvetica, sans-serif" font-size="210" font-weight="900"
+                                            letter-spacing="-18" fill="url(#fg)" stroke="#0f172a" stroke-opacity="0.12"
+                                            stroke-width="8">AP</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="logo-text">AI<span>Assessment</span></div>
+                        </div>
+
+                        <!-- Welcome Title -->
+                        <div class="welcome-text">
+                            <h2>Login Guru / Admin</h2>
+                            <p style="font-size: 13px; color: var(--t3); margin-bottom: 6px;">Akses guru dan admin dalam satu pintu masuk.</p>
+                            <p style="font-size: 13px; color: var(--t3); display: flex; align-items: center; gap: 8px;">
+                                AI Assessment Intelligence • <span class="pill">PT.AP users</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Form Content -->
+                    <div class="form-content">
+                        <!-- Username -->
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-user prefix-icon"></i>
+                                <input class="input-field" id="username" name="username"
+                                    placeholder="Masukkan username Anda" autocomplete="username" required />
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group" style="margin-bottom: 24px;">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock prefix-icon"></i>
+                                <input class="input-field password-input" id="password" name="password" type="password"
+                                    placeholder="••••••••" autocomplete="current-password" required />
+                                <button class="pwToggle" type="button" id="btnTogglePw" aria-label="Tampilkan password"
+                                    title="Tampilkan password">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Options -->
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="remember" />
+                                <span>Ingat saya</span>
+                            </label>
+                            <a href="#" class="forgot-link">Lupa Password?</a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button class="submit-btn" type="submit">
+                            <span>Masuk ke Dashboard</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                        <!-- Info Footer Box -->
+                        <div class="foot-info">
+                            <p><i class="fa-solid fa-circle-info"></i> Jika belum memiliki akun guru, sementara silakan
+                                masuk menggunakan akun admin (role bebas).</p>
+                            <span>Logo AP tersedia di direktori lokal assets/ap-logo.svg</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlEl = document.documentElement;
+
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        htmlEl.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Password Visibility Toggle Functionality
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('btnTogglePw');
+
+        toggleButton.addEventListener('click', () => {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+
+            const icon = toggleButton.querySelector('i');
+            icon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+
+            toggleButton.setAttribute(
+                'title',
+                isPassword ? 'Sembunyikan password' : 'Tampilkan password'
+            );
+            toggleButton.setAttribute(
+                'aria-label',
+                isPassword ? 'Sembunyikan password' : 'Tampilkan password'
+            );
+        });
+    </script>
+</body>
+
+</html>

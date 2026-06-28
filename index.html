@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ExamBuilder — Buat Soal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="../../style.css" />
+<style>
+
+html,body{overflow:hidden}
+
+/* ─── LAYOUT ──────────────────────────────────────────────────── */
+.shell {
+  display:flex;
+  height:100vh;
+  overflow:hidden;
+  background:var(--bg);
+}
+
+/* ─── LEFT PANEL ───────────────────────────────────────────────── */
+.left {
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  overflow:hidden;
+  padding:16px 16px 0;
+  gap:14px;
+}
+
+/* ─── TOP ACTIONS BAR ─────────────────────────────────────────── */
+.top-bar {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+}
+
+.btn-new {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--accent);
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+  padding:9px 18px;
+  border-radius:9px;
+  letter-spacing:-.01em;
+  transition:background .15s,transform .1s,box-shadow .15s;
+  box-shadow:0 0 0 0 var(--accent-glow);
+}
+.btn-new:hover{
+  background:var(--accent-light);
+  box-shadow:0 4px 18px var(--accent-glow);
+  transform:translateY(-1px);
+}
+.btn-new:active{transform:translateY(0);box-shadow:none}
+
+.spacer{flex:1}
+
+.btn-toggle {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:var(--s2);
+  color:var(--t1);
+  font-size:12px;
+  font-weight:600;
+  padding:7px 13px;
+  border-radius:8px;
+  border:1px solid var(--line2);
+  transition:background .12s,color .12s,border-color .12s;
+}
+.btn-toggle:hover{background:var(--s4);color:var(--accent-light);border-color:var(--accent)}
+.btn-toggle .icon{font-size:14px;line-height:1}
+
+/* ─── SECTION CARD ─────────────────────────────────────────────── */
+.section-card {
+  background:var(--s1);
+  border:1px solid var(--line);
+  border-radius:14px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;
+}
+
+/* Card header with gradient accent line */
+.card-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 20px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+  background:var(--s1);
+  position:relative;
+}
+.card-head::after {
+  content:'';
+  position:absolute;
+  left:0; right:0; bottom:-1px;
+  height:2px;
+  background:linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+  opacity:.5;
+}
+
+.head-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--accent-dim);
+  border:1px solid var(--accent-glow);
+  border-radius:999px;
+  padding:3px 10px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--accent-light);
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+
+.head-title {
+  font-size:15px;
+  font-weight:700;
+  color:var(--t1);
+  letter-spacing:-.03em;
+}
+
+.head-sub {
+  font-size:12px;
+  font-weight:500;
+  color:var(--accent-light);
+  margin-left:auto;
+  background:var(--accent-dim);
+  padding:2px 9px;
+  border-radius:999px;
+  border:1px solid var(--accent-glow);
+}
+
+/* Card scroll body */
+.card-body {
+  flex:1;
+  overflow-y:auto;
+  padding:20px;
+  min-height:0;
+}
+
+/* Card footer */
+.card-foot {
+  padding:14px 20px;
+  border-top:1px solid var(--line);
+  flex-shrink:0;
+  background:var(--s1);
+}
+
+/* ─── QUESTION BLOCK ────────────────────────────────────────────── */
+.q-block {
+  background:var(--s2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.q-block-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:var(--s2);
+}
+
+.q-num {
+  width:34px;
+  height:34px;
+  border-radius:9px;
+  background:var(--accent-dim);
+  border:1px solid var(--accent-glow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:800;
+  color:var(--accent-light);
+  flex-shrink:0;
+  letter-spacing:-.03em;
+}
+
+.q-title-wrap { flex:1 }
+
+.q-title {
+  font-size:14px;
+  font-weight:700;
+  color:var(--t1);
+  letter-spacing:-.02em;
+  line-height:1.3;
+}
+
+.q-sub {
+  font-size:11px;
+  color:var(--t2);
+  margin-top:2px;
+}
+
+.q-type-pill {
+  font-size:10px;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:999px;
+  background:var(--accent-dim);
+  color:var(--accent-light);
+  border:1px solid rgba(99,102,241,.2);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.q-body { padding:18px }
+
+/* ─── FIELD ──────────────────────────────────────────────────────── */
+.field { margin-bottom:16px }
+
+.field-label {
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  color:var(--t1);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:7px;
+}
+
+.f-input, .f-textarea {
+  width:100%;
+  background:var(--inp-bg);
+  border:1px solid var(--line2);
+  border-radius:8px;
+  padding:9px 13px;
+  font-size:13px;
+  color:var(--t1);
+  outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.f-input::placeholder,.f-textarea::placeholder{color:var(--t4)}
+.f-input:focus,.f-textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-dim);
+}
+
+/* Score grid */
+.score-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.score-card {
+  background:var(--inp-bg);
+  border:1px solid var(--line2);
+  border-radius:9px;
+  padding:12px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.score-card-label {
+  font-size:10px;
+  font-weight:700;
+  color:var(--accent-light);
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.score-card input {
+  background:none;
+  border:none;
+  outline:none;
+  font-size:24px;
+  font-weight:800;
+  color:var(--t1);
+  width:100%;
+  letter-spacing:-.04em;
+  line-height:1;
+}
+
+/* ─── DROP ZONE ────────────────────────────────────────────────── */
+.drop-zone {
+  background:var(--drop-bg);
+  border:1.5px dashed var(--line2);
+  border-radius:9px;
+  padding:14px;
+  margin-bottom:16px;
+  transition:border-color .15s,background .15s;
+}
+.drop-zone:hover{
+  border-color:var(--accent);
+  background:var(--accent-dim);
+}
+
+.dz-head {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:7px;
+}
+
+.dz-icon {
+  width:28px;height:28px;
+  border-radius:7px;
+  background:var(--accent-dim);
+  border:1px solid var(--accent-glow);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent-light);
+  flex-shrink:0;
+}
+
+.dz-label {
+  font-size:12px;
+  font-weight:600;
+  color:var(--t1);
+}
+
+.dz-hint {
+  font-size:11px;
+  color:var(--t3);
+  line-height:1.6;
+  margin-bottom:10px;
+}
+
+kbd {
+  font-family:monospace;
+  font-size:10px;
+  background:var(--kbd-bg);
+  border:1px solid var(--line2);
+  border-radius:4px;
+  padding:1px 5px;
+  color:var(--t2);
+}
+
+.dz-actions {
+  display:flex;align-items:center;gap:8px;
+}
+
+.btn-dz {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--s3);
+  color:var(--t1);
+  font-size:11px;
+  font-weight:600;
+  padding:6px 11px;
+  border-radius:6px;
+  border:1px solid var(--line2);
+  transition:all .12s;
+  white-space:nowrap;
+}
+.btn-dz:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.dz-url {
+  flex:1;
+  background:var(--inp-bg);
+  border:1px solid var(--line2);
+  border-radius:6px;
+  padding:6px 10px;
+  font-size:11px;
+  color:var(--t1);
+  outline:none;
+  transition:border-color .15s;
+}
+.dz-url::placeholder{color:var(--t4)}
+.dz-url:focus{border-color:var(--accent)}
+
+/* ─── DIVIDER ────────────────────────────────────────────────── */
+.divider {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:20px 0;
+  color:var(--accent-light);
+  font-size:10px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--accent-glow),transparent);
+}
+
+/* ─── PASTE BLOCK ─────────────────────────────────────────────── */
+.paste-block {
+  background:var(--s3);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px;
+  margin-bottom:16px;
+}
+
+.paste-block-label {
+  font-size:11px;
+  font-weight:700;
+  color:var(--t1);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:9px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.btn-auto {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--s4);
+  color:var(--t1);
+  font-size:12px;
+  font-weight:600;
+  padding:7px 13px;
+  border-radius:7px;
+  border:1px solid var(--line2);
+  transition:all .12s;
+  margin-top:9px;
+}
+.btn-auto:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ─── OPTIONS SECTION ─────────────────────────────────────────── */
+.options-section {
+  margin-top:4px;
+}
+
+.options-section-label {
+  font-size:11px;
+  font-weight:600;
+  color:var(--t3);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+
+.options-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.opt-card {
+  background:var(--s1);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  transition:border-color .15s,box-shadow .15s;
+}
+.opt-card:hover{
+  border-color:var(--line2);
+  box-shadow:0 4px 16px rgba(0,0,0,.12);
+}
+
+.opt-head {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px 8px;
+  border-bottom:1px solid var(--line);
+  background:var(--s2);
+}
+
+.opt-letter {
+  width:22px;height:22px;
+  border-radius:6px;
+  background:var(--accent-dim);
+  border:1px solid rgba(99,102,241,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;
+  color:var(--accent-light);
+  flex-shrink:0;
+}
+
+.opt-label {
+  font-size:11px;font-weight:600;
+  color:var(--t1);
+  letter-spacing:.01em;
+}
+
+.opt-body { padding:10px 12px 12px }
+
+.opt-dz {
+  background:var(--drop-bg);
+  border:1px dashed var(--line);
+  border-radius:7px;
+  padding:10px;
+  margin-top:9px;
+}
+
+.opt-dz-head {
+  display:flex;align-items:center;gap:5px;
+  font-size:10px;color:var(--t3);
+  font-weight:600;
+  margin-bottom:5px;
+}
+
+.opt-dz-hint {
+  font-size:10px;color:var(--t3);
+  line-height:1.5;margin-bottom:7px;
+}
+
+.opt-dz-actions {
+  display:flex;align-items:center;gap:6px;
+}
+
+/* ─── SAVE BUTTON ─────────────────────────────────────────────── */
+.btn-save {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  width:100%;
+  background:var(--green);
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  padding:11px 20px;
+  border-radius:10px;
+  letter-spacing:-.02em;
+  transition:background .15s,transform .1s,box-shadow .15s;
+  box-shadow:0 0 0 0 rgba(34,197,94,.3);
+}
+.btn-save:hover{
+  background:#16a34a;
+  box-shadow:0 4px 20px rgba(34,197,94,.3);
+  transform:translateY(-1px);
+}
+.btn-save:active{transform:translateY(0);box-shadow:none}
+
+/* ─── RIGHT PANEL ────────────────────────────────────────────── */
+.right {
+  width:308px;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  overflow:hidden;  /* CRITICAL: clip children so flex scroll works */
+  background:var(--bg-panel);
+  border-left:1px solid var(--line);
+}
+
+.right-head {
+  padding:14px 16px 10px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+  background:var(--s1);
+}
+
+.right-head-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.right-head h2 {
+  font-size:14px;
+  font-weight:800;
+  color:var(--t1);
+  letter-spacing:-.03em;
+}
+
+.right-count {
+  background:var(--accent);
+  color:#fff;
+  font-size:11px;
+  font-weight:800;
+  padding:2px 10px;
+  border-radius:999px;
+  letter-spacing:.02em;
+}
+
+/* Search bar */
+.search-wrap {
+  position:relative;
+  margin-bottom:9px;
+}
+.search-wrap svg {
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--t3);
+  pointer-events:none;
+  flex-shrink:0;
+}
+.search-input {
+  width:100%;
+  background:var(--s2);
+  border:1px solid var(--line2);
+  border-radius:8px;
+  padding:7px 10px 7px 32px;
+  font-size:12px;
+  font-weight:500;
+  color:var(--t1);
+  outline:none;
+  transition:border-color .15s,box-shadow .15s;
+}
+.search-input::placeholder { color:var(--t4); }
+.search-input:focus {
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-dim);
+}
+
+/* Filter chips */
+.filter-chips {
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+.fc {
+  font-size:10px;
+  font-weight:600;
+  padding:3px 9px;
+  border-radius:999px;
+  border:1px solid var(--line2);
+  background:var(--s2);
+  color:var(--t2);
+  cursor:pointer;
+  transition:all .12s;
+  letter-spacing:.01em;
+}
+.fc:hover { background:var(--s4); color:var(--t1); }
+.fc.active {
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.fc-draft.active  { background:#f59e0b; border-color:#f59e0b; color:#000; }
+.fc-publish.active{ background:#22c55e; border-color:#22c55e; color:#fff; }
+.fc-tka.active    { background:#818cf8; border-color:#818cf8; color:#fff; }
+.fc-unbk.active   { background:#fb923c; border-color:#fb923c; color:#fff; }
+
+
+/* Exam list — this MUST have min-height:0 or flex won't allow it to shrink+scroll */
+.exam-list {
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:10px;
+}
+
+/* ─── EXAM CARD (redesigned) ──────────────────────────────── */
+.exam-card {
+  background:var(--s1);
+  border:1px solid var(--line);
+  border-radius:11px;
+  overflow:hidden;
+  transition:border-color .15s,box-shadow .15s,transform .12s;
+  cursor:pointer;
+  position:relative;
+  margin-bottom:8px;
+}
+.exam-card:last-child {
+  margin-bottom:0;
+}
+.exam-card:hover {
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px var(--accent-glow);
+  /* NO transform:translateY — it breaks scroll containment */
+}
+
+/* Colored top stripe per status */
+.exam-card-stripe {
+  height:3px;
+  width:100%;
+}
+.stripe-draft   { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+.stripe-publish { background:linear-gradient(90deg,#22c55e,#4ade80); }
+
+/* Card top section */
+.ec-top {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding:11px 13px 0;
+  gap:8px;
+}
+
+.ec-info { flex:1;min-width:0; }
+
+.ec-name {
+  font-size:13px;
+  font-weight:700;
+  color:var(--t1);
+  letter-spacing:-.02em;
+  margin-bottom:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Status + count cluster */
+.ec-status {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:5px;
+  flex-shrink:0;
+}
+
+.badge {
+  font-size:9px;
+  font-weight:800;
+  padding:3px 9px;
+  border-radius:999px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+.badge-draft {
+  background:#f59e0b;
+  color:#000;
+  border:1px solid #d97706;
+}
+.badge-publish {
+  background:#22c55e;
+  color:#fff;
+  border:1px solid #16a34a;
+}
+
+/* Count pill */
+.ec-count {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--s3);
+  border:1px solid var(--line2);
+  border-radius:6px;
+  padding:2px 9px;
+  font-size:14px;
+  font-weight:800;
+  color:var(--t1);
+  letter-spacing:-.04em;
+  line-height:1.2;
+  min-width:30px;
+  text-align:center;
+}
+
+/* Info row: kelas & jadwal */
+.ec-info-row {
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding:8px 13px 10px;
+}
+
+.ec-kelas {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--t1);
+}
+
+.ec-kelas .kelas-badge {
+  background:#4f46e5;
+  border:1px solid #4338ca;
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+  padding:1px 7px;
+  border-radius:4px;
+  letter-spacing:.03em;
+}
+
+.ec-jadwal {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:10px;
+  font-weight:500;
+  color:var(--t3);
+  margin-top:1px;
+}
+.ec-jadwal.ec-jadwal-set {
+  color:var(--schedule-c);
+  font-weight:600;
+}
+.ec-jadwal svg { flex-shrink:0; }
+
+/* Tags section */
+.ec-tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:0 13px 10px;
+}
+
+.ec-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  font-size:10px;
+  font-weight:600;
+  padding:3px 8px;
+  border-radius:5px;
+}
+
+/* Exam type tags — solid enough for both dark & light */
+.tag-tka {
+  background:#4f46e5;
+  color:#fff;
+  border:1px solid #4338ca;
+}
+.tag-unbk {
+  background:#ea580c;
+  color:#fff;
+  border:1px solid #c2410c;
+}
+/* Opsi count chip */
+.tag-opsi {
+  background:#7c3aed;
+  color:#fff;
+  border:1px solid #6d28d9;
+}
+/* Shuffle tags */
+.tag-shuffle {
+  background:#0284c7;
+  color:#fff;
+  border:1px solid #0369a1;
+}
+/* Nilai tampil */
+.tag-nilai {
+  background:#16a34a;
+  color:#fff;
+  border:1px solid #15803d;
+}
+
+/* Token section */
+.ec-token {
+  margin:0 13px 12px;
+  background:rgba(99,102,241,.15);
+  border:1px solid rgba(99,102,241,.35);
+  border-radius:7px;
+  padding:7px 10px;
+}
+.ec-token-lbl {
+  font-size:9px;
+  font-weight:700;
+  color:var(--token-c);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:3px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.ec-token-val {
+  font-family:'Courier New',monospace;
+  font-size:10px;
+  color:var(--token-c);
+  word-break:break-all;
+  letter-spacing:.02em;
+  line-height:1.4;
+}
+
+</style>
+</head>
+
+<body>
+<div class="shell">
+
+  <!-- ══ LEFT ══════════════════════════════════════════════════ -->
+  <div class="left">
+
+    <!-- Top bar -->
+    <div class="top-bar">
+      <button class="btn-new" id="btn-buat">
+        <i class="fa-solid fa-plus"></i>
+        Buat Form Soal Manual
+      </button>
+      <div class="spacer"></div>
+      <button class="btn-toggle" id="theme-btn" onclick="toggleTheme()">
+        <i class="fa-solid fa-moon icon" id="th-icon"></i>
+        <span id="th-lbl">Dark</span>
+      </button>
+    </div>
+
+    <!-- Section Card -->
+    <div class="section-card">
+
+      <!-- Head -->
+      <div class="card-head">
+        <span class="head-pill">
+          <i class="fa-solid fa-clipboard-list" style="font-size: 10px;"></i>
+          Section
+        </span>
+        <span class="head-title">Pilihan Ganda</span>
+        <span class="head-sub">1 soal tersimpan</span>
+      </div>
+
+      <!-- Body (scrollable) -->
+      <div class="card-body">
+
+        <!-- Question block -->
+        <div class="q-block">
+
+          <!-- Q header -->
+          <div class="q-block-head">
+            <div class="q-num">1</div>
+            <div class="q-title-wrap">
+              <div class="q-title">Pilihan Ganda #1</div>
+              <div class="q-sub">Isi pertanyaan dan pilihan jawaban di bawah</div>
+            </div>
+            <span class="q-type-pill">PG</span>
+          </div>
+
+          <!-- Q body -->
+          <div class="q-body">
+
+            <!-- Pertanyaan -->
+            <div class="field">
+              <label class="field-label">Pertanyaan</label>
+              <textarea class="f-textarea" rows="3"
+                placeholder="Tulis pertanyaan, atau kosongkan jika soalnya berupa gambar…"></textarea>
+            </div>
+
+            <!-- Drop zone pertanyaan -->
+            <div class="drop-zone">
+              <div class="dz-head">
+                <div class="dz-icon">
+                  <i class="fa-regular fa-image" style="font-size: 13px;"></i>
+                </div>
+                <span class="dz-label">Gambar Soal / Pertanyaan</span>
+              </div>
+              <p class="dz-hint">
+                Klik area ini lalu <kbd>Ctrl+V</kbd> untuk paste screenshot, drag &amp; drop gambar,
+                atau klik <strong>Pilih Gambar</strong>. Bisa dikosongkan jika hanya memakai teks.
+              </p>
+              <div class="dz-actions">
+                <button class="btn-dz">
+                  <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                  Pilih Gambar
+                </button>
+                <input class="dz-url" type="text" placeholder="atau paste URL gambar https://…" />
+              </div>
+            </div>
+
+            <!-- Skor -->
+            <div class="score-grid">
+              <div class="score-card">
+                <span class="score-card-label">Skor benar</span>
+                <input type="number" value="1" />
+              </div>
+              <div class="score-card">
+                <span class="score-card-label">Minus salah</span>
+                <input type="number" value="0" />
+              </div>
+            </div>
+
+            <div class="divider">Opsi jawaban</div>
+
+            <!-- Paste otomatis -->
+            <div class="paste-block">
+              <div class="paste-block-label">
+                <i class="fa-regular fa-clipboard" style="font-size: 11px;"></i>
+                Paste Otomatis Opsi
+              </div>
+              <textarea class="f-textarea" rows="3"
+                placeholder="Paste 5 opsi sekaligus, contoh:&#10;A. Photosynthesis&#10;B. Respiration"></textarea>
+              <button class="btn-auto">
+                🔑 Isi otomatis opsi
+              </button>
+            </div>
+
+            <!-- Options grid -->
+            <div class="options-section">
+              <div class="options-grid">
+
+                <!-- A -->
+                <div class="opt-card">
+                  <div class="opt-head">
+                    <div class="opt-letter">A</div>
+                    <span class="opt-label">Opsi A — teks opsional</span>
+                  </div>
+                  <div class="opt-body">
+                    <input class="f-input" style="font-size:12px;padding:7px 10px;" type="text"
+                      placeholder="Tulis opsi A, atau kosongkan…" />
+                    <div class="opt-dz">
+                      <div class="opt-dz-head">
+                        <i class="fa-regular fa-image" style="font-size: 10px; margin-right: 2px;"></i>
+                        Gambar Opsi A
+                      </div>
+                      <p class="opt-dz-hint"><kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih gambar.</p>
+                      <div class="opt-dz-actions">
+                        <button class="btn-dz" style="font-size:10px;padding:5px 8px;">Pilih Gambar</button>
+                        <input class="dz-url" type="text" placeholder="URL gambar…" style="font-size:10px;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- B -->
+                <div class="opt-card">
+                  <div class="opt-head">
+                    <div class="opt-letter">B</div>
+                    <span class="opt-label">Opsi B — teks opsional</span>
+                  </div>
+                  <div class="opt-body">
+                    <input class="f-input" style="font-size:12px;padding:7px 10px;" type="text"
+                      placeholder="Tulis opsi B, atau kosongkan…" />
+                    <div class="opt-dz">
+                      <div class="opt-dz-head">
+                        <i class="fa-regular fa-image" style="font-size: 10px; margin-right: 2px;"></i>
+                        Gambar Opsi B
+                      </div>
+                      <p class="opt-dz-hint"><kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih gambar.</p>
+                      <div class="opt-dz-actions">
+                        <button class="btn-dz" style="font-size:10px;padding:5px 8px;">Pilih Gambar</button>
+                        <input class="dz-url" type="text" placeholder="URL gambar…" style="font-size:10px;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- C -->
+                <div class="opt-card">
+                  <div class="opt-head">
+                    <div class="opt-letter">C</div>
+                    <span class="opt-label">Opsi C — teks opsional</span>
+                  </div>
+                  <div class="opt-body">
+                    <input class="f-input" style="font-size:12px;padding:7px 10px;" type="text"
+                      placeholder="Tulis opsi C, atau kosongkan…" />
+                    <div class="opt-dz">
+                      <div class="opt-dz-head">
+                        <i class="fa-regular fa-image" style="font-size: 10px; margin-right: 2px;"></i>
+                        Gambar Opsi C
+                      </div>
+                      <p class="opt-dz-hint"><kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih gambar.</p>
+                      <div class="opt-dz-actions">
+                        <button class="btn-dz" style="font-size:10px;padding:5px 8px;">Pilih Gambar</button>
+                        <input class="dz-url" type="text" placeholder="URL gambar…" style="font-size:10px;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- D -->
+                <div class="opt-card">
+                  <div class="opt-head">
+                    <div class="opt-letter">D</div>
+                    <span class="opt-label">Opsi D — teks opsional</span>
+                  </div>
+                  <div class="opt-body">
+                    <input class="f-input" style="font-size:12px;padding:7px 10px;" type="text"
+                      placeholder="Tulis opsi D, atau kosongkan…" />
+                    <div class="opt-dz">
+                      <div class="opt-dz-head">
+                        <i class="fa-regular fa-image" style="font-size: 10px; margin-right: 2px;"></i>
+                        Gambar Opsi D
+                      </div>
+                      <p class="opt-dz-hint"><kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih gambar.</p>
+                      <div class="opt-dz-actions">
+                        <button class="btn-dz" style="font-size:10px;padding:5px 8px;">Pilih Gambar</button>
+                        <input class="dz-url" type="text" placeholder="URL gambar…" style="font-size:10px;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- end options-grid -->
+            </div><!-- end options-section -->
+
+          </div><!-- end q-body -->
+        </div><!-- end q-block -->
+
+      </div><!-- end card-body -->
+
+      <!-- Footer: Save -->
+      <div class="card-foot">
+        <button class="btn-save" id="btn-simpan">
+          <i class="fa-regular fa-floppy-disk"></i>
+          Simpan &amp; Buat Ujian
+        </button>
+      </div>
+
+    </div><!-- end section-card -->
+
+  </div><!-- end left -->
+
+
+  <!-- ══ RIGHT ═════════════════════════════════════════════════ -->
+  <div class="right">
+
+    <div class="right-head">
+      <div class="right-head-row">
+        <h2>Daftar Ujian</h2>
+        <span class="right-count" id="result-count">6</span>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input class="search-input" type="text" id="search-input" placeholder="Cari nama ujian, kelas, token…" />
+      </div>
+
+      <!-- Filter chips -->
+      <div class="filter-chips">
+        <button class="fc active" data-filter="all">Semua</button>
+        <button class="fc fc-draft" data-filter="draft">Draft</button>
+        <button class="fc fc-publish" data-filter="publish">Publish</button>
+        <button class="fc fc-tka" data-filter="tka">TKA</button>
+        <button class="fc fc-unbk" data-filter="unbk">UNBK</button>
+      </div>
+    </div>
+
+    <div class="exam-list" id="exam-list">
+
+      <!-- ── Item 108 — Draft / TKA ─── -->
+      <div class="exam-card" data-status="draft" data-type="tka" data-name="reuse ujian x-10 tka" data-token="3d2f85454dc9ac4ba03bfed95c4087db">
+        <div class="exam-card-stripe stripe-draft"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-draft">Draft</span>
+            <span class="ec-count">6</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout TKA
+          </div>
+          <div class="ec-jadwal">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            Bebas — belum dijadwalkan
+          </div>
+        </div>
+        <div class="ec-tags">
+          <span class="ec-tag tag-tka">📘 Tryout TKA</span>
+          <span class="ec-tag tag-opsi">5 opsi</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle soal</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle opsi</span>
+          <span class="ec-tag tag-nilai">✓ Nilai tampil</span>
+        </div>
+        <div class="ec-token">
+          <div class="ec-token-lbl">
+            <i class="fa-solid fa-key" style="font-size: 9px;"></i>
+            Token statis
+          </div>
+          <div class="ec-token-val">3d2f85454dc9ac4ba03bfed95c4087db</div>
+        </div>
+      </div>
+
+      <!-- ── Item 107 — Draft / UNBK ─── -->
+      <div class="exam-card" data-status="draft" data-type="unbk" data-name="reuse ujian x-10 unbk" data-token="00133a576dd73825772d701b6b72273b">
+        <div class="exam-card-stripe stripe-draft"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-draft">Draft</span>
+            <span class="ec-count">10</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout UNBK
+          </div>
+          <div class="ec-jadwal">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            Bebas — belum dijadwalkan
+          </div>
+        </div>
+        <div class="ec-tags">
+          <span class="ec-tag tag-unbk">📙 Tryout UNBK</span>
+          <span class="ec-tag tag-opsi">4 opsi</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle soal</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle opsi</span>
+        </div>
+        <div class="ec-token">
+          <div class="ec-token-lbl">
+            <i class="fa-solid fa-key" style="font-size: 9px;"></i>
+            Token statis
+          </div>
+          <div class="ec-token-val">00133a576dd73825772d701b6b72273b</div>
+        </div>
+      </div>
+
+      <!-- ── Item 104 — Publish / UNBK / berjadwal ─── -->
+      <div class="exam-card" data-status="publish" data-type="unbk" data-name="reuse ujian x-10 unbk" data-token="a3647513972e1cb51f05e44eac804ddd">
+        <div class="exam-card-stripe stripe-publish"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-publish">Publish</span>
+            <span class="ec-count">10</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout UNBK
+          </div>
+          <div class="ec-jadwal ec-jadwal-set">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            2026-06-10 · 09:19 – 10:19
+          </div>
+        </div>
+        <div class="ec-tags">
+          <span class="ec-tag tag-unbk">📙 Tryout UNBK</span>
+          <span class="ec-tag tag-opsi">4 opsi</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle soal</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle opsi</span>
+        </div>
+        <div class="ec-token">
+          <div class="ec-token-lbl">
+            <i class="fa-solid fa-key" style="font-size: 9px;"></i>
+            Token statis
+          </div>
+          <div class="ec-token-val">a3647513972e1cb51f05e44eac804ddd</div>
+        </div>
+      </div>
+
+      <!-- ── Item 103 — Publish / TKA ─── -->
+      <div class="exam-card" data-status="publish" data-type="tka" data-name="reuse ujian x-10 tka nilai tampil" data-token="74ae5b154c0068f90fd2e0173d92a59f">
+        <div class="exam-card-stripe stripe-publish"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-publish">Publish</span>
+            <span class="ec-count">8</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout TKA
+          </div>
+          <div class="ec-jadwal">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            Bebas — belum dijadwalkan
+          </div>
+        </div>
+        <div class="ec-tags">
+          <span class="ec-tag tag-tka">📘 Tryout TKA</span>
+          <span class="ec-tag tag-opsi">5 opsi</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle soal</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle opsi</span>
+          <span class="ec-tag tag-nilai">✓ Nilai tampil</span>
+        </div>
+        <div class="ec-token">
+          <div class="ec-token-lbl">
+            <i class="fa-solid fa-key" style="font-size: 9px;"></i>
+            Token statis
+          </div>
+          <div class="ec-token-val">74ae5b154c0068f90fd2e0173d92a59f</div>
+        </div>
+      </div>
+
+      <!-- ── Item 102 — Publish / TKA ─── -->
+      <div class="exam-card" data-status="publish" data-type="tka" data-name="reuse ujian x-10 tka nilai tampil" data-token="1cf3220a99f6439482c38a65fb92c1f9">
+        <div class="exam-card-stripe stripe-publish"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-publish">Publish</span>
+            <span class="ec-count">8</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout TKA
+          </div>
+          <div class="ec-jadwal">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            Bebas — belum dijadwalkan
+          </div>
+        </div>
+        <div class="ec-tags">
+          <span class="ec-tag tag-tka">📘 Tryout TKA</span>
+          <span class="ec-tag tag-opsi">5 opsi</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle soal</span>
+          <span class="ec-tag tag-shuffle">⇄ shuffle opsi</span>
+          <span class="ec-tag tag-nilai">✓ Nilai tampil</span>
+        </div>
+        <div class="ec-token">
+          <div class="ec-token-lbl">
+            <i class="fa-solid fa-key" style="font-size: 9px;"></i>
+            Token statis
+          </div>
+          <div class="ec-token-val">1cf3220a99f6439482c38a65fb92c1f9</div>
+        </div>
+      </div>
+
+      <!-- ── Item terakhir — Draft / TKA ─── -->
+      <div class="exam-card" data-status="draft" data-type="tka" data-name="reuse ujian x-10 tka" data-token="">
+        <div class="exam-card-stripe stripe-draft"></div>
+        <div class="ec-top">
+          <div class="ec-info">
+            <div class="ec-name">Reuse - ujian ini</div>
+          </div>
+          <div class="ec-status">
+            <span class="badge badge-draft">Draft</span>
+          </div>
+        </div>
+        <div class="ec-info-row">
+          <div class="ec-kelas">
+            <span class="kelas-badge">X-10</span>
+            Tryout TKA
+          </div>
+          <div class="ec-jadwal">
+            <i class="fa-regular fa-calendar" style="font-size: 10px;"></i>
+            Bebas — belum dijadwalkan
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end exam-list -->
+  </div><!-- end right -->
+
+</div><!-- end shell -->
+
+<script>
+  /* ── Theme toggle ── */
+  function toggleTheme() {
+    const html = document.documentElement;
+    const dark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', dark ? 'light' : 'dark');
+    const icon = document.getElementById('th-icon');
+    if (dark) {
+      icon.className = 'fa-solid fa-sun icon';
+      document.getElementById('th-lbl').textContent = 'Light';
+    } else {
+      icon.className = 'fa-solid fa-moon icon';
+      document.getElementById('th-lbl').textContent = 'Dark';
+    }
+  }
+
+  /* ── Search + Filter ── */
+  (function() {
+    const searchEl  = document.getElementById('search-input');
+    const listEl    = document.getElementById('exam-list');
+    const countEl   = document.getElementById('result-count');
+    const filterBtns = document.querySelectorAll('.fc');
+    let activeFilter = 'all';
+
+    function run() {
+      const q = searchEl.value.toLowerCase().trim();
+      const cards = listEl.querySelectorAll('.exam-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const status = card.dataset.status || '';
+        const type   = card.dataset.type   || '';
+        const name   = card.dataset.name   || '';
+        const token  = card.dataset.token  || '';
+
+        /* Filter match */
+        const filterMatch =
+          activeFilter === 'all'     ||
+          activeFilter === status    ||
+          activeFilter === type;
+
+        /* Search match — against name, type, token */
+        const searchMatch = !q ||
+          name.includes(q)  ||
+          type.includes(q)  ||
+          token.includes(q) ||
+          status.includes(q);
+
+        const show = filterMatch && searchMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      countEl.textContent = visible;
+    }
+
+    searchEl.addEventListener('input', run);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        run();
+      });
+    });
+  })();
+</script>
+</body>
+</html>

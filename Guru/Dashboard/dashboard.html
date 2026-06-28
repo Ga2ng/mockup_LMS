@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <title>Guru Dashboard • AI Assessment Intelligence</title>
+        <meta name="theme-color" content="#0f172a" />
+
+        <!-- Fonts & Icons -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+                rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+        <!-- Global Stylesheet -->
+        <link rel="stylesheet" href="../../style.css" />
+
+        <style>
+                body {
+                        overflow-y: auto;
+                        min-height: 100vh;
+                        background: var(--bg);
+                        transition: background 0.3s;
+                }
+
+                .container {
+                        width: 100%;
+                        max-width: 100%;
+                        margin: 0 auto;
+                        padding: 12px 8px;
+                }
+
+                /* ─── NAVIGATION BAR ────────────────────────────────────────── */
+                .nav-bar {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 16px 20px;
+                        border-radius: 12px;
+                        background: var(--s1);
+                        border: 1px solid var(--line);
+                        margin-bottom: 24px;
+                        transition: background 0.3s, border-color 0.3s;
+                }
+
+                .logo-section {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                }
+
+                .logo-icon {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        background: #ffffff;
+                        padding: 3px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+                }
+
+                .logo-icon svg {
+                        width: 100%;
+                        height: 100%;
+                }
+
+                .logo-text {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 16px;
+                        font-weight: 800;
+                        letter-spacing: -0.02em;
+                        color: var(--t1);
+                }
+
+                .logo-text span {
+                        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                }
+
+                .nav-actions {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                }
+
+                .theme-toggle-btn {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        background: var(--s2);
+                        border: 1px solid var(--line);
+                        color: var(--t1);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.15s;
+                }
+
+                .theme-toggle-btn:hover {
+                        border-color: var(--accent);
+                        color: var(--accent-light);
+                        background: var(--s3);
+                }
+
+                /* ─── WELCOME BANNER ────────────────────────────────────────── */
+                .welcome-banner {
+                        background: var(--accent);
+                        border: 1px solid var(--accent-light);
+                        border-radius: 12px;
+                        padding: 24px;
+                        margin-bottom: 24px;
+                        position: relative;
+                        color: #ffffff;
+                        box-shadow: 0 4px 20px var(--accent-glow);
+                }
+
+                .welcome-banner h2 {
+                        font-family: 'Poppins', sans-serif;
+                        font-size: 22px;
+                        font-weight: 700;
+                        color: #ffffff;
+                        margin-bottom: 8px;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                }
+
+                .welcome-banner p.meta {
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.8);
+                        margin-bottom: 12px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                        padding-bottom: 12px;
+                }
+
+                .welcome-banner p.info {
+                        font-size: 12px;
+                        color: #ffffff;
+                        font-weight: 500;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                }
+
+                /* Solid background buttons for Profile and History in dashboard */
+                .btn-profile-solid {
+                        background: #0d9488 !important;
+                        color: #ffffff !important;
+                        border-color: #0d9488 !important;
+                }
+                .btn-profile-solid:hover {
+                        background: #0f766e !important;
+                        border-color: #0f766e !important;
+                        box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+                }
+
+                .btn-absensi-solid {
+                        background: #d97706 !important;
+                        color: #ffffff !important;
+                        border-color: #d97706 !important;
+                }
+                .btn-absensi-solid:hover {
+                        background: #b45309 !important;
+                        border-color: #b45309 !important;
+                        box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+                }
+
+                /* ─── DASHBOARD GRID ────────────────────────────────────────── */
+                .dashboard-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 24px;
+                }
+
+                @media (max-width: 900px) {
+                        .dashboard-grid {
+                                grid-template-columns: 1fr;
+                        }
+                }
+
+                /* Left Column Widgets */
+                .left-column {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 24px;
+                }
+
+                /* Tiles (Summary Stats Grid) */
+                .tiles-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                        gap: 16px;
+                }
+
+                .stat-tile {
+                        background: var(--s1);
+                        border: 1px solid var(--line);
+                        border-radius: 12px;
+                        padding: 18px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                        transition: border-color 0.2s;
+                }
+
+                .stat-tile:hover {
+                        border-color: var(--line2);
+                }
+
+                .stat-num {
+                        font-size: 22px;
+                        font-weight: 800;
+                        color: var(--t1);
+                        letter-spacing: -0.03em;
+                        line-height: 1;
+                }
+
+                .stat-label {
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--t2);
+                        line-height: 1.3;
+                }
+
+                .stat-sub {
+                        font-size: 11px;
+                        color: var(--t3);
+                }
+
+                /* Quick Menus layout */
+                .menu-list {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
+                }
+
+                @media (max-width: 480px) {
+                        .menu-list {
+                                grid-template-columns: 1fr;
+                        }
+                }
+
+                .menu-item-btn {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 12px 16px;
+                        background: var(--s2);
+                        border: 1px solid var(--line);
+                        border-radius: 10px;
+                        text-decoration: none;
+                        color: var(--t1);
+                        font-weight: 500;
+                        font-size: 13px;
+                        transition: all 0.2s;
+                }
+
+                .menu-item-btn i {
+                        font-size: 16px;
+                        color: var(--accent-light);
+                        width: 20px;
+                        text-align: center;
+                }
+
+                .menu-item-btn:hover {
+                        background: var(--s4);
+                        border-color: var(--accent);
+                        color: var(--accent-light);
+                        transform: translateY(-1px);
+                }
+
+                .menu-item-btn:active {
+                        transform: translateY(0);
+                }
+
+                /* Wali Kelas widget */
+                .wali-kelas-widget {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                }
+
+                .wali-actions {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        flex-wrap: wrap;
+                }
+
+                .wali-actions select {
+                        flex: 1;
+                        min-width: 120px;
+                }
+
+                .wali-actions .btn {
+                        flex-shrink: 0;
+                }
+
+                .tag-container {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                }
+
+                /* Custom layout modifications for full width & coloring */
+                .dashboard-grid {
+                        gap: 16px;
+                }
+
+                .panel {
+                        padding: 16px;
+                        background: var(--s1);
+                        border: 1px solid var(--line);
+                }
+
+                /* card header styling matching index.html */
+                .panelTop {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 16px;
+                        margin: -16px -16px 16px -16px;
+                        padding: 14px 20px;
+                        border-bottom: 1px solid var(--line);
+                        background: var(--s1);
+                        position: relative;
+                        border-radius: 12px 12px 0 0;
+                }
+
+                .panelTop::after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -1px;
+                        height: 2px;
+                        background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
+                        opacity: 0.5;
+                }
+
+                .panel-menu-cepat .panelTop::after {
+                        background: linear-gradient(90deg, var(--green) 0%, transparent 60%);
+                }
+
+                .tiles-grid {
+                        gap: 12px;
+                }
+
+                .stat-tile {
+                        padding: 14px;
+                        border-radius: 12px;
+                        background: var(--s2);
+                        border: 1px solid var(--line);
+                }
+
+                /* Colored Stat Tiles (Solid Backgrounds matching index.html theme) */
+                .stat-tile.tile-danger {
+                        border-left: 4px solid var(--orange);
+                }
+                .stat-tile.tile-danger .stat-num {
+                        color: var(--orange);
+                }
+                .stat-tile.tile-danger .stat-label {
+                        color: var(--orange);
+                }
+
+                .stat-tile.tile-warning {
+                        border-left: 4px solid var(--amber);
+                }
+                .stat-tile.tile-warning .stat-num {
+                        color: var(--amber);
+                }
+                .stat-tile.tile-warning .stat-label {
+                        color: var(--amber);
+                }
+
+                .stat-tile.tile-info {
+                        border-left: 4px solid var(--accent);
+                }
+                .stat-tile.tile-info .stat-num {
+                        color: var(--accent-light);
+                }
+                .stat-tile.tile-info .stat-label {
+                        color: var(--accent-light);
+                }
+
+                /* Colored Main Panels (Solid Backgrounds) */
+                .panel-wali-kelas {
+                        background: var(--s1);
+                }
+                .panel-menu-cepat {
+                        background: var(--s1);
+                }
+
+                /* Solid Button Colors in Menu Cepat */
+                .menu-item-btn {
+                        background: var(--s2);
+                        border: 1px solid var(--line);
+                        color: var(--t1);
+                        border-left-width: 4px;
+                }
+                .menu-item-btn:hover {
+                        background: var(--s3);
+                        border-color: var(--line2);
+                }
+
+                .menu-item-btn.btn-blue {
+                        border-left-color: var(--accent);
+                }
+                .menu-item-btn.btn-blue i {
+                        color: var(--accent-light);
+                }
+
+                .menu-item-btn.btn-green {
+                        border-left-color: var(--green);
+                }
+                .menu-item-btn.btn-green i {
+                        color: var(--green);
+                }
+
+                .menu-item-btn.btn-amber {
+                        border-left-color: var(--amber);
+                }
+                .menu-item-btn.btn-amber i {
+                        color: var(--amber);
+                }
+
+                .menu-item-btn.btn-rose {
+                        border-left-color: #f43f5e;
+                }
+                .menu-item-btn.btn-rose i {
+                        color: #f43f5e;
+                }
+
+                .menu-item-btn.btn-teal {
+                        border-left-color: #0d9488;
+                }
+                .menu-item-btn.btn-teal i {
+                        color: #0d9488;
+                }
+
+                .menu-item-btn.btn-violet {
+                        border-left-color: #8b5cf6;
+                }
+                .menu-item-btn.btn-violet i {
+                        color: #a78bfa;
+                }
+
+                .menu-item-btn.btn-slate {
+                        border-left-color: var(--t3);
+                }
+                .menu-item-btn.btn-slate i {
+                        color: var(--t3);
+                }
+
+                .menu-item-btn:hover i {
+                        transform: scale(1.1);
+                        transition: transform 0.15s;
+                }
+        </style>
+</head>
+
+<body cz-shortcut-listen="true">
+        <div class="container">
+
+                <!-- Navigation Bar -->
+                <div class="nav-bar">
+                        <div class="logo-section">
+                                <div class="logo-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
+                                                aria-label="AP logo">
+                                                <defs>
+                                                        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                                                                <stop offset="0%" stop-color="#0b4dff" />
+                                                                <stop offset="55%" stop-color="#38bdf8" />
+                                                                <stop offset="100%" stop-color="#ffffff" />
+                                                        </linearGradient>
+                                                        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="0%" stop-color="#ffffff" />
+                                                                <stop offset="100%" stop-color="#dbeafe" />
+                                                        </linearGradient>
+                                                        <filter id="shadow" x="-20%" y="-20%" width="140%"
+                                                                height="140%">
+                                                                <feDropShadow dx="0" dy="14" stdDeviation="18"
+                                                                        flood-color="#0f172a" flood-opacity="0.28" />
+                                                        </filter>
+                                                </defs>
+                                                <rect width="512" height="512" rx="116" fill="url(#bg)" />
+                                                <circle cx="106" cy="92" r="64" fill="#ffffff" fill-opacity="0.18" />
+                                                <circle cx="410" cy="404" r="84" fill="#ffffff" fill-opacity="0.12" />
+                                                <rect x="54" y="54" width="404" height="404" rx="100" fill="none"
+                                                        stroke="#ffffff" stroke-opacity="0.26" stroke-width="4" />
+                                                <g filter="url(#shadow)">
+                                                        <text x="256" y="322" text-anchor="middle"
+                                                                font-family="Arial, Helvetica, sans-serif"
+                                                                font-size="210" font-weight="900" letter-spacing="-18"
+                                                                fill="url(#fg)" stroke="#0f172a" stroke-opacity="0.12"
+                                                                stroke-width="8">AP</text>
+                                                </g>
+                                        </svg>
+                                </div>
+                                <div class="logo-text">AI<span>Assessment</span></div>
+                        </div>
+
+                        <!-- Profile & Actions in Nav -->
+                        <div class="nav-actions">
+                                <!-- Theme Switcher -->
+                                <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Tema">
+                                        <i class="fa-solid fa-sun"></i>
+                                </button>
+
+                                <span class="pill name"><i class="fa-regular fa-user-circle"></i> Wali Kelas X-10</span>
+                                <span class="pill role"><i class="fa-solid fa-shield-halved"></i> Wali Kelas</span>
+
+                                <a class="btn rose" href="https://serverap.sapda.id/lms/admin/guru_logout.php">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                                </a>
+                        </div>
+                </div>
+
+                <!-- Welcome Banner (Solid Card Container) -->
+                <div class="welcome-banner">
+                        <h2>Selamat malam, Wali Kelas X-10 👋</h2>
+                        <p class="meta">AI Assessment Intelligence • 2026-06-28 • School ID: 8 • Wali Kelas: X-10</p>
+                        <p class="info"><i class="fa-solid fa-circle-check"></i> Akses Cek Absensi Siswa aktif (Sumber: classes@PT.AP)</p>
+                </div>
+
+                <!-- Main Content Dashboard Grid -->
+                <div class="dashboard-grid">
+
+                        <!-- Left Column (Stats & Raport) -->
+                        <div class="left-column">
+                                <!-- Presensi Harian Tiles -->
+                                <div class="tiles-grid">
+                                        <div class="stat-tile tile-danger">
+                                                <div class="stat-num">—</div>
+                                                <div class="stat-label">Presensi Masuk Hari Ini</div>
+                                                <div class="stat-sub">Belum presensi masuk</div>
+                                        </div>
+                                        <div class="stat-tile tile-danger">
+                                                <div class="stat-num">—</div>
+                                                <div class="stat-label">Presensi Pulang Hari Ini</div>
+                                                <div class="stat-sub">Belum presensi pulang</div>
+                                        </div>
+                                        <div class="stat-tile tile-warning">
+                                                <div class="stat-num">—</div>
+                                                <div class="stat-label">Jurnal Hari Ini</div>
+                                                <div class="stat-sub">Belum ada jurnal hari ini</div>
+                                        </div>
+                                        <div class="stat-tile tile-info">
+                                                <div class="stat-num">5</div>
+                                                <div class="stat-label">Siswa (Kelas Terpilih)</div>
+                                                <div class="stat-sub">Wali Kelas: X-10</div>
+                                        </div>
+                                </div>
+
+                                <!-- Pengisian Nilai Rapor Card -->
+                                <div class="panel">
+                                        <div class="panelTop">
+                                                <div>
+                                                        <h3 style="font-weight: 700; font-size: 14px;">Pengisian Nilai
+                                                                Rapor</h3>
+                                                        <p style="font-size: 11px; color: var(--t3);">Akses sesuai peran
+                                                                guru yang login.</p>
+                                                </div>
+                                                <span class="tag blue"><i class="fa-solid fa-book-open"></i> Rapor
+                                                        Semester</span>
+                                        </div>
+
+                                        <div class="menu-list">
+                                                <a class="menu-item-btn"
+                                                        href="https://serverap.sapda.id/lms/admin/rapor_gradebook.php?school_id=8">
+                                                        <i class="fa-solid fa-file-invoice"></i> Nilai Rapor Guru Mapel
+                                                </a>
+                                                <a class="menu-item-btn"
+                                                        href="https://serverap.sapda.id/lms/admin/wali_rapor_ekskul.php?school_id=8">
+                                                        <i class="fa-solid fa-puzzle-piece"></i> Review Ekskul Wali
+                                                        Kelas
+                                                </a>
+                                        </div>
+                                </div>
+
+                                <!-- Wali Kelas Absensi Card -->
+                                <div class="panel panel-wali-kelas">
+                                        <div class="panelTop" style="margin-bottom: 12px;">
+                                                <div>
+                                                        <h3 style="font-weight: 700; font-size: 14px;">Cek Kehadiran
+                                                                Siswa (Wali Kelas)</h3>
+                                                        <p style="font-size: 11px; color: var(--t3);">Mode wali kelas
+                                                                mengikuti kelas yang terdeteksi.</p>
+                                                </div>
+                                        </div>
+
+                                        <div class="wali-kelas-widget">
+                                                <div class="wali-actions">
+                                                        <select class="select" id="kelasSelect"
+                                                                aria-label="Pilih Kelas">
+                                                                <option value="X-1">X-1</option>
+                                                                <option value="X-10" selected>X-10</option>
+                                                                <option value="X-2">X-2</option>
+                                                                <option value="X-3">X-3</option>
+                                                                <option value="X-4">X-4</option>
+                                                                <option value="X-5">X-5</option>
+                                                                <option value="X-6">X-6</option>
+                                                                <option value="X-7">X-7</option>
+                                                                <option value="X-8">X-8</option>
+                                                                <option value="XI-1">XI-1</option>
+                                                                <option value="XI-2">XI-2</option>
+                                                                <option value="XI-3">XI-3</option>
+                                                                <option value="XI-4">XI-4</option>
+                                                                <option value="XI-5">XI-5</option>
+                                                                <option value="XI-6">XI-6</option>
+                                                                <option value="XI-7">XI-7</option>
+                                                                <option value="XI-8">XI-8</option>
+                                                                <option value="XI-9">XI-9</option>
+                                                                <option value="XII-1">XII-1</option>
+                                                                <option value="XII-2">XII-2</option>
+                                                                <option value="XII-3">XII-3</option>
+                                                                <option value="XII-4">XII-4</option>
+                                                                <option value="XII-5">XII-5</option>
+                                                                <option value="XII-6">XII-6</option>
+                                                                <option value="XII-7">XII-7</option>
+                                                                <option value="XII-8">XII-8</option>
+                                                                <option value="XII-9">XII-9</option>
+                                                        </select>
+
+                                                        <a class="btn blue" id="btnCekAbs"
+                                                                href="https://serverap.sapda.id/lms/admin/cekabsensisiswa.php?kelas=X-10">
+                                                                <i class="fa-solid fa-users"></i> Cek Absensi Siswa
+                                                        </a>
+                                                        <a class="btn green"
+                                                                href="https://serverap.sapda.id/lms/admin/guru_dashboard.php?kelas=X-10">
+                                                                <i class="fa-solid fa-shield-halved"></i> Kelas Wali
+                                                                X-10
+                                                        </a>
+                                                </div>
+
+                                                <!-- Attendance Tags -->
+                                                <div class="tag-container">
+                                                        <span class="tag ok"><i class="fa-solid fa-circle-check"></i>
+                                                                Hadir 0</span>
+                                                        <span class="tag warn"><i
+                                                                        class="fa-solid fa-circle-exclamation"></i>
+                                                                Terlambat 0</span>
+                                                        <span class="tag blue"><i
+                                                                        class="fa-solid fa-file-circle-check"></i> Izin
+                                                                0</span>
+                                                        <span class="tag"><i class="fa-solid fa-heart-pulse"></i> Sakit
+                                                                0</span>
+                                                        <span class="tag bad"><i class="fa-solid fa-circle-xmark"></i>
+                                                                Alpa 0</span>
+                                                        <span class="tag"><i class="fa-solid fa-circle-question"></i>
+                                                                Belum 5</span>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <!-- Right Column (Quick Actions Menu) -->
+                        <div class="panel panel-menu-cepat">
+                                <div class="panelTop">
+                                        <div>
+                                                <h3 style="font-weight: 700; font-size: 14px;">Menu Cepat Guru</h3>
+                                                <p style="font-size: 11px; color: var(--t3);">Pintu masuk ke semua
+                                                        pekerjaan guru.</p>
+                                        </div>
+                                        <span class="pill"><i class="fa-solid fa-mobile-screen"></i> Responsif HP</span>
+                                </div>
+
+                                <div class="menu-list" style="grid-template-columns: 1fr;">
+                                        <!-- Top row Profile/Absensi History -->
+                                        <div style="display: flex; gap: 12px; margin-bottom: 6px;">
+                                                <a class="btn btn-profile-solid"
+                                                        href="https://serverap.sapda.id/lms/admin/guru_profile.php"
+                                                        style="flex: 1;">
+                                                        <i class="fa-solid fa-user-gear"></i> Profil Saya
+                                                </a>
+                                                <a class="btn btn-absensi-solid"
+                                                        href="https://serverap.sapda.id/lms/admin/riwayat_absensi_guru.php"
+                                                        style="flex: 1;">
+                                                        <i class="fa-solid fa-clock-history"></i> Riwayat Absensi
+                                                </a>
+                                        </div>
+
+                                        <!-- Quick shortcuts list -->
+                                        <a class="menu-item-btn btn-blue"
+                                                href="https://serverap.sapda.id/lms/admin/monitor_ujian.php">
+                                                <i class="fa-solid fa-desktop"></i> Monitor Ujian
+                                        </a>
+                                        <a class="menu-item-btn btn-green"
+                                                href="https://serverap.sapda.id/lms/admin/absensi_guru.php">
+                                                <i class="fa-solid fa-camera"></i> Presensi Guru
+                                        </a>
+                                        <a class="menu-item-btn btn-amber"
+                                                href="https://serverap.sapda.id/lms/admin/guru_ijin.php">
+                                                <i class="fa-solid fa-user-clock"></i> Pengajuan Ijin
+                                        </a>
+                                        <a class="menu-item-btn btn-violet"
+                                                href="https://serverap.sapda.id/lms/admin/jurnal_guru.php">
+                                                <i class="fa-solid fa-book"></i> Jurnal Mengajar
+                                        </a>
+                                        <a class="menu-item-btn btn-slate"
+                                                href="https://serverap.sapda.id/lms/admin/historylaporanjurnal.php">
+                                                <i class="fa-solid fa-list-check"></i> History Jurnal
+                                        </a>
+                                        <a class="menu-item-btn btn-rose"
+                                                href="https://serverap.sapda.id/lms/admin/pelanggaran_siswa.php">
+                                                <i class="fa-solid fa-circle-exclamation"></i> Pelanggaran Siswa
+                                        </a>
+                                        <a class="menu-item-btn btn-teal"
+                                                href="https://serverap.sapda.id/lms/admin/materi_guru.php">
+                                                <i class="fa-solid fa-folder-open"></i> Materi ke Siswa
+                                        </a>
+                                        <a class="menu-item-btn btn-blue"
+                                                href="https://serverap.sapda.id/lms/admin/ujian_guru.php?school_id=8">
+                                                <i class="fa-solid fa-circle-question"></i> Evaluasi / Buat Soal
+                                        </a>
+                                        <a class="menu-item-btn btn-amber"
+                                                href="https://serverap.sapda.id/lms/admin/pengumuman_guru.php">
+                                                <i class="fa-solid fa-bullhorn"></i> Pengumuman
+                                        </a>
+                                </div>
+                        </div>
+
+                </div>
+        </div>
+
+        <!-- Script for Theme Switching -->
+        <script>
+                const themeToggle = document.getElementById('theme-toggle');
+                const htmlEl = document.documentElement;
+
+                // Check saved theme or system preference
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                htmlEl.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+
+                themeToggle.addEventListener('click', () => {
+                        const currentTheme = htmlEl.getAttribute('data-theme');
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                        htmlEl.setAttribute('data-theme', newTheme);
+                        localStorage.setItem('theme', newTheme);
+                        updateThemeIcon(newTheme);
+                });
+
+                function updateThemeIcon(theme) {
+                        const icon = themeToggle.querySelector('i');
+                        if (theme === 'dark') {
+                                icon.className = 'fa-solid fa-sun';
+                        } else {
+                                icon.className = 'fa-solid fa-moon';
+                        }
+                }
+        </script>
+</body>
+
+</html>

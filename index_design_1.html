@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buat Form Soal — ExamBuilder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== DESIGN TOKENS (from DESIGN.md — Linear System) ===== */
+        :root {
+            --primary:        #5e6ad2;
+            --primary-hover:  #828fff;
+            --primary-focus:  #5e69d1;
+            --on-primary:     #ffffff;
+            --success:        #27a644;
+
+            /* Scrollbar */
+            --scrollbar-thumb: #34343a;
+            --scrollbar-hover: #4a4a52;
+        }
+
+        /* Dark theme (default) */
+        [data-theme="dark"] {
+            --canvas:        #010102;
+            --surface-1:     #0f1011;
+            --surface-2:     #141516;
+            --surface-3:     #18191a;
+            --hairline:      #23252a;
+            --hairline-strong: #34343a;
+            --hairline-tertiary: #3e3e44;
+            --ink:           #f7f8f8;
+            --ink-muted:     #d0d6e0;
+            --ink-subtle:    #8a8f98;
+            --ink-tertiary:  #62666d;
+            --badge-draft-bg:   rgba(234,179,8,0.15);
+            --badge-draft-text: #fbbf24;
+            --badge-draft-border: rgba(234,179,8,0.3);
+            --badge-publish-bg:   rgba(39,166,68,0.15);
+            --badge-publish-text: #34d058;
+            --badge-publish-border: rgba(39,166,68,0.3);
+            --badge-tka-bg:   rgba(94,106,210,0.15);
+            --badge-tka-text: #828fff;
+            --badge-tka-border: rgba(94,106,210,0.25);
+            --badge-unbk-bg:  rgba(249,115,22,0.15);
+            --badge-unbk-text: #fb923c;
+            --badge-unbk-border: rgba(249,115,22,0.25);
+            --badge-meta-bg:  rgba(255,255,255,0.05);
+            --badge-meta-text: var(--ink-subtle);
+            --badge-meta-border: var(--hairline);
+            --input-bg:      var(--surface-1);
+            --input-border:  var(--hairline-strong);
+            --input-text:    var(--ink-muted);
+            --input-placeholder: var(--ink-tertiary);
+            --kbd-bg:        var(--surface-3);
+            --kbd-text:      var(--ink-subtle);
+            --drop-zone-bg:  rgba(255,255,255,0.02);
+            --drop-zone-border: var(--hairline-strong);
+            --token-color:   var(--primary-hover);
+            --toggle-icon:   '🌙';
+        }
+
+        /* Light theme */
+        [data-theme="light"] {
+            --canvas:        #f4f5f7;
+            --surface-1:     #ffffff;
+            --surface-2:     #f8f9fb;
+            --surface-3:     #f0f1f4;
+            --hairline:      #e4e6ea;
+            --hairline-strong: #d1d4db;
+            --hairline-tertiary: #c4c7d0;
+            --ink:           #111214;
+            --ink-muted:     #3c3f47;
+            --ink-subtle:    #6b7080;
+            --ink-tertiary:  #9299a8;
+            --badge-draft-bg:   #fef9c3;
+            --badge-draft-text: #854d0e;
+            --badge-draft-border: #fde047;
+            --badge-publish-bg:   #dcfce7;
+            --badge-publish-text: #166534;
+            --badge-publish-border: #86efac;
+            --badge-tka-bg:   #ede9fe;
+            --badge-tka-text: #5b21b6;
+            --badge-tka-border: #c4b5fd;
+            --badge-unbk-bg:  #ffedd5;
+            --badge-unbk-text: #9a3412;
+            --badge-unbk-border: #fdba74;
+            --badge-meta-bg:  #f1f2f5;
+            --badge-meta-text: var(--ink-subtle);
+            --badge-meta-border: var(--hairline);
+            --input-bg:      #ffffff;
+            --input-border:  var(--hairline-strong);
+            --input-text:    var(--ink);
+            --input-placeholder: var(--ink-tertiary);
+            --kbd-bg:        #e8eaed;
+            --kbd-text:      var(--ink-subtle);
+            --drop-zone-bg:  #f8f9fb;
+            --drop-zone-border: var(--hairline-strong);
+            --token-color:   var(--primary);
+            --scrollbar-thumb: #d1d4db;
+            --scrollbar-hover: #b0b5c0;
+            --toggle-icon:   '☀️';
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--canvas);
+            color: var(--ink);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        textarea { resize: vertical; font-family: inherit; }
+        input, textarea, button { font-family: inherit; }
+        button { cursor: pointer; }
+
+        /* ===== THIN SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; transition: background 0.2s; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+        /* ===== LAYOUT ===== */
+        .app-layout {
+            display: flex;
+            height: 100vh;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        /* ===== LEFT PANEL ===== */
+        .panel-left {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+            gap: 12px;
+            border-right: 1px solid var(--hairline);
+        }
+
+        /* ===== RIGHT PANEL ===== */
+        .panel-right {
+            width: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--surface-1);
+        }
+
+        /* ===== PANEL RIGHT HEADER ===== */
+        .panel-right-header {
+            padding: 14px 16px 12px;
+            border-bottom: 1px solid var(--hairline);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-right-header h2 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .panel-right-header .count-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ink-tertiary);
+            background: var(--surface-2);
+            border: 1px solid var(--hairline);
+            padding: 1px 7px;
+            border-radius: 999px;
+        }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        /* ===== BUTTON: PRIMARY (Buat Form Soal Manual) ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            background: var(--primary);
+            color: var(--on-primary);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            transition: background 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-primary:active { background: var(--primary-focus); }
+
+        /* ===== BUTTON: SUCCESS (Simpan) ===== */
+        .btn-success {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            background: var(--success);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: none;
+            transition: background 0.15s, box-shadow 0.15s;
+            width: 100%;
+            letter-spacing: -0.01em;
+        }
+        .btn-success:hover { background: #22923c; }
+        .btn-success:active { background: #1d7d34; }
+
+        /* ===== BUTTON: SECONDARY ===== */
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--surface-2);
+            color: var(--ink-muted);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 11px;
+            border-radius: 6px;
+            border: 1px solid var(--hairline-strong);
+            transition: background 0.12s, border-color 0.12s;
+            white-space: nowrap;
+        }
+        .btn-secondary:hover {
+            background: var(--surface-3);
+            border-color: var(--hairline-tertiary);
+            color: var(--ink);
+        }
+
+        /* ===== BUTTON: GHOST (Pilih Gambar) ===== */
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            color: var(--ink-subtle);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 5px 9px;
+            border-radius: 5px;
+            border: 1px solid var(--hairline-strong);
+            transition: background 0.12s, color 0.12s;
+            white-space: nowrap;
+        }
+        .btn-ghost:hover {
+            background: var(--surface-2);
+            color: var(--ink-muted);
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface-2);
+            border: 1px solid var(--hairline-strong);
+            border-radius: 6px;
+            padding: 6px 9px;
+            font-size: 13px;
+            color: var(--ink-subtle);
+            transition: all 0.12s;
+            gap: 6px;
+            font-weight: 500;
+        }
+        .theme-toggle:hover {
+            background: var(--surface-3);
+            color: var(--ink);
+        }
+        .theme-toggle .theme-label {
+            font-size: 11px;
+        }
+
+        /* ===== MAIN CARD (Left panel card) ===== */
+        .main-card {
+            background: var(--surface-1);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px 12px;
+            border-bottom: 1px solid var(--hairline);
+            flex-shrink: 0;
+        }
+
+        .section-eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ink-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .section-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary);
+            flex-shrink: 0;
+        }
+
+        /* ===== SCROLLABLE BODY ===== */
+        .main-card-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px;
+        }
+
+        /* ===== MAIN CARD FOOTER ===== */
+        .main-card-footer {
+            padding: 14px 18px;
+            border-top: 1px solid var(--hairline);
+            flex-shrink: 0;
+        }
+
+        /* ===== QUESTION CARD ===== */
+        .question-card {
+            background: var(--surface-2);
+            border: 1px solid var(--hairline);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .question-type-tag {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--primary-hover);
+            background: rgba(94,106,210,0.12);
+            border: 1px solid rgba(94,106,210,0.2);
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        .question-optional {
+            font-size: 11px;
+            color: var(--ink-tertiary);
+            font-style: italic;
+        }
+
+        /* ===== FORM ELEMENTS ===== */
+        label.form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--ink-subtle);
+            margin-bottom: 5px;
+            letter-spacing: 0.1px;
+        }
+
+        .form-group { margin-bottom: 14px; }
+
+        .form-textarea, .form-input {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 7px;
+            padding: 8px 11px;
+            font-size: 13px;
+            color: var(--input-text);
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .form-textarea::placeholder,
+        .form-input::placeholder { color: var(--input-placeholder); }
+        .form-textarea:focus,
+        .form-input:focus {
+            border-color: var(--primary-focus);
+            box-shadow: 0 0 0 3px rgba(94, 106, 210, 0.15);
+        }
+
+        .form-input-sm {
+            font-size: 12px;
+            padding: 6px 9px;
+            border-radius: 5px;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        /* ===== DROP ZONE ===== */
+        .drop-zone {
+            background: var(--drop-zone-bg);
+            border: 1px dashed var(--drop-zone-border);
+            border-radius: 7px;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .drop-zone-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            color: var(--ink-subtle);
+        }
+
+        .drop-zone-header svg { flex-shrink: 0; }
+
+        .drop-zone-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink-subtle);
+        }
+
+        .drop-zone-hint {
+            font-size: 11px;
+            color: var(--ink-tertiary);
+            line-height: 1.5;
+            margin-bottom: 9px;
+        }
+
+        kbd {
+            font-family: 'Inter', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            background: var(--kbd-bg);
+            color: var(--kbd-text);
+            border: 1px solid var(--hairline-strong);
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .drop-zone-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== OPTIONS GRID ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .option-card {
+            background: var(--surface-1);
+            border: 1px solid var(--hairline);
+            border-radius: 8px;
+            padding: 11px;
+            transition: border-color 0.15s;
+        }
+        .option-card:hover { border-color: var(--hairline-strong); }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--ink-subtle);
+            margin-bottom: 7px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .option-letter {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            background: rgba(94,106,210,0.12);
+            border: 1px solid rgba(94,106,210,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--primary-hover);
+        }
+
+        .option-drop-zone {
+            background: var(--canvas);
+            border: 1px dashed var(--hairline);
+            border-radius: 5px;
+            padding: 8px;
+            margin-top: 7px;
+        }
+
+        .option-drop-header {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: var(--ink-tertiary);
+            margin-bottom: 5px;
+        }
+
+        .option-drop-hint {
+            font-size: 10px;
+            color: var(--ink-tertiary);
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .option-drop-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            height: 1px;
+            background: var(--hairline);
+            margin: 14px 0;
+        }
+
+        /* ===== RIGHT PANEL ITEMS ===== */
+        .exam-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .exam-item {
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--hairline);
+            cursor: pointer;
+            transition: background 0.12s;
+        }
+        .exam-item:hover { background: var(--surface-2); }
+        .exam-item:last-child { border-bottom: none; }
+
+        .exam-item-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 7px;
+        }
+
+        .exam-item-info { min-width: 0; }
+
+        .exam-item-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .exam-item-meta {
+            font-size: 11px;
+            color: var(--ink-subtle);
+            margin-bottom: 1px;
+        }
+
+        .exam-item-schedule {
+            font-size: 11px;
+            color: var(--ink-tertiary);
+        }
+        .exam-item-schedule.has-schedule {
+            color: var(--primary-hover);
+            font-weight: 500;
+        }
+
+        .exam-item-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .exam-count {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--ink-tertiary);
+        }
+
+        /* ===== STATUS BADGES ===== */
+        .badge-draft {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--badge-draft-bg);
+            color: var(--badge-draft-text);
+            border: 1px solid var(--badge-draft-border);
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        .badge-publish {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--badge-publish-bg);
+            color: var(--badge-publish-text);
+            border: 1px solid var(--badge-publish-border);
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        /* ===== TAG BADGES ===== */
+        .exam-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 7px;
+        }
+
+        .tag-tka {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: var(--badge-tka-bg);
+            color: var(--badge-tka-text);
+            border: 1px solid var(--badge-tka-border);
+        }
+
+        .tag-unbk {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: var(--badge-unbk-bg);
+            color: var(--badge-unbk-text);
+            border: 1px solid var(--badge-unbk-border);
+        }
+
+        .tag-meta {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: var(--badge-meta-bg);
+            color: var(--badge-meta-text);
+            border: 1px solid var(--badge-meta-border);
+        }
+
+        /* ===== TOKEN DISPLAY ===== */
+        .exam-token-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .token-label {
+            font-size: 10px;
+            color: var(--ink-tertiary);
+        }
+
+        .token-value {
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: var(--token-color);
+            word-break: break-all;
+            letter-spacing: 0.2px;
+        }
+
+        /* ===== SETTING ROW ===== */
+        .setting-row {
+            font-size: 10px;
+            color: var(--ink-tertiary);
+            margin-bottom: 2px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- ===== PANEL KIRI: FORM SOAL ===== -->
+        <div class="panel-left">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <button class="btn-primary" id="btn-buat-form">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Buat Form Soal Manual
+                </button>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">🌙</span>
+                    <span class="theme-label" id="theme-label">Dark</span>
+                </button>
+            </div>
+
+            <!-- Main Card -->
+            <div class="main-card">
+
+                <!-- Header -->
+                <div class="main-card-header">
+                    <div class="section-dot"></div>
+                    <span class="section-eyebrow">Section</span>
+                    <span class="section-title">Pilihan Ganda</span>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="main-card-body">
+
+                    <!-- Question Card -->
+                    <div class="question-card">
+
+                        <!-- Header Soal -->
+                        <div class="question-header">
+                            <span class="question-number">Pilihan Ganda #1</span>
+                            <span class="question-type-tag">Pertanyaan Teks</span>
+                            <span class="question-optional">opsional jika pakai gambar</span>
+                        </div>
+
+                        <!-- Textarea Pertanyaan -->
+                        <div class="form-group">
+                            <label class="form-label">Pertanyaan</label>
+                            <textarea
+                                class="form-textarea"
+                                rows="3"
+                                placeholder="Tulis pertanyaan, atau kosongkan jika soalnya berupa gambar…"
+                            ></textarea>
+                        </div>
+
+                        <!-- Gambar Soal Drop Zone -->
+                        <div class="drop-zone">
+                            <div class="drop-zone-header">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <path d="M21 15l-5-5L5 21" />
+                                </svg>
+                                <span class="drop-zone-label">Gambar Soal / Pertanyaan</span>
+                            </div>
+                            <p class="drop-zone-hint">
+                                Klik area ini lalu <kbd>Ctrl+V</kbd> untuk paste screenshot, atau drag &amp; drop gambar,
+                                atau klik Pilih Gambar. Bisa dikosongkan jika hanya pakai teks.
+                            </p>
+                            <div class="drop-zone-actions">
+                                <button class="btn-ghost">
+                                    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                                    </svg>
+                                    Pilih Gambar
+                                </button>
+                                <input type="text"
+                                    class="form-input form-input-sm"
+                                    placeholder="atau URL gambar https://…"
+                                    style="flex:1;"
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Skor & Minus -->
+                        <div class="form-grid-2">
+                            <div>
+                                <label class="form-label">Skor jika benar / maksimal</label>
+                                <input type="number" value="1" class="form-input" />
+                            </div>
+                            <div>
+                                <label class="form-label">Minus jika salah <span style="color:var(--ink-tertiary);font-weight:400">(opsional)</span></label>
+                                <input type="number" value="0" class="form-input" />
+                            </div>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- Paste Otomatis -->
+                        <div class="form-group">
+                            <label class="form-label">Paste otomatis opsi jawaban</label>
+                            <textarea
+                                class="form-textarea"
+                                rows="3"
+                                placeholder="Paste 5 opsi sekaligus, contoh:&#10;A. opsi pertama&#10;B. opsi kedua"
+                            ></textarea>
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <button class="btn-secondary">
+                                🔑 Isi otomatis opsi
+                            </button>
+                        </div>
+
+                        <div class="section-divider"></div>
+
+                        <!-- Grid Opsi A - D -->
+                        <div style="margin-bottom:4px;">
+                            <label class="form-label" style="margin-bottom:10px;">Opsi Jawaban</label>
+                            <div class="options-grid">
+
+                                <!-- Opsi A -->
+                                <div class="option-card">
+                                    <div class="option-label">
+                                        <span class="option-letter">A</span>
+                                        Opsi A
+                                    </div>
+                                    <input type="text"
+                                        class="form-input form-input-sm"
+                                        placeholder="Tulis opsi A…"
+                                    />
+                                    <div class="option-drop-zone">
+                                        <div class="option-drop-header">
+                                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                                            </svg>
+                                            Gambar Opsi A
+                                        </div>
+                                        <p class="option-drop-hint">
+                                            <kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih.
+                                        </p>
+                                        <div class="option-drop-actions">
+                                            <button class="btn-ghost" style="font-size:10px;padding:4px 7px;">Pilih Gambar</button>
+                                            <input type="text" class="form-input form-input-sm" placeholder="URL gambar…" style="flex:1;font-size:10px;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Opsi B -->
+                                <div class="option-card">
+                                    <div class="option-label">
+                                        <span class="option-letter">B</span>
+                                        Opsi B
+                                    </div>
+                                    <input type="text"
+                                        class="form-input form-input-sm"
+                                        placeholder="Tulis opsi B…"
+                                    />
+                                    <div class="option-drop-zone">
+                                        <div class="option-drop-header">
+                                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                                            </svg>
+                                            Gambar Opsi B
+                                        </div>
+                                        <p class="option-drop-hint">
+                                            <kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih.
+                                        </p>
+                                        <div class="option-drop-actions">
+                                            <button class="btn-ghost" style="font-size:10px;padding:4px 7px;">Pilih Gambar</button>
+                                            <input type="text" class="form-input form-input-sm" placeholder="URL gambar…" style="flex:1;font-size:10px;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Opsi C -->
+                                <div class="option-card">
+                                    <div class="option-label">
+                                        <span class="option-letter">C</span>
+                                        Opsi C
+                                    </div>
+                                    <input type="text"
+                                        class="form-input form-input-sm"
+                                        placeholder="Tulis opsi C…"
+                                    />
+                                    <div class="option-drop-zone">
+                                        <div class="option-drop-header">
+                                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                                            </svg>
+                                            Gambar Opsi C
+                                        </div>
+                                        <p class="option-drop-hint">
+                                            <kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih.
+                                        </p>
+                                        <div class="option-drop-actions">
+                                            <button class="btn-ghost" style="font-size:10px;padding:4px 7px;">Pilih Gambar</button>
+                                            <input type="text" class="form-input form-input-sm" placeholder="URL gambar…" style="flex:1;font-size:10px;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Opsi D -->
+                                <div class="option-card">
+                                    <div class="option-label">
+                                        <span class="option-letter">D</span>
+                                        Opsi D
+                                    </div>
+                                    <input type="text"
+                                        class="form-input form-input-sm"
+                                        placeholder="Tulis opsi D…"
+                                    />
+                                    <div class="option-drop-zone">
+                                        <div class="option-drop-header">
+                                            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                                            </svg>
+                                            Gambar Opsi D
+                                        </div>
+                                        <p class="option-drop-hint">
+                                            <kbd>Ctrl+V</kbd> paste, drag &amp; drop, atau pilih.
+                                        </p>
+                                        <div class="option-drop-actions">
+                                            <button class="btn-ghost" style="font-size:10px;padding:4px 7px;">Pilih Gambar</button>
+                                            <input type="text" class="form-input form-input-sm" placeholder="URL gambar…" style="flex:1;font-size:10px;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- END options grid -->
+                        </div>
+
+                    </div>
+                    <!-- END question card -->
+
+                </div>
+                <!-- END scrollable body -->
+
+                <!-- Footer: Simpan Button -->
+                <div class="main-card-footer">
+                    <button class="btn-success" id="btn-simpan">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1-4l-3 3m0 0l-3-3m3 3V2" />
+                        </svg>
+                        Simpan &amp; Buat Ujian
+                    </button>
+                </div>
+
+            </div>
+            <!-- END main card -->
+
+        </div>
+        <!-- END panel kiri -->
+
+
+        <!-- ===== PANEL KANAN: DAFTAR UJIAN ===== -->
+        <div class="panel-right">
+
+            <!-- Header -->
+            <div class="panel-right-header">
+                <h2>Daftar Ujian</h2>
+                <span class="count-badge">6 ujian</span>
+            </div>
+
+            <!-- List -->
+            <div class="exam-list">
+
+                <!-- Item 108 — Draft -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout TKA</p>
+                            <p class="exam-item-schedule">Jadwal: bebas / belum diset</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-draft">Draft</span>
+                            <span class="exam-count">6</span>
+                        </div>
+                    </div>
+                    <div class="exam-tags">
+                        <span class="tag-tka">Tryout TKA</span>
+                        <span class="tag-meta">opsi 5</span>
+                        <span class="tag-meta">shuffle soal</span>
+                        <span class="tag-meta">shuffle opsi</span>
+                    </div>
+                    <div class="exam-token-row">
+                        <span class="setting-row">Setting: Nilai tampil</span>
+                        <span class="token-label">Token statis:</span>
+                        <span class="token-value">3d2f85454dc9ac4ba03bfed95c4087db</span>
+                    </div>
+                </div>
+
+                <!-- Item 107 — Draft -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout UNBK</p>
+                            <p class="exam-item-schedule">Jadwal: bebas / belum diset</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-draft">Draft</span>
+                            <span class="exam-count">10</span>
+                        </div>
+                    </div>
+                    <div class="exam-tags">
+                        <span class="tag-unbk">Tryout UNBK</span>
+                        <span class="tag-meta">opsi 4</span>
+                        <span class="tag-meta">shuffle soal</span>
+                        <span class="tag-meta">shuffle opsi</span>
+                    </div>
+                    <div class="exam-token-row">
+                        <span class="token-label">Token statis:</span>
+                        <span class="token-value">00133a576dd73825772d701b6b72273b</span>
+                    </div>
+                </div>
+
+                <!-- Item 104 — Publish -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout UNBK</p>
+                            <p class="exam-item-schedule has-schedule">Jadwal: 2026-06-10 09:19 s/d 10:19</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-publish">Publish</span>
+                            <span class="exam-count">10</span>
+                        </div>
+                    </div>
+                    <div class="exam-tags">
+                        <span class="tag-unbk">Tryout UNBK</span>
+                        <span class="tag-meta">opsi 4</span>
+                        <span class="tag-meta">shuffle soal</span>
+                        <span class="tag-meta">shuffle opsi</span>
+                    </div>
+                    <div class="exam-token-row">
+                        <span class="token-label">Token statis:</span>
+                        <span class="token-value">a3647513972e1cb51f05e44eac804ddd</span>
+                    </div>
+                </div>
+
+                <!-- Item 103 — Publish -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout TKA</p>
+                            <p class="exam-item-schedule">Jadwal: bebas / belum diset</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-publish">Publish</span>
+                            <span class="exam-count">8</span>
+                        </div>
+                    </div>
+                    <div class="exam-tags">
+                        <span class="tag-tka">Tryout TKA</span>
+                        <span class="tag-meta">opsi 5</span>
+                        <span class="tag-meta">shuffle soal</span>
+                        <span class="tag-meta">shuffle opsi</span>
+                    </div>
+                    <div class="exam-token-row">
+                        <span class="setting-row">Setting: Nilai tampil</span>
+                        <span class="token-label">Token statis:</span>
+                        <span class="token-value">74ae5b154c0068f90fd2e0173d92a59f</span>
+                    </div>
+                </div>
+
+                <!-- Item 102 — Publish -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout TKA</p>
+                            <p class="exam-item-schedule">Jadwal: bebas / belum diset</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-publish">Publish</span>
+                            <span class="exam-count">8</span>
+                        </div>
+                    </div>
+                    <div class="exam-tags">
+                        <span class="tag-tka">Tryout TKA</span>
+                        <span class="tag-meta">opsi 5</span>
+                        <span class="tag-meta">shuffle soal</span>
+                        <span class="tag-meta">shuffle opsi</span>
+                    </div>
+                    <div class="exam-token-row">
+                        <span class="setting-row">Setting: Nilai tampil</span>
+                        <span class="token-label">Token statis:</span>
+                        <span class="token-value">1cf3220a99f6439482c38a65fb92c1f9</span>
+                    </div>
+                </div>
+
+                <!-- Item terakhir -->
+                <div class="exam-item">
+                    <div class="exam-item-top">
+                        <div class="exam-item-info">
+                            <p class="exam-item-name">Reuse - ujian ini</p>
+                            <p class="exam-item-meta">Kelas X-10 &nbsp;·&nbsp; Tryout TKA</p>
+                            <p class="exam-item-schedule">Jadwal: bebas / belum diset</p>
+                        </div>
+                        <div class="exam-item-right">
+                            <span class="badge-draft">Draft</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END list -->
+
+        </div>
+        <!-- END panel kanan -->
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+            document.getElementById('theme-label').textContent = isDark ? 'Light' : 'Dark';
+        }
+    </script>
+
+</body>
+
+</html>
