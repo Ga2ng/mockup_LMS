@@ -1,20 +1,131 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Guru Ijin • SMABAONE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../../style.css" />
   <style>
+    :root {
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-dim: rgba(99, 102, 241, .12);
+      --accent-glow: rgba(99, 102, 241, .25);
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, .12);
+      --green-border: rgba(34, 197, 94, .3);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, .12);
+      --amber-border: rgba(245, 158, 11, .3);
+      --orange: #f97316;
+      --orange-dim: rgba(249, 115, 22, .12);
+      --orange-border: rgba(249, 115, 22, .3);
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --bg-panel: #0d0d10;
+      --s1: #111114;
+      --s2: #18181c;
+      --s3: #1e1e23;
+      --s4: #242429;
+      --line: #27272d;
+      --line2: #32323a;
+      --t1: #fafafa;
+      --t2: #e4e4e7;
+      --t3: #a1a1aa;
+      --t4: #71717a;
+      --inp-bg: #111114;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f2f6;
+      --bg-panel: #e8e9ef;
+      --s1: #ffffff;
+      --s2: #f7f8fc;
+      --s3: #eef0f6;
+      --s4: #e4e6ef;
+      --line: #e2e4ec;
+      --line2: #d0d3de;
+      --t1: #111118;
+      --t2: #2d2d3a;
+      --t3: #52525b;
+      --t4: #a1a1aa;
+      --inp-bg: #ffffff;
+      --accent-light: #4f46e5;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--t1);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background .25s, color .25s;
+      padding: 12px 8px;
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      font: inherit;
+      color: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52525b;
+    }
+
     .wrap {
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
-      padding: 12px 8px;
     }
 
     .card {
@@ -25,10 +136,10 @@
       margin-bottom: 20px;
     }
 
-    .card .head {
+    .card-header {
       border-bottom: 1px solid var(--line);
       padding-bottom: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -48,27 +159,26 @@
       border-radius: 10px;
       display: grid;
       place-items: center;
-      background: var(--accent-dim);
-      border: 1px solid var(--accent-light);
-      color: var(--accent-light);
+      background: var(--accent);
+      color: #ffffff;
       font-size: 20px;
     }
 
-    .t1 {
+    .brand-text h1 {
       font-family: 'Poppins', sans-serif;
       font-size: 18px;
       font-weight: 700;
       color: var(--t1);
+      line-height: 1.2;
     }
 
-    .t2 {
+    .brand-text span {
       font-size: 11px;
       color: var(--t3);
       font-weight: 500;
-      margin-top: 2px;
     }
 
-    .row {
+    .actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
@@ -80,41 +190,49 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      border: 1px solid var(--line);
-      background: var(--s2);
-      color: var(--t1);
-      border-radius: 8px;
-      padding: 10px 16px;
       font-size: 12px;
       font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s;
       text-decoration: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
     }
 
-    .btn:hover {
+    .btn.accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn.accent:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn.rose {
+      background: #f43f5e;
+      color: #fff;
+      border-color: #f43f5e;
+    }
+
+    .btn.rose:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+    }
+
+    .btn.slate {
       background: var(--s3);
+      color: var(--t1);
       border-color: var(--line2);
     }
 
-    .btn.primary {
-      background: var(--accent);
-      border-color: var(--accent-light);
-      color: #ffffff;
-    }
-
-    .btn.primary:hover {
-      background: var(--accent-light);
-    }
-
-    .btn.bad {
-      background: #f43f5e;
-      border-color: #f43f5e;
-      color: #ffffff;
-    }
-
-    .btn.bad:hover {
-      background: #e11d48;
+    .btn.slate:hover {
+      background: var(--s4);
+      border-color: var(--line2);
     }
 
     .theme-toggle-btn {
@@ -128,57 +246,106 @@
       cursor: pointer;
       color: var(--t1);
       transition: all 0.15s;
+      font-size: 16px;
     }
+
     .theme-toggle-btn:hover {
-      background: var(--s3);
+      background: var(--s4);
       border-color: var(--line2);
     }
 
+    /* ─── PILLS & TAGS (SOLID - ALL WHITE TEXT) ──────────────────── */
     .pill {
       display: inline-flex;
-      gap: 8px;
       align-items: center;
-      border-radius: 20px;
+      gap: 6px;
       padding: 6px 12px;
-      border: 1px solid var(--line);
-      background: var(--s2);
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
-      color: var(--t2);
-    }
-
-    /* SOLID BADGES (as in monitor_ujian) */
-    .pill.ok {
-      border-color: var(--green) !important;
-      background: var(--green) !important;
-      color: #ffffff !important;
-    }
-
-    .pill.warn {
-      border-color: var(--amber) !important;
-      background: var(--amber) !important;
-      color: #ffffff !important;
-    }
-
-    .pill.bad {
-      border-color: #f43f5e !important;
-      background: #f43f5e !important;
-      color: #ffffff !important;
+      border: none;
+      color: #ffffff;
+      white-space: nowrap;
     }
 
     .pill.blue {
-      border-color: var(--accent) !important;
-      background: var(--accent) !important;
-      color: #ffffff !important;
+      background: var(--accent);
     }
 
-    .pill.gray {
-      border-color: var(--line) !important;
-      background: var(--s3) !important;
-      color: var(--t3) !important;
+    .pill.accent {
+      background: var(--accent);
     }
 
-    /* Sub config cards inside grid2 */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .tag.ok {
+      background: var(--green);
+    }
+
+    .tag.warn {
+      background: var(--amber);
+    }
+
+    .tag.bad {
+      background: #f43f5e;
+    }
+
+    .jenis-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .jenis-izin {
+      background: var(--accent);
+    }
+
+    .jenis-sakit {
+      background: #f43f5e;
+    }
+
+    .jenis-dinas {
+      background: var(--amber);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .grid-2>.config-card {
+      height: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2>.config-card {
+        height: auto;
+      }
+    }
+
     .config-card {
       background: var(--s2);
       border: 1px solid var(--line);
@@ -202,52 +369,267 @@
     }
 
     .config-header i {
-      color: var(--accent-light);
+      color: var(--accent);
     }
 
-    .grid2 {
+    .info-bar {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--t2);
+      margin-bottom: 5px;
+    }
+
+    .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 12px;
-      align-items: start;
+      gap: 12px;
     }
 
-    @media (max-width: 900px) {
-      .grid2 {
+    @media (max-width: 600px) {
+      .form-row {
         grid-template-columns: 1fr;
       }
     }
 
-    .info-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 13px;
-    }
-    .info-row:last-child {
-      border-bottom: none;
-    }
-    .info-row i {
-      color: var(--accent-light);
-      width: 18px;
-    }
-    .info-row .label {
-      color: var(--t3);
-      min-width: 120px;
-    }
-    .info-row .value {
+    .inp,
+    .sel,
+    .ta {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line2);
+      background: var(--inp-bg);
       color: var(--t1);
-      font-weight: 600;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
-    /* Table styles */
+    .inp:focus,
+    .sel:focus,
+    .ta:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .ta {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-hint {
+      font-size: 11px;
+      color: var(--t3);
+      margin-top: 4px;
+    }
+
+    .file-box {
+      border: 1.5px dashed var(--line2);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--s3);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .file-box:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .file-box i {
+      font-size: 24px;
+      color: var(--t3);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .file-box span {
+      font-size: 12px;
+      color: var(--t3);
+    }
+
+    /* ─── KPI CARD ─────────────────────────────────────────────────── */
+    .kpi-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--line);
+    }
+
+    .kpi-card.kpi-pending::before {
+      background: var(--amber);
+    }
+
+    .kpi-card.kpi-approved::before {
+      background: var(--green);
+    }
+
+    .kpi-card.kpi-rejected::before {
+      background: #f43f5e;
+    }
+
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--t1);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-card.kpi-pending .kpi-value {
+      color: var(--amber);
+    }
+
+    .kpi-card.kpi-approved .kpi-value {
+      color: var(--green);
+    }
+
+    .kpi-card.kpi-rejected .kpi-value {
+      color: #f43f5e;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    /* ─── STEP LIST ───────────────────────────────────────────────── */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content strong {
+      display: block;
+      font-size: 12px;
+      color: var(--t1);
+      margin-bottom: 2px;
+    }
+
+    .step-content span {
+      font-size: 11px;
+      color: var(--t3);
+      line-height: 1.4;
+    }
+
+    /* ─── INFO LIST ───────────────────────────────────────────────── */
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-list li {
+      font-size: 12px;
+      color: var(--t2);
+      display: flex;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .info-list li i {
+      color: var(--accent);
+      width: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ─── TABLE ───────────────────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
+      white-space: nowrap;
     }
+
     th {
       padding: 10px 14px;
       background: var(--s3);
@@ -259,6 +641,7 @@
       text-align: left;
       border-bottom: 1px solid var(--line);
     }
+
     td {
       padding: 10px 14px;
       font-size: 12px;
@@ -266,329 +649,295 @@
       border-bottom: 1px solid var(--line);
       vertical-align: middle;
     }
+
     tr:last-child td {
       border-bottom: none;
     }
+
     tr:hover td {
       background: var(--s3);
     }
-
-    /* Form elements */
-    .form-group {
-      margin-bottom: 14px;
-    }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--t2);
-      margin-bottom: 5px;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 600px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-    .inp, .sel, .ta {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: var(--inp-bg);
-      color: var(--t1);
-      font-size: 13px;
-      font-family: 'Inter', sans-serif;
-      outline: none;
-    }
-    .inp:focus, .sel:focus, .ta:focus {
-      border-color: var(--accent);
-    }
-    .ta {
-      resize: vertical;
-      min-height: 110px;
-    }
-    .form-hint {
-      font-size: 11px;
-      color: var(--t3);
-      margin-top: 4px;
-    }
-    .file-box {
-      border: 1.5px dashed var(--line2);
-      border-radius: 8px;
-      padding: 14px;
-      text-align: center;
-      cursor: pointer;
-      background: var(--s3);
-    }
-    .file-box:hover {
-      border-color: var(--accent);
-    }
-    .file-box i {
-      font-size: 24px;
-      color: var(--t3);
-      margin-bottom: 6px;
-      display: block;
-    }
-    .file-box span {
-      font-size: 12px;
-      color: var(--t3);
-    }
-
-    /* SOLID BADGES (Custom) */
-    .jenis-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-    .jenis-izin { background: var(--accent); }
-    .jenis-sakit { background: #f43f5e; }
-    .jenis-dinas { background: var(--amber); }
-
-    .info-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .info-list li {
-      font-size: 12px;
-      color: var(--t2);
-      display: flex;
-      gap: 8px;
-      line-height: 1.5;
-    }
-    .info-list li i {
-      color: var(--accent-light);
-      width: 16px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
   </style>
 </head>
+
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="head">
-      <div class="brand">
-        <div class="logo"><i class="fa-solid fa-file-medical"></i></div>
-        <div>
-          <div class="t1">Pengajuan Ijin Guru</div>
-          <div class="t2">AI Assessment Intelligence • Wali Kelas X-10 • 28 Juni 2026</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="theme-toggle-btn" id="theme-toggle"><i class="fa-solid fa-sun"></i></div>
-        <a class="btn primary" href="https://serverap.sapda.id/lms/admin/guru_dashboard.php"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
-        <a class="btn bad" href="https://serverap.sapda.id/lms/admin/guru_logout.php"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
-      </div>
-    </div>
-    
-    <div class="body" style="padding-top:12px">
-      <!-- Info Alert Bar -->
-      <div style="background:var(--s2); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px">
-        <div>
-          <div style="font-weight:700; font-size:13px; color:var(--t1)">Buat Pengajuan Ijin Baru</div>
-          <div style="font-size:11px; color:var(--t3); margin-top:2px">
-            Unggah bukti surat dokter / surat tugas luar jika ada (opsional).
+  <div class="wrap">
+    <div class="card">
+      <!-- Header -->
+      <div class="card-header">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-file-medical"></i></div>
+          <div class="brand-text">
+            <h1>Pengajuan Ijin Guru</h1>
+            <span>AI Assessment Intelligence • Wali Kelas X-10 • 28 Juni 2026</span>
           </div>
         </div>
-        <div class="pill gray"><i class="fa-solid fa-cloud-arrow-up"></i> Bukti: PDF/JPG/PNG/WEBP (maks 8MB)</div>
+        <div class="actions">
+          <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+              class="fa-solid fa-sun"></i></button>
+          <a href="https://serverap.sapda.id/lms/admin/guru_dashboard.php" class="btn slate"><i
+              class="fa-solid fa-arrow-left"></i> Dashboard</a>
+          <a href="https://serverap.sapda.id/lms/admin/guru_logout.php" class="btn rose"><i
+              class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </div>
       </div>
 
-      <div class="grid2">
-        <!-- Form input ijin -->
-        <div class="config-card">
-          <div class="config-header"><i class="fa-solid fa-pen-to-square"></i> Detail Pengajuan</div>
-          <form method="post" enctype="multipart/form-data" id="formIjin">
-            
-            <div class="form-group">
-              <label class="form-label"><i class="fa-solid fa-tags"></i> Jenis Ijin</label>
-              <select class="sel" name="jenis" id="jenisSel">
-                <option value="izin" selected>Izin (keperluan pribadi)</option>
-                <option value="sakit">Sakit (dengan surat dokter jika ada)</option>
-                <option value="dinas_luar">Dinas Luar (surat tugas/undangan)</option>
-              </select>
+      <div style="padding-top:4px">
+        <!-- Info Alert Bar -->
+        <div class="info-bar">
+          <div>
+            <div style="font-weight:700; color:var(--t1)"><i class="fa-solid fa-circle-info"
+                style="color:var(--accent); margin-right:4px;"></i>Buat Pengajuan Ijin Baru</div>
+            <div style="font-size:11px; color:var(--t3); margin-top:2px">
+              Unggah bukti surat dokter / surat tugas luar jika ada (opsional).
             </div>
+          </div>
+          <span class="pill blue"><i class="fa-solid fa-cloud-arrow-up"></i> Bukti: PDF/JPG/PNG/WEBP (maks 8MB)</span>
+        </div>
 
-            <div class="form-row">
+        <!-- Grid 2 Kolom - STRETCH -->
+        <div class="grid-2">
+          <!-- KIRI: Form Detail Pengajuan -->
+          <div class="config-card">
+            <div class="config-header"><i class="fa-solid fa-pen-to-square"></i> Detail Pengajuan</div>
+            <form method="post" enctype="multipart/form-data" id="formIjin"
+              style="display:flex; flex-direction:column; gap:2px; flex:1;">
+
               <div class="form-group">
-                <label class="form-label"><i class="fa-regular fa-calendar-plus"></i> Tanggal Mulai</label>
-                <input class="inp" type="date" name="tanggal_mulai" value="2026-06-28" required />
+                <label class="form-label"><i class="fa-solid fa-tags"></i> Jenis Ijin</label>
+                <select class="sel" name="jenis" id="jenisSel">
+                  <option value="izin" selected>Izin (keperluan pribadi)</option>
+                  <option value="sakit">Sakit (dengan surat dokter jika ada)</option>
+                  <option value="dinas_luar">Dinas Luar (surat tugas/undangan)</option>
+                </select>
               </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label"><i class="fa-regular fa-calendar-plus"></i> Tanggal Mulai</label>
+                  <input class="inp" type="date" name="tanggal_mulai" value="2026-06-28" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label"><i class="fa-regular fa-calendar-minus"></i> Tanggal Selesai</label>
+                  <input class="inp" type="date" name="tanggal_selesai" value="2026-06-28" required />
+                </div>
+              </div>
+
               <div class="form-group">
-                <label class="form-label"><i class="fa-regular fa-calendar-minus"></i> Tanggal Selesai</label>
-                <input class="inp" type="date" name="tanggal_selesai" value="2026-06-28" required />
+                <label class="form-label"><i class="fa-solid fa-comment-dots"></i> Keterangan / Alasan</label>
+                <textarea class="ta" name="alasan" rows="3"
+                  placeholder="Contoh: Sakit demam, butuh istirahat. / Dinas luar rapat koordinasi ... (wajib diisi)"
+                  required></textarea>
+                <div class="form-hint">Tulis singkat, jelas, dan bila dinas luar sertakan lokasi/agenda.</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><i class="fa-solid fa-paperclip"></i> Bukti Surat (opsional)</label>
+                <div class="file-box" onclick="document.getElementById('bukti').click()">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span id="fileHint">Klik untuk pilih file (PDF/JPG/PNG/WEBP)</span>
+                </div>
+                <input type="file" name="bukti" id="bukti" accept=".pdf,.jpg,.jpeg,.png,.webp" style="display:none"
+                  onchange="document.getElementById('fileHint').textContent = this.files[0]?.name || 'Klik untuk pilih file (PDF/JPG/PNG/WEBP)'" />
+              </div>
+
+              <button class="btn accent" style="width:100%; margin-top:auto; font-size:14px; padding:12px"
+                type="submit">
+                <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan
+              </button>
+            </form>
+          </div>
+
+          <!-- KANAN: Panduan Cepat + KPI + Step + Tips -->
+          <div class="config-card" style="justify-content: space-between;">
+            <!-- Bagian Atas: Status & KPI Cards -->
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div class="config-header" style="margin-bottom:0;">
+                <i class="fa-solid fa-chart-simple"></i> Status Pengajuan Anda
+              </div>
+
+              <!-- KPI Cards -->
+              <div class="kpi-grid">
+                <div class="kpi-card kpi-pending">
+                  <div class="kpi-label">Pending</div>
+                  <div class="kpi-value">1</div>
+                </div>
+                <div class="kpi-card kpi-approved">
+                  <div class="kpi-label">Disetujui</div>
+                  <div class="kpi-value">1</div>
+                </div>
+                <div class="kpi-card kpi-rejected">
+                  <div class="kpi-label">Ditolak</div>
+                  <div class="kpi-value">1</div>
+                </div>
+              </div>
+
+              <!-- Status Tags -->
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <span class="tag warn" style="color: #fff;"><i class="fa-solid fa-hourglass-half"></i> Pending</span>
+                <span class="tag ok" style="color: #fff;"><i class="fa-solid fa-circle-check"></i> Disetujui</span>
+                <span class="tag bad" style="color: #fff;"><i class="fa-solid fa-circle-xmark"></i> Ditolak</span>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label"><i class="fa-solid fa-comment-dots"></i> Keterangan / Alasan</label>
-              <textarea class="ta" name="alasan" rows="4" placeholder="Contoh: Sakit demam, butuh istirahat. / Dinas luar rapat koordinasi ... (wajib diisi)" required></textarea>
-              <div class="form-hint">Tips: tulis singkat, jelas, dan bila dinas luar sertakan lokasi/agenda.</div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label"><i class="fa-solid fa-paperclip"></i> Bukti Surat (opsional)</label>
-              <div class="file-box" onclick="document.getElementById('bukti').click()">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <span id="fileHint">Belum ada file dipilih.</span>
+            <!-- Bagian Tengah: Step-by-step -->
+            <div>
+              <div class="config-header" style="margin-bottom:0;">
+                <i class="fa-solid fa-list-ol"></i> Alur Pengajuan
               </div>
-              <input type="file" name="bukti" id="bukti" accept=".pdf,.jpg,.jpeg,.png,.webp" style="display:none" onchange="document.getElementById('fileHint').textContent = this.files[0]?.name || 'Belum ada file dipilih'" />
+              <div class="step-list">
+                <div class="step-item">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <strong>Isi Form Pengajuan</strong>
+                    <span>Pilih jenis ijin, rentang tanggal, dan tulis alasan yang jelas.</span>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <strong>Lampirkan Bukti (Opsional)</strong>
+                    <span>Upload surat dokter, surat tugas, atau foto pendukung.</span>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <strong>Kirim & Tunggu Verifikasi</strong>
+                    <span>Admin/Kepsek akan mereview dan mengubah status pengajuan Anda.</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <button class="btn primary" style="width:100%; margin-top:8px; font-size:14px; padding:12px" type="submit">
-              <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan
-            </button>
-          </form>
+            <!-- Bagian Bawah: Tips Penting -->
+            <div>
+              <div class="config-header" style="margin-bottom:0;">
+                <i class="fa-solid fa-lightbulb"></i> Tips Penting
+              </div>
+              <ul class="info-list">
+                <li>
+                  <i class="fa-solid fa-heart-pulse"></i>
+                  <span><strong>Sakit:</strong> Upload surat dokter (PDF/JPG) untuk mempercepat verifikasi.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-briefcase"></i>
+                  <span><strong>Dinas luar:</strong> Wajib lampirkan surat tugas/undangan resmi dan tulis agenda.</span>
+                </li>
+                <li>
+                  <i class="fa-regular fa-calendar-days"></i>
+                  <span>Ijin lebih dari 1 hari? Pastikan rentang tanggal mulai-selesai diisi benar.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-camera"></i>
+                  <span>File bukti boleh dari kamera HP (JPG/PNG/WEBP), maks 8MB.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-folder-open"></i>
+                  <span>Penyimpanan: <code
+                      style="background:var(--s3); padding:1px 5px; border-radius:3px; font-size:11px;">/lms/uploads/ijin</code></span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <!-- Panduan Cepat & Status -->
-        <div class="config-card">
-          <div class="config-header"><i class="fa-solid fa-circle-info"></i> Panduan Cepat</div>
-          
-          <div style="display:flex; gap:8px; flex-wrap:wrap">
-            <span class="pill warn"><i class="fa-solid fa-hourglass-half"></i> Pending</span>
-            <span class="pill ok"><i class="fa-solid fa-circle-check"></i> Approved</span>
-            <span class="pill bad"><i class="fa-solid fa-circle-xmark"></i> Rejected</span>
+        <!-- Riwayat Table -->
+        <div class="config-card" style="margin-top:16px">
+          <div class="config-header" style="justify-content:space-between">
+            <span><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pengajuan Ijin</span>
+            <span class="pill accent">Total: <strong>3</strong></span>
           </div>
-
-          <div style="margin-top:8px">
-            <ul class="info-list">
-              <li>
-                <i class="fa-solid fa-heart-pulse"></i>
-                <span><strong>Sakit:</strong> Upload surat dokter jika ada (PDF/JPG) untuk mempercepat verifikasi.</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-briefcase"></i>
-                <span><strong>Dinas luar:</strong> Wajib lampirkan surat tugas/undangan resmi dan tulis agenda.</span>
-              </li>
-              <li>
-                <i class="fa-regular fa-calendar-days"></i>
-                <span>Jika ijin lebih dari 1 hari, pastikan rentang tanggal mulai-selesai diisi dengan benar.</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-camera"></i>
-                <span>File bukti boleh berupa foto dari kamera handphone (JPG/PNG/WEBP).</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-folder-open"></i>
-                <span>Penyimpanan: <code>/lms/uploads/ijin</code></span>
-              </li>
-            </ul>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:70px">ID</th>
+                  <th style="width:130px">Jenis</th>
+                  <th style="width:200px">Tanggal</th>
+                  <th>Keterangan</th>
+                  <th style="width:160px">Bukti</th>
+                  <th style="width:120px">Status</th>
+                  <th style="width:100px">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>#3</strong></td>
+                  <td><span class="jenis-badge jenis-izin"><i class="fa-solid fa-person-walking"></i> Izin</span></td>
+                  <td>
+                    <div style="font-weight:600;color:var(--t1)">28 Jun 2026</div>
+                    <div style="font-size:11px;color:var(--t3)">s/d 28 Jun 2026</div>
+                  </td>
+                  <td>Keperluan keluarga mendesak di luar kota.</td>
+                  <td><span style="font-size:11px;color:var(--t3)"><i class="fa-solid fa-paperclip-slash"></i> Tidak
+                      ada</span></td>
+                  <td><span class="tag warn" style="color: #fff;"><i class="fa-solid fa-hourglass-half"></i>
+                      Pending</span></td>
+                  <td>
+                    <form method="post" style="display:inline">
+                      <button class="btn rose" type="submit" style="padding:6px 12px; font-size:11px;"><i
+                          class="fa-solid fa-trash"></i> Hapus</button>
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>#2</strong></td>
+                  <td><span class="jenis-badge jenis-sakit"><i class="fa-solid fa-heart-pulse"></i> Sakit</span></td>
+                  <td>
+                    <div style="font-weight:600;color:var(--t1)">20 Jun 2026</div>
+                    <div style="font-size:11px;color:var(--t3)">s/d 21 Jun 2026</div>
+                  </td>
+                  <td>Demam tinggi, bed rest per anjuran dokter.</td>
+                  <td>
+                    <a href="#" style="font-size:11px;color:var(--accent-light);text-decoration:none; font-weight:600;">
+                      <i class="fa-solid fa-file-medical"></i> surat_dokter.pdf
+                    </a>
+                  </td>
+                  <td><span class="tag ok" style="color: #fff;"><i class="fa-solid fa-circle-check"></i>
+                      Disetujui</span></td>
+                  <td><span style="font-size:11px;color:var(--t3)">—</span></td>
+                </tr>
+                <tr>
+                  <td><strong>#1</strong></td>
+                  <td><span class="jenis-badge jenis-dinas"><i class="fa-solid fa-briefcase"></i> Dinas Luar</span></td>
+                  <td>
+                    <div style="font-weight:600;color:var(--t1)">10 Jun 2026</div>
+                    <div style="font-size:11px;color:var(--t3)">s/d 10 Jun 2026</div>
+                  </td>
+                  <td>Rapat koordinasi kurikulum merdeka belajar, Dinas Kota.</td>
+                  <td>
+                    <a href="#" style="font-size:11px;color:var(--accent-light);text-decoration:none; font-weight:600;">
+                      <i class="fa-solid fa-file"></i> surat_tugas.pdf
+                    </a>
+                  </td>
+                  <td><span class="tag bad" style="color: #fff;"><i class="fa-solid fa-circle-xmark"></i> Ditolak</span>
+                  </td>
+                  <td><span style="font-size:11px;color:var(--t3)">—</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      <!-- Riwayat Table -->
-      <div class="config-card" style="margin-top: 16px">
-        <div class="config-header" style="justify-content:space-between">
-          <span><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pengajuan Ijin</span>
-          <span class="pill gray">Total: <strong>3</strong></span>
-        </div>
-        <div style="overflow-x:auto">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:80px">ID</th>
-                <th style="width:140px">Jenis</th>
-                <th style="width:220px">Tanggal</th>
-                <th>Keterangan</th>
-                <th style="width:180px">Bukti</th>
-                <th style="width:140px">Status</th>
-                <th style="width:130px">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Row PENDING -->
-              <tr>
-                <td><strong>#3</strong></td>
-                <td><span class="jenis-badge jenis-izin"><i class="fa-solid fa-person-walking"></i> Izin</span></td>
-                <td>
-                  <div style="font-weight:600;color:var(--t1)">28 Jun 2026</div>
-                  <div style="font-size:11px;color:var(--t3)">s/d 28 Jun 2026</div>
-                </td>
-                <td>Keperluan keluarga mendesak di luar kota.</td>
-                <td><span style="font-size:11px;color:var(--t3)"><i class="fa-solid fa-paperclip-slash"></i> Tidak ada</span></td>
-                <td><span class="pill warn"><i class="fa-solid fa-hourglass-half"></i> Pending</span></td>
-                <td>
-                  <form method="post" style="display:inline">
-                    <button class="btn danger action-btn bad" type="submit" style="padding: 6px 12px;"><i class="fa-solid fa-trash"></i> Hapus</button>
-                  </form>
-                </td>
-              </tr>
-
-              <!-- Row APPROVED -->
-              <tr>
-                <td><strong>#2</strong></td>
-                <td><span class="jenis-badge jenis-sakit"><i class="fa-solid fa-heart-pulse"></i> Sakit</span></td>
-                <td>
-                  <div style="font-weight:600;color:var(--t1)">20 Jun 2026</div>
-                  <div style="font-size:11px;color:var(--t3)">s/d 21 Jun 2026</div>
-                </td>
-                <td>Demam tinggi, bed rest per anjuran dokter.</td>
-                <td>
-                  <a href="#" style="font-size:11px;color:var(--accent-light);text-decoration:none">
-                    <i class="fa-solid fa-file-medical"></i> surat_dokter.pdf
-                  </a>
-                </td>
-                <td><span class="pill ok"><i class="fa-solid fa-circle-check"></i> Approved</span></td>
-                <td><span style="font-size:11px;color:var(--t3)">—</span></td>
-              </tr>
-
-              <!-- Row REJECTED -->
-              <tr>
-                <td><strong>#1</strong></td>
-                <td><span class="jenis-badge jenis-dinas"><i class="fa-solid fa-briefcase"></i> Dinas Luar</span></td>
-                <td>
-                  <div style="font-weight:600;color:var(--t1)">10 Jun 2026</div>
-                  <div style="font-size:11px;color:var(--t3)">s/d 10 Jun 2026</div>
-                </td>
-                <td>Rapat koordinasi kurikulum merdeka belajar, Dinas Kota.</td>
-                <td>
-                  <a href="#" style="font-size:11px;color:var(--accent-light);text-decoration:none">
-                    <i class="fa-solid fa-file"></i> surat_tugas.pdf
-                  </a>
-                </td>
-                <td><span class="pill bad"><i class="fa-solid fa-circle-xmark"></i> Rejected</span></td>
-                <td><span style="font-size:11px;color:var(--t3)">—</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
 
-<script>
-  // Theme Toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  const getTheme = () => localStorage.getItem('theme') || 'dark';
-  const setTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-      icon.className = 'fa-solid fa-sun';
-    } else {
-      icon.className = 'fa-solid fa-moon';
-    }
-  };
-  setTheme(getTheme());
-  themeToggle.addEventListener('click', () => {
-    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-  });
-</script>
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const getTheme = () => localStorage.getItem('theme') || 'dark';
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const icon = themeToggle.querySelector('i');
+      icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+    };
+    setTheme(getTheme());
+    themeToggle.addEventListener('click', () => {
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+  </script>
 </body>
+
 </html>
