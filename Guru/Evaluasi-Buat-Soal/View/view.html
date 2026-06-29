@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Ujian — Tryout UNBK</title>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Main Style Theme (Aligned 3 levels up) -->
+    <link rel="stylesheet" href="../../../style.css" />
+    <style>
+        /* ===== RESET & DOCUMENT LAYOUT OVERRIDES ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--t1);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ===== EXAM HEADER ===== */
+        .exam-header {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            margin-bottom: 24px;
+        }
+
+        .exam-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--t1);
+            margin-bottom: 8px;
+        }
+
+        .exam-header .meta {
+            font-size: 12px;
+            color: var(--t3);
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .exam-header .meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exam-header .meta .badge {
+            background: var(--s2);
+            color: var(--t3);
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid var(--line);
+        }
+
+        /* ===== SOAL CARD ===== */
+        .soal-card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .soal-card .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 8px;
+        }
+
+        .soal-card .header .left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .soal-card .header .left .no {
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--t1);
+        }
+
+        /* ===== BADGE TYPE SOLID COLOR (FOKUS STYLING) ===== */
+        .soal-card .header .left .type {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            border: none;
+        }
+
+        .soal-card .header .left .type.pg {
+            background: #3b82f6;
+        }
+
+        .soal-card .header .left .type.pgk {
+            background: #f59e0b;
+            color: #000000;
+        }
+
+        .soal-card .header .left .type.bs {
+            background: #22c55e;
+        }
+
+        .soal-card .header .left .type.isian {
+            background: #8b5cf6;
+        }
+
+        .soal-card .header .left .type.essay {
+            background: #6366f1;
+        }
+
+        .soal-card .header .left .type.match {
+            background: #ec4899;
+        }
+
+        .soal-card .header .right .skor {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--t3);
+        }
+
+        .soal-card .stem {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--t1);
+            margin: 12px 0;
+        }
+
+        /* Pilihan ganda */
+        .choices {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .choices li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line2);
+            margin: 6px 0;
+            background: var(--s2);
+            font-size: 13px;
+        }
+
+        .choices li .label {
+            font-weight: 700;
+            color: var(--t3);
+            flex-shrink: 0;
+        }
+
+        .choices li .text {
+            color: var(--t2);
+        }
+
+        /* PGK */
+        .pgk-options {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .pgk-options li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line2);
+            margin: 6px 0;
+            background: var(--s2);
+            font-size: 13px;
+        }
+
+        .pgk-options li .check {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1.5px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pgk-options li .check i {
+            font-size: 10px;
+            color: #fff;
+            opacity: 0;
+        }
+
+        .pgk-options li .text {
+            color: var(--t2);
+        }
+
+        /* Match */
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .match-grid .col {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+
+        .match-grid .col h4 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .match-grid .col ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .match-grid .col ol li {
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--line);
+            color: var(--t2);
+        }
+
+        .match-grid .col ol li:last-child {
+            border-bottom: 0;
+        }
+
+        .match-grid .col ol li .num {
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-right: 6px;
+        }
+
+        /* BS (Benar/Salah) */
+        .bs-options {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .bs-options .bs-btn {
+            padding: 6px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--line2);
+            background: var(--s2);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--t3);
+        }
+
+        /* Floating Print Button */
+        .floating-print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 12px var(--accent-glow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            z-index: 9999;
+        }
+
+        .floating-print-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* HIDE ALL CORRECT ANSWERS, HIGHLIGHTS AND KEY BOXES */
+        .choices li.correct {
+            border-color: var(--line2) !important;
+            background: var(--s2) !important;
+        }
+
+        .choices li.correct .label {
+            color: var(--t3) !important;
+            font-weight: 700 !important;
+        }
+
+        .choices li.correct .text {
+            color: var(--t2) !important;
+            font-weight: normal !important;
+        }
+
+        .pgk-options li.correct .check {
+            background: transparent !important;
+            border-color: var(--line) !important;
+        }
+
+        .pgk-options li.correct .check i {
+            opacity: 0 !important;
+        }
+
+        .bs-options .bs-btn.benar,
+        .bs-options .bs-btn.salah {
+            border-color: var(--line2) !important;
+            background: var(--s2) !important;
+            color: var(--t3) !important;
+        }
+
+        /* Hide correct flags in matrix table/flex */
+        .soal-card span[style*="color: var(--green)"],
+        .soal-card span[style*="color: var(--rose)"],
+        .soal-card span[style*="color: var(--ok)"],
+        .soal-card span[style*="color: var(--bad)"] {
+            display: none !important;
+        }
+
+        /* Hide all answer boxes & keys */
+        .kunci-box,
+        .isian-box,
+        .essay-box {
+            display: none !important;
+        }
+
+        /* Print overrides */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+            }
+
+            .soal-card,
+            .exam-header {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+            }
+
+            .floating-print-btn {
+                display: none !important;
+            }
+        }
+    </style>
+    <script>
+        // Synchronize dark/light theme with parent workspace
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+
+<body>
+
+    <!-- Floating Print Button -->
+    <button class="floating-print-btn" onclick="window.print()" title="Print / Simpan PDF">
+        <i class="fas fa-print"></i>
+    </button>
+
+    <div class="shell">
+
+        <!-- ===== HEADER UJIAN ===== -->
+        <header class="exam-header">
+            <h2>View Ujian — Tryout UNBK</h2>
+            <div class="meta">
+                <span><i class="fas fa-users"></i> Kelas: X-10</span>
+                <span><i class="fas fa-clock"></i> Durasi: 60 menit</span>
+                <span><i class="fas fa-list-ol"></i> Soal: 12</span>
+                <span><span class="badge"><i class="fas fa-eye-slash"></i> Tanpa kunci</span></span>
+            </div>
+        </header>
+
+        <!-- ===== SOAL 1: PG ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">1.</span>
+                    <span class="type pg">PG</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">
+                (1) Transisi energi menuju sumber terbarukan merupakan sebuah keniscayaan global, tetapi juga
+                menghadirkan paradoks. (2) Di satu sisi, teknologi seperti panel surya dan baterai kendaraan listrik
+                sangat penting untuk mengurangi emisi karbon. (3) Di sisi lain, produksi teknologi ini bergantung pada
+                penambangan mineral kritis seperti litium, kobalt, dan nikel yang sering kali merusak lingkungan dan
+                memicu konflik sosial di negara-negara produsen. (4) Oleh karena itu, solusi transisi energi tidak bisa
+                hanya berfokus pada teknologi, tetapi juga harus mempertimbangkan aspek keberlanjutan rantai pasok
+                secara menyeluruh.<br><br>
+                Apa gagasan utama paragraf tersebut?
+            </div>
+            <ul class="choices">
+                <li><span class="label">A.</span><span class="text">Pentingnya panel surya dan baterai untuk mengurangi
+                        emisi.</span></li>
+                <li><span class="label">B.</span><span class="text">Dampak negatif penambangan mineral kritis bagi
+                        lingkungan.</span></li>
+                <li class="correct"><span class="label">C.</span><span class="text">Paradoks dalam transisi energi yang
+                        memerlukan solusi komprehensif.</span></li>
+                <li><span class="label">D.</span><span class="text">Perbedaan antara teknologi energi terbarukan dan
+                        penambangan.</span></li>
+                <li><span class="label">E.</span><span class="text">Kegagalan teknologi dalam mengatasi masalah
+                        lingkungan.</span></li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">C</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 2: PG ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">2.</span>
+                    <span class="type pg">PG</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">Penulisan ejaan yang benar dari kata berikutan adalah...</div>
+            <ul class="choices">
+                <li class="correct"><span class="label">A.</span><span class="text">berikutan</span></li>
+                <li><span class="label">B.</span><span class="text">berikutan</span></li>
+                <li><span class="label">C.</span><span class="text">beri ikutan</span></li>
+                <li><span class="label">D.</span><span class="text">berikut an</span></li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">A</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 3: PG ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">3.</span>
+                    <span class="type pg">PG</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">Apa yang dimaksud dengan konjungsi?</div>
+            <ul class="choices">
+                <li class="correct"><span class="label">A.</span><span class="text">Kata penghubung</span></li>
+                <li><span class="label">B.</span><span class="text">Kata ganti</span></li>
+                <li><span class="label">C.</span><span class="text">Kata sifat</span></li>
+                <li><span class="label">D.</span><span class="text">Kata kerja</span></li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">A</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 4: PGK ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">4.</span>
+                    <span class="type pgk">PGK</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">
+                Hampir 25 tahun lalu kami berpisah...<br><br>
+                Kalimat mana saja yang membuktikan karakter sahabat tokoh saya merupakan seorang yang setia kawan?<br>
+                <span style="font-weight: 400; color: var(--muted);">Pilihlah jawaban yang benar! Jawaban benar lebih
+                    dari satu.</span>
+            </div>
+            <ul class="pgk-options">
+                <li><span class="check"><i class="fas fa-check"></i></span><span class="text">Saya langsung menyatakan
+                        ingin ikut, tapi dia keberatan.</span></li>
+                <li><span class="check"><i class="fas fa-check"></i></span><span class="text">Dia memang tidak memiliki
+                        banyak pakaian hingga seragam sekolah biasa dipakai kapan saja.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Sahabat
+                        saya itu tanggap melingkupi tubuh saya dengan seragam coklatnya.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Dia
+                        menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Rasa
+                        tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.</span>
+                </li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">C, D, E</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 5: PGK ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">5.</span>
+                    <span class="type pgk">PGK</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 4</span>
+                </div>
+            </div>
+            <div class="stem">
+                Manakah fakta-fakta yang mendukung simpulan bahwa teknologi hijau berperan dalam perubahan iklim?<br>
+                <span style="font-weight: 400; color: var(--muted);">Pilihlah jawaban yang benar! Jawaban benar lebih
+                    dari satu.</span>
+            </div>
+            <ul class="pgk-options">
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Teknologi
+                        hijau merupakan inovasi yang dirancang untuk mengatasi berbagai tantangan lingkungan global,
+                        terutama terkait dengan perubahan iklim.</span></li>
+                <li><span class="check"><i class="fas fa-check"></i></span><span class="text">Perubahan iklim, yang
+                        dipicu oleh peningkatan emisi gas rumah kaca akibat aktivitas manusia, menyebabkan cuaca
+                        ekstrem, suhu global menurun, dan naiknya permukaan air laut.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Teknologi
+                        hijau seperti energi terbarukan (tenaga surya, angin) dapat mengurangi ketergantungan pada bahan
+                        bakar fosil.</span></li>
+                <li><span class="check"><i class="fas fa-check"></i></span><span class="text">Teknologi hijau juga
+                        sangat penting dalam upaya adaptasi terhadap dampak perubahan teknologi yang sudah tidak bisa
+                        dihindari.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Melalui
+                        teknologi hijau, kita dapat mengurangi dampak negatif terhadap lingkungan dan memperbaiki
+                        kualitas hidup.</span></li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">A, C, E</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 6: PGK ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">6.</span>
+                    <span class="type pgk">PGK</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">
+                Kalimat mana saja yang membuktikan karakter sahabat tokoh saya merupakan seorang yang setia kawan?<br>
+                <span style="font-weight: 400; color: var(--muted);">Pilihlah jawaban yang benar! Jawaban benar lebih
+                    dari satu.</span>
+            </div>
+            <ul class="pgk-options">
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Saya
+                        langsung menyatakan ingin ikut, tapi dia keberatan.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Dia memang
+                        tidak memiliki banyak pakaian hingga seragam sekolah biasa dipakai kapan saja.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Sahabat
+                        saya itu tanggap melingkupi tubuh saya dengan seragam coklatnya.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Dia
+                        menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang.</span></li>
+                <li class="correct"><span class="check"><i class="fas fa-check"></i></span><span class="text">Rasa
+                        tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.</span>
+                </li>
+            </ul>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">A, B, C, D, E</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 7: BS ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">7.</span>
+                    <span class="type bs">BS</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">Sel merupakan unit terkecil dari makhluk hidup.</div>
+            <div class="bs-options">
+                <span class="bs-btn benar"><i class="fas fa-check-circle"></i> Benar</span>
+                <span class="bs-btn salah"><i class="fas fa-times-circle"></i> Salah</span>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">Benar</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 8: BS ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">8.</span>
+                    <span class="type bs">BS</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">DNA dan RNA adalah dua jenis asam nucleat yang terdapat dalam sel.</div>
+            <div class="bs-options">
+                <span class="bs-btn benar"><i class="fas fa-check-circle"></i> Benar</span>
+                <span class="bs-btn salah"><i class="fas fa-times-circle"></i> Salah</span>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">Benar</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 9: BS ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">9.</span>
+                    <span class="type bs">BS</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">
+                Manakah kalimat yang memiliki penggunaan kata serapan yang tepat?<br>
+                <span style="font-weight: 400; color: var(--muted);">Tentukan Benar atau Salah pada setiap pernyataan
+                    berikut</span>
+            </div>
+            <div style="margin: 12px 0; display: grid; gap: 8px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--s2); border-radius: 10px; border: 1px solid var(--line);">
+                    <span><strong>1.</strong> Kata "deforestasi" pada kalimat (2) paragraf kedua.</span>
+                    <span style="font-weight: 700; color: var(--green);"><i class="fas fa-check-circle"></i>
+                        Benar</span>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--s2); border-radius: 10px; border: 1px solid var(--line);">
+                    <span><strong>2.</strong> Kata "menginvestigasi" pada kalimat (2) paragraf ketiga.</span>
+                    <span style="font-weight: 700; color: var(--rose);"><i class="fas fa-times-circle"></i> Salah</span>
+                </div>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">1. Benar; 2. Salah</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 10: ISIAN ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">10.</span>
+                    <span class="type isian">ISIAN</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">Jelaskan pengertian majas.</div>
+            <div class="isian-box">
+                <span style="color: var(--muted);">Jawaban:</span>
+                <span class="jawaban">gaya bahasa yang digunakan untuk memperindah ungkapan</span>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">gaya bahasa yang digunakan untuk memperindah ungkapan</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 11: ESSAY ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">11.</span>
+                    <span class="type essay">ESSAY</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor -</span>
+                </div>
+            </div>
+            <div class="stem">Jelaskan konsep pewarisan genetik dan peran DNA dalam proses tersebut.</div>
+            <div class="essay-box">
+                <div class="rubrik">
+                    <strong><i class="fas fa-clipboard-list"></i> Rubrik:</strong><br>
+                    Menjelaskan secara mendetail konsep pewarisan genetik dan peranan DNA.
+                </div>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value essay">Menjelaskan secara mendetail konsep pewarisan genetik dan peranan DNA.</span>
+            </div>
+        </div>
+
+        <!-- ===== SOAL 12: MATCH ===== -->
+        <div class="soal-card">
+            <div class="header">
+                <div class="left">
+                    <span class="no">12.</span>
+                    <span class="type match">MATCH</span>
+                </div>
+                <div class="right">
+                    <span class="skor"><i class="fas fa-star"></i> Skor 1</span>
+                </div>
+            </div>
+            <div class="stem">Cocokkan proses biologi di kolom kiri dengan contohnya di kolom kanan.</div>
+            <div class="match-grid">
+                <div class="col">
+                    <h4><i class="fas fa-columns"></i> Kolom A</h4>
+                    <ol>
+                        <li><span class="num">1.</span> Adaptasi</li>
+                        <li><span class="num">2.</span> Mutasi</li>
+                        <li><span class="num">3.</span> Seleksi alam</li>
+                        <li><span class="num">4.</span> Simbiosis</li>
+                        <li><span class="num">5.</span> Dekomposisi</li>
+                    </ol>
+                </div>
+                <div class="col">
+                    <h4><i class="fas fa-columns"></i> Kolom B</h4>
+                    <ol>
+                        <li><span class="num">1.</span> Perubahan warna bulu untuk menyamarkan diri</li>
+                        <li><span class="num">2.</span> Perubahan genetik pada individu</li>
+                        <li><span class="num">3.</span> Kelangsungan hidup individu yang lebih baik</li>
+                        <li><span class="num">4.</span> Hubungan saling menguntungkan antara spesies</li>
+                        <li><span class="num">5.</span> Proses penguraian bahan organik oleh mikroorganisme</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="kunci-box">
+                <span class="label"><i class="fas fa-key"></i> Kunci:</span>
+                <span class="value">A1→B1, A2→B2, A3→B3, A4→B4, A5→B5</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
