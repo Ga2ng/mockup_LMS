@@ -155,6 +155,7 @@
                         color: #ffffff !important;
                         border-color: #0d9488 !important;
                 }
+
                 .btn-profile-solid:hover {
                         background: #0f766e !important;
                         border-color: #0f766e !important;
@@ -166,6 +167,7 @@
                         color: #ffffff !important;
                         border-color: #d97706 !important;
                 }
+
                 .btn-absensi-solid:hover {
                         background: #b45309 !important;
                         border-color: #b45309 !important;
@@ -364,9 +366,11 @@
                 .stat-tile.tile-danger {
                         border-left: 4px solid var(--orange);
                 }
+
                 .stat-tile.tile-danger .stat-num {
                         color: var(--orange);
                 }
+
                 .stat-tile.tile-danger .stat-label {
                         color: var(--orange);
                 }
@@ -374,9 +378,11 @@
                 .stat-tile.tile-warning {
                         border-left: 4px solid var(--amber);
                 }
+
                 .stat-tile.tile-warning .stat-num {
                         color: var(--amber);
                 }
+
                 .stat-tile.tile-warning .stat-label {
                         color: var(--amber);
                 }
@@ -384,9 +390,11 @@
                 .stat-tile.tile-info {
                         border-left: 4px solid var(--accent);
                 }
+
                 .stat-tile.tile-info .stat-num {
                         color: var(--accent-light);
                 }
+
                 .stat-tile.tile-info .stat-label {
                         color: var(--accent-light);
                 }
@@ -395,6 +403,7 @@
                 .panel-wali-kelas {
                         background: var(--s1);
                 }
+
                 .panel-menu-cepat {
                         background: var(--s1);
                 }
@@ -406,6 +415,7 @@
                         color: var(--t1);
                         border-left-width: 4px;
                 }
+
                 .menu-item-btn:hover {
                         background: var(--s3);
                         border-color: var(--line2);
@@ -414,6 +424,7 @@
                 .menu-item-btn.btn-blue {
                         border-left-color: var(--accent);
                 }
+
                 .menu-item-btn.btn-blue i {
                         color: var(--accent-light);
                 }
@@ -421,6 +432,7 @@
                 .menu-item-btn.btn-green {
                         border-left-color: var(--green);
                 }
+
                 .menu-item-btn.btn-green i {
                         color: var(--green);
                 }
@@ -428,6 +440,7 @@
                 .menu-item-btn.btn-amber {
                         border-left-color: var(--amber);
                 }
+
                 .menu-item-btn.btn-amber i {
                         color: var(--amber);
                 }
@@ -435,6 +448,7 @@
                 .menu-item-btn.btn-rose {
                         border-left-color: #f43f5e;
                 }
+
                 .menu-item-btn.btn-rose i {
                         color: #f43f5e;
                 }
@@ -442,6 +456,7 @@
                 .menu-item-btn.btn-teal {
                         border-left-color: #0d9488;
                 }
+
                 .menu-item-btn.btn-teal i {
                         color: #0d9488;
                 }
@@ -449,6 +464,7 @@
                 .menu-item-btn.btn-violet {
                         border-left-color: #8b5cf6;
                 }
+
                 .menu-item-btn.btn-violet i {
                         color: #a78bfa;
                 }
@@ -456,6 +472,7 @@
                 .menu-item-btn.btn-slate {
                         border-left-color: var(--t3);
                 }
+
                 .menu-item-btn.btn-slate i {
                         color: var(--t3);
                 }
@@ -471,57 +488,32 @@
         <div class="container">
 
                 <!-- Navigation Bar -->
-                <div class="nav-bar">
-                        <div class="logo-section">
-                                <div class="logo-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img"
-                                                aria-label="AP logo">
-                                                <defs>
-                                                        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-                                                                <stop offset="0%" stop-color="#0b4dff" />
-                                                                <stop offset="55%" stop-color="#38bdf8" />
-                                                                <stop offset="100%" stop-color="#ffffff" />
-                                                        </linearGradient>
-                                                        <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="0%" stop-color="#ffffff" />
-                                                                <stop offset="100%" stop-color="#dbeafe" />
-                                                        </linearGradient>
-                                                        <filter id="shadow" x="-20%" y="-20%" width="140%"
-                                                                height="140%">
-                                                                <feDropShadow dx="0" dy="14" stdDeviation="18"
-                                                                        flood-color="#0f172a" flood-opacity="0.28" />
-                                                        </filter>
-                                                </defs>
-                                                <rect width="512" height="512" rx="116" fill="url(#bg)" />
-                                                <circle cx="106" cy="92" r="64" fill="#ffffff" fill-opacity="0.18" />
-                                                <circle cx="410" cy="404" r="84" fill="#ffffff" fill-opacity="0.12" />
-                                                <rect x="54" y="54" width="404" height="404" rx="100" fill="none"
-                                                        stroke="#ffffff" stroke-opacity="0.26" stroke-width="4" />
-                                                <g filter="url(#shadow)">
-                                                        <text x="256" y="322" text-anchor="middle"
-                                                                font-family="Arial, Helvetica, sans-serif"
-                                                                font-size="210" font-weight="900" letter-spacing="-18"
-                                                                fill="url(#fg)" stroke="#0f172a" stroke-opacity="0.12"
-                                                                stroke-width="8">AP</text>
-                                                </g>
-                                        </svg>
+                <div class="nav-bar"
+                        style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:12px;background:var(--s1);border:1px solid var(--line);margin-bottom:20px;gap:12px;flex-wrap:wrap;">
+                        <div class="logo-section" style="display:flex;align-items:center;gap:12px;">
+                                <div class="logo-icon"
+                                        style="width:42px;height:42px;border-radius:10px;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:20px;flex-shrink:0;">
+                                        <i class="fa-solid fa-chalkboard-user"></i>
                                 </div>
-                                <div class="logo-text">AI<span>Assessment</span></div>
+                                <div class="logo-text"
+                                        style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:700;color:var(--t1);line-height:1.2;">
+                                        Guru Dashboard
+                                </div>
                         </div>
-
-                        <!-- Profile & Actions in Nav -->
-                        <div class="nav-actions">
-                                <!-- Theme Switcher -->
-                                <button class="theme-toggle-btn" id="theme-toggle" title="Ganti Tema">
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"
+                                        style="border:1px solid var(--line);background:var(--s2);border-radius:8px;width:36px;height:36px;display:grid;place-items:center;cursor:pointer;color:var(--t1);font-size:16px;">
                                         <i class="fa-solid fa-sun"></i>
                                 </button>
-
-                                <span class="pill name"><i class="fa-regular fa-user-circle"></i> Wali Kelas X-10</span>
-                                <span class="pill role"><i class="fa-solid fa-shield-halved"></i> Wali Kelas</span>
-
-                                <a class="btn rose" href="https://serverap.sapda.id/lms/admin/guru_logout.php">
-                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                                </a>
+                                <span
+                                        style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;border:none;color:#fff;white-space:nowrap;background:var(--accent);"><i
+                                                class="fa-regular fa-user-circle"></i> Wali Kelas X-10</span>
+                                <span
+                                        style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;border:none;color:#fff;white-space:nowrap;background:var(--accent);"><i
+                                                class="fa-solid fa-shield-halved"></i> Wali Kelas</span>
+                                <a href="https://serverap.sapda.id/lms/admin/guru_logout.php"
+                                        style="display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;text-decoration:none;border:1px solid transparent;white-space:nowrap;background:#f43f5e;color:#fff;border-color:#f43f5e;"><i
+                                                class="fa-solid fa-sign-out-alt"></i> Logout</a>
                         </div>
                 </div>
 
@@ -529,7 +521,8 @@
                 <div class="welcome-banner">
                         <h2>Selamat malam, Wali Kelas X-10 👋</h2>
                         <p class="meta">AI Assessment Intelligence • 2026-06-28 • School ID: 8 • Wali Kelas: X-10</p>
-                        <p class="info"><i class="fa-solid fa-circle-check"></i> Akses Cek Absensi Siswa aktif (Sumber: classes@PT.AP)</p>
+                        <p class="info"><i class="fa-solid fa-circle-check"></i> Akses Cek Absensi Siswa aktif (Sumber:
+                                classes@PT.AP)</p>
                 </div>
 
                 <!-- Main Content Dashboard Grid -->
