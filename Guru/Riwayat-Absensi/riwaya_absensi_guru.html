@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Riwayat Absensi Guru • SMABAONE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-dim: rgba(99, 102, 241, .12);
+      --accent-glow: rgba(99, 102, 241, .25);
+      --green: #22c55e;
+      --green-dim: rgba(34, 197, 94, .12);
+      --green-border: rgba(34, 197, 94, .3);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, .12);
+      --amber-border: rgba(245, 158, 11, .3);
+      --orange: #f97316;
+      --orange-dim: rgba(249, 115, 22, .12);
+      --orange-border: rgba(249, 115, 22, .3);
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --bg-panel: #0d0d10;
+      --s1: #111114;
+      --s2: #18181c;
+      --s3: #1e1e23;
+      --s4: #242429;
+      --line: #27272d;
+      --line2: #32323a;
+      --t1: #fafafa;
+      --t2: #e4e4e7;
+      --t3: #a1a1aa;
+      --t4: #71717a;
+      --inp-bg: #111114;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f2f6;
+      --bg-panel: #e8e9ef;
+      --s1: #ffffff;
+      --s2: #f7f8fc;
+      --s3: #eef0f6;
+      --s4: #e4e6ef;
+      --line: #e2e4ec;
+      --line2: #d0d3de;
+      --t1: #111118;
+      --t2: #2d2d3a;
+      --t3: #52525b;
+      --t4: #a1a1aa;
+      --inp-bg: #ffffff;
+      --accent-light: #4f46e5;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--t1);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background .25s, color .25s;
+      padding: 12px 8px;
+    }
+
+    input,
+    textarea,
+    button,
+    select {
+      font: inherit;
+      color: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52525b;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       CARD
+       ============================================ */
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 20px;
+    }
+
+    .brand-text h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--t1);
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: var(--t3);
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn.accent {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn.accent:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn.rose {
+      background: #f43f5e;
+      color: #fff;
+      border-color: #f43f5e;
+    }
+
+    .btn.rose:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+    }
+
+    .btn.slate {
+      background: var(--s3);
+      color: var(--t1);
+      border-color: var(--line2);
+    }
+
+    .btn.slate:hover {
+      background: var(--s4);
+      border-color: var(--line2);
+    }
+
+    .btn.sm {
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+
+    .theme-toggle-btn {
+      border: 1px solid var(--line);
+      background: var(--s2);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--t1);
+      transition: all 0.15s;
+      font-size: 16px;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--s4);
+      border-color: var(--line2);
+    }
+
+    /* ============================================
+       PILLS & TAGS (SOLID)
+       ============================================ */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .pill.blue {
+      background: var(--accent);
+    }
+
+    .pill.accent {
+      background: var(--accent);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      border: none;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .tag.ok {
+      background: var(--green);
+    }
+
+    .tag.warn {
+      background: var(--amber);
+    }
+
+    .tag.bad {
+      background: #f43f5e;
+    }
+
+    /* ============================================
+       GRID LAYOUT (KIRI KECIL, KANAN LEBAR)
+       ============================================ */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============================================
+       CONFIG CARD
+       ============================================ */
+    .config-card {
+      background: var(--s2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--t1);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .config-header i {
+      color: var(--accent);
+    }
+
+    /* ============================================
+       FORM ELEMENTS
+       ============================================ */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--t2);
+      margin-bottom: 5px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .inp,
+    .sel {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line2);
+      background: var(--inp-bg);
+      color: var(--t1);
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .inp:focus,
+    .sel:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .form-hint {
+      font-size: 11px;
+      color: var(--t3);
+      margin-top: 4px;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 12px 0;
+    }
+
+    /* ============================================
+       KPI GRID
+       ============================================ */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--line);
+    }
+
+    .kpi-card.kpi-total::before {
+      background: var(--t3);
+    }
+
+    .kpi-card.kpi-hadir::before {
+      background: var(--green);
+    }
+
+    .kpi-card.kpi-telat::before {
+      background: var(--amber);
+    }
+
+    .kpi-card.kpi-pulang::before {
+      background: #f43f5e;
+    }
+
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--t1);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-card.kpi-hadir .kpi-value {
+      color: var(--green);
+    }
+
+    .kpi-card.kpi-telat .kpi-value {
+      color: var(--amber);
+    }
+
+    .kpi-card.kpi-pulang .kpi-value {
+      color: #f43f5e;
+    }
+
+    /* ============================================
+       TABLE
+       ============================================ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      white-space: nowrap;
+    }
+
+    th {
+      padding: 10px 14px;
+      background: var(--s3);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--t3);
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--t2);
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--s3);
+    }
+
+    .cell-detail summary {
+      cursor: pointer;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cell-detail summary:hover {
+      color: var(--accent-light);
+    }
+
+    .detail-content {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: var(--s3);
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .detail-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+
+    .detail-label {
+      font-weight: 500;
+      color: var(--t3);
+      min-width: 60px;
+    }
+
+    .detail-value {
+      font-weight: 600;
+    }
+
+    .img-placeholder {
+      width: 100px;
+      height: 75px;
+      border-radius: 8px;
+      border: 1px dashed var(--line2);
+      background: var(--s2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--t4);
+      font-size: 1.2rem;
+    }
+
+    /* Pagination */
+    .pagination-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      margin-top: 4px;
+    }
+
+    .pagination-info {
+      font-size: 11px;
+      color: var(--t3);
+      font-weight: 600;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--s2);
+      color: var(--t1);
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover {
+      background: var(--s3);
+    }
+
+    .page-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .page-btn.disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .info-bar {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HEADER CARD -->
+    <div class="card">
+      <div class="card-header">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="brand-text">
+            <h1>Riwayat Absensi Guru</h1>
+            <span>Wali Kelas X-10 • school_id 8 • guru_id 1 • 28 Juni 2026</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme"><i
+              class="fa-solid fa-sun"></i></button>
+          <a href="#" class="btn slate"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+          <a href="#" class="btn rose"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+
+      <!-- KPI GRID -->
+      <div class="kpi-grid" style="margin-bottom:20px;">
+        <div class="kpi-card kpi-total">
+          <span class="kpi-value">1</span>
+          <span class="kpi-label"><i class="fa-solid fa-calendar-day"></i> Hari Tercatat</span>
+        </div>
+        <div class="kpi-card kpi-hadir">
+          <span class="kpi-value">1</span>
+          <span class="kpi-label"><i class="fa-solid fa-check-circle"></i> Hari Hadir</span>
+        </div>
+        <div class="kpi-card kpi-telat">
+          <span class="kpi-value">1</span>
+          <span class="kpi-label"><i class="fa-solid fa-clock"></i> Hari Telat</span>
+        </div>
+        <div class="kpi-card kpi-pulang">
+          <span class="kpi-value">1</span>
+          <span class="kpi-label"><i class="fa-solid fa-door-open"></i> Tanpa Pulang</span>
+        </div>
+      </div>
+
+      <!-- Info Bar -->
+      <div class="info-bar">
+        <span><i class="fa-solid fa-calendar-alt"></i> <strong>Range:</strong> 2026-05-30 s/d 2026-06-29 • 30
+          hari</span>
+        <span><i class="fa-solid fa-database"></i> <strong>Total:</strong> 1 record</span>
+      </div>
+
+      <!-- GRID2: KIRI FILTER (320px) + KANAN TABEL (1fr) -->
+      <div class="grid-2">
+
+        <!-- FILTER (KIRI - KECIL) -->
+        <div class="config-card">
+          <div class="config-header">
+            <i class="fa-solid fa-sliders"></i> Filter Absensi
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-calendar-alt"></i> Tahun Ajaran</label>
+            <select class="sel">
+              <option value="">(Semua / Manual Range)</option>
+              <option value="1" selected>2025/2026 • aktif</option>
+              <option value="4">2026/2027</option>
+            </select>
+            <div class="form-hint"><i class="fa-solid fa-info-circle"></i> Format YYYY/YYYY → Juli–Juni</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Semester</label>
+            <select class="sel">
+              <option value="">(Tidak dipakai)</option>
+              <option value="1" selected>Genap 2025/2026</option>
+              <option value="6">Ganjil 2025/2026</option>
+            </select>
+          </div>
+
+          <hr>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label"><i class="fa-solid fa-calendar-plus"></i> Dari</label>
+              <input class="inp" type="date" value="2026-05-30">
+            </div>
+            <div class="form-group">
+              <label class="form-label"><i class="fa-solid fa-calendar-minus"></i> Sampai</label>
+              <input class="inp" type="date" value="2026-06-29">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-tag"></i> Tipe</label>
+            <select class="sel">
+              <option value="all">Semua</option>
+              <option value="masuk">Masuk</option>
+              <option value="pulang">Pulang</option>
+            </select>
+          </div>
+
+          <div class="actions" style="justify-content:space-between;">
+            <button class="btn accent"><i class="fa-solid fa-filter"></i> Terapkan</button>
+            <a href="#" class="btn slate"><i class="fa-solid fa-rotate-right"></i> Reset</a>
+          </div>
+
+          <div class="actions" style="margin-top:4px;">
+            <span class="tag ok"><i class="fa-solid fa-check-circle"></i> TA aktif</span>
+            <span class="pill blue"><i class="fa-solid fa-database"></i> 1 record</span>
+          </div>
+        </div>
+
+        <!-- KANAN: RINGKASAN + TABEL (LEBAR) -->
+        <div>
+          <!-- Ringkasan -->
+          <div class="config-card" style="margin-bottom:16px;">
+            <div class="config-header">
+              <i class="fa-solid fa-chart-pie"></i> Ringkasan Periode
+            </div>
+            <div class="actions" style="gap:8px;">
+              <span class="tag ok"><i class="fa-solid fa-user-check"></i> Hadir: 1/1</span>
+              <span class="tag warn"><i class="fa-solid fa-clock"></i> Telat: 1</span>
+              <span class="tag bad"><i class="fa-solid fa-exclamation-triangle"></i> Belum Pulang: 1</span>
+            </div>
+            <div class="form-hint" style="margin-top:8px;">
+              <i class="fa-solid fa-info-circle"></i> Rekap harian ambil record terbaru masuk & pulang untuk tiap
+              tanggal.
+            </div>
+          </div>
+
+          <!-- Tabel -->
+          <div class="card" style="padding:0; overflow:hidden;">
+            <div class="card-header" style="padding:16px 20px; margin-bottom:0;">
+              <div class="brand">
+                <div class="logo"><i class="fa-solid fa-table"></i></div>
+                <div class="brand-text">
+                  <h1>Rekap Harian</h1>
+                  <span>Satu baris per tanggal • Klik detail</span>
+                </div>
+              </div>
+              <div class="actions">
+                <a href="#" class="btn slate sm"><i class="fa-solid fa-print"></i> Cetak</a>
+                <a href="#" class="btn slate sm"><i class="fa-solid fa-file-export"></i> Ekspor</a>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:15%;"><i class="fa-solid fa-calendar-day"></i> Tanggal</th>
+                    <th style="width:18%;"><i class="fa-solid fa-sign-in-alt"></i> Masuk</th>
+                    <th style="width:18%;"><i class="fa-solid fa-sign-out-alt"></i> Pulang</th>
+                    <th style="width:22%;"><i class="fa-solid fa-flag"></i> Status</th>
+                    <th><i class="fa-solid fa-info-circle"></i> Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>2026-06-03</strong><br><span style="font-size:10px;color:var(--t3);">Rabu</span></td>
+                    <td>08:26:26</td>
+                    <td><span style="color:var(--t3);">—</span></td>
+                    <td>
+                      <span class="tag warn" style="font-size:10px;padding:3px 8px;"><i class="fa-solid fa-clock"></i>
+                        telat</span>
+                      <span class="tag bad" style="font-size:10px;padding:3px 8px;margin-top:4px;"><i
+                          class="fa-solid fa-exclamation-triangle"></i> belum pulang</span>
+                    </td>
+                    <td class="cell-detail">
+                      <details>
+                        <summary><i class="fa-solid fa-chevron-down"></i> buka detail</summary>
+                        <div class="detail-content">
+                          <span class="pill blue" style="font-size:10px;padding:3px 8px;"><i
+                              class="fa-solid fa-sign-in-alt"></i> Masuk</span>
+                          <div class="detail-row">
+                            <span class="detail-label">Waktu:</span>
+                            <span class="detail-value"><strong>2026-06-03 08:26:26</strong></span>
+                          </div>
+                          <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value"><span class="tag warn"
+                                style="font-size:10px;padding:2px 8px;">telat</span></span>
+                          </div>
+                          <div class="detail-row">
+                            <span class="detail-label">Device:</span>
+                            <span class="detail-value"
+                              style="font-family:monospace;font-size:10px;color:var(--t3);">7e0f5ac8-80d7...</span>
+                          </div>
+                          <div class="detail-row">
+                            <span class="detail-label">GPS:</span>
+                            <span class="detail-value"
+                              style="font-family:monospace;font-size:10px;color:var(--t3);">-7.31814, 112.72780</span>
+                          </div>
+                          <div class="img-placeholder"><i class="fa-solid fa-image"></i></div>
+                        </div>
+                      </details>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="padding:14px 20px;">
+              <div class="pagination-row">
+                <span class="pagination-info"><i class="fa-solid fa-database"></i> Menampilkan <strong>1</strong> dari
+                  <strong>1</strong> data</span>
+                <div class="pagination">
+                  <button class="page-btn disabled"><i class="fa-solid fa-chevron-left"></i></button>
+                  <button class="page-btn active">1</button>
+                  <button class="page-btn disabled"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const icon = toggle.querySelector('i');
+    const getTheme = () => localStorage.getItem('theme') || 'light';
+    const setTheme = (t) => {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      icon.className = t === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    };
+    setTheme(getTheme());
+    toggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+  </script>
+</body>
+
+</html>
