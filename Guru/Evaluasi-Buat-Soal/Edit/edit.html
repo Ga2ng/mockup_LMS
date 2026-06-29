@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Ujian #126 - Panel Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../../style.css" />
+  <style>
+    /* Reset & Theme Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 12px 8px;
+      box-sizing: border-box;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 0px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand .logo {
+      background: var(--accent);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .brand .t1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--t1);
+      line-height: 1.2;
+    }
+
+    .brand .t2 {
+      font-size: 12px;
+      color: var(--t3);
+      margin-top: 2px;
+    }
+
+    .row-btn {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--s2);
+      color: var(--t1);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent-light);
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-light);
+    }
+
+    .btn.primary.ok {
+      background: var(--green);
+      border-color: var(--green-border);
+      color: #ffffff;
+    }
+
+    .btn.primary.ok:hover {
+      background: #1ea34d;
+    }
+
+    .btn.bad {
+      background: #f43f5e;
+      border-color: #f43f5e;
+      color: #ffffff;
+    }
+
+    .btn.bad:hover {
+      background: #e11d48;
+    }
+
+    .btn.sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border-radius: 6px;
+    }
+
+    .theme-toggle-btn {
+      border: 1px solid var(--line);
+      background: var(--s2);
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--t1);
+      transition: all 0.15s;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    /* Target Class checkbox styling */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .checklist-card {
+      border: 1px solid var(--line);
+      background: var(--s3);
+      border-radius: 6px;
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--t2);
+      transition: all 0.15s;
+    }
+
+    .checklist-card input {
+      accent-color: var(--accent);
+    }
+
+    .checklist-card:hover {
+      border-color: var(--accent-light);
+    }
+
+    /* KPI Grid */
+    .kpi-grid-full {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .kpi-grid-full {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .kpi-grid-full {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kpi-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--line);
+    }
+
+    .kpi-card.kpi-total::before {
+      background: var(--t3);
+    }
+
+    .kpi-card.kpi-publish::before {
+      background: var(--green);
+    }
+
+    .kpi-card.kpi-draft::before {
+      background: var(--t4);
+    }
+
+    .kpi-card.kpi-token::before {
+      background: var(--amber);
+    }
+
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--t1);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-card.kpi-token .kpi-value {
+      color: var(--amber);
+    }
+
+    .kpi-card.kpi-publish .kpi-value {
+      color: var(--green);
+    }
+
+    /* Alert and panels */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .alert-warning {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-left: 4px solid var(--amber);
+      color: var(--t1);
+    }
+
+    .config-card {
+      background: var(--s2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .wizard-section {
+      background: var(--s3);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .setting-card {
+      border: 1px solid var(--line);
+      background: var(--s3);
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--t2);
+      transition: all 0.15s;
+    }
+
+    .setting-card input {
+      accent-color: var(--accent);
+    }
+
+    .setting-card:hover {
+      border-color: var(--accent-light);
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      border-radius: 20px;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      background: var(--s2);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--t2);
+    }
+
+    .pill.gray {
+      border-color: var(--line) !important;
+      background: var(--s3) !important;
+      color: var(--t3) !important;
+    }
+
+    /* Form elements */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--t2);
+    }
+
+    .required-dot::after {
+      content: " *";
+      color: #f43f5e;
+    }
+
+    .inp,
+    .sel,
+    .txt-area {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--inp-bg);
+      color: var(--t1);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .inp:focus,
+    .sel:focus,
+    .txt-area:focus {
+      border-color: var(--accent);
+    }
+
+    .txt-area {
+      resize: vertical;
+    }
+
+    /* Custom layout styling */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .manual-box {
+      background: var(--s2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .option-box {
+      background: var(--s3);
+      border: 1px solid var(--line);
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .img-drop {
+      background: var(--s4);
+      border: 1.5px dashed var(--line2);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .drop-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--t2);
+      margin-bottom: 4px;
+    }
+
+    .drop-help {
+      font-size: 10px;
+      color: var(--t3);
+      line-height: 1.4;
+    }
+
+    .bs-stmt-box {
+      background: var(--s3);
+      border: 1px solid var(--line);
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <div class="card" style="margin-bottom:0px; border-radius:12px; padding:16px; flex:0 0 auto;">
+      <div class="head" style="border:none; padding:0;">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div>
+            <div class="t1">Edit Ujian &amp; Evaluasi</div>
+            <div class="t2">AI Assessment Intelligence • Panel Pengeditan Detail dan Soal Ujian</div>
+          </div>
+        </div>
+        <div class="row-btn">
+          <div class="theme-toggle-btn" id="theme-toggle"><i class="fa-solid fa-sun"></i></div>
+          <a class="btn" href="../evaluasi_buat_soal_guru.html"><i class="fa-solid fa-arrow-left"></i> Kembali ke
+            Ujian</a>
+          <a class="btn" href="edit.html"><i class="fa-solid fa-rotate"></i> Refresh</a>
+          <a class="btn bad" href="../../Login/login.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI METRIC GRID -->
+    <div class="kpi-grid-full" style="margin-top:16px;">
+      <div class="kpi-card kpi-total">
+        <span class="kpi-value">94</span>
+        <span class="kpi-label"><i class="fa-solid fa-file-lines"></i> Total Ujian</span>
+      </div>
+      <div class="kpi-card kpi-publish">
+        <span class="kpi-value">91</span>
+        <span class="kpi-label"><i class="fa-solid fa-circle-check"></i> Publish / Aktif</span>
+      </div>
+      <div class="kpi-card kpi-draft">
+        <span class="kpi-value">3</span>
+        <span class="kpi-label"><i class="fa-solid fa-circle-notch"></i> Draft / Persiapan</span>
+      </div>
+      <div class="kpi-card kpi-token">
+        <span class="kpi-value">50</span>
+        <span class="kpi-label"><i class="fa-solid fa-key"></i> Token Berjalan</span>
+      </div>
+    </div>
+
+    <!-- MAIN FORM BOX -->
+    <div class="config-card">
+      <div
+        style="display:flex; justify-content:space-between; align-items:start; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:12px;">
+        <div>
+          <h5 style="font-family:'Poppins', sans-serif; font-weight:900; font-size:16px; margin:0; color:var(--t1);">
+            <i class="fa-solid fa-pencil-square"></i> Edit Ujian #126
+          </h5>
+          <div style="font-size:12px; color:var(--t3); margin-top:2px;">
+            Edit data ujian dan koreksi isi soal. Gambar lama bisa diganti dengan upload, drag &amp; drop, atau paste
+            screenshot.
+          </div>
+        </div>
+        <a class="btn sm" href="../evaluasi_buat_soal_guru.html"><i class="fa-solid fa-times"></i> Tutup Edit</a>
+      </div>
+
+      <form method="post" id="formEditUjian" enctype="multipart/form-data">
+
+        <!-- ALERT MODE EDIT (YELLOW INFO BOX) -->
+        <div class="alert alert-warning" style="margin-top:12px;">
+          <i class="fa-solid fa-circle-exclamation" style="color:var(--amber); margin-right:6px;"></i>
+          <strong>Mode Edit Ujian Aktif:</strong> Auto Save Edit tersimpan 20.25.44. Draft soal tambahan hanya bisa
+          dipulihkan dengan parameter <code>restore_edit_draft=1</code>.
+        </div>
+
+        <input type="hidden" name="csrf" value="ae1d9e30d3a07fe1a966453b24904208">
+        <input type="hidden" name="action" value="update_ujian">
+        <input type="hidden" name="ujian_id" value="126">
+        <!-- GENERAL SETTINGS GRID -->
+        <div class="form-grid" style="margin-top:12px;">
+          <!-- Colored Header for Section 1 -->
+          <div
+            style="font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; color:#ffffff; background:var(--accent); border-radius:8px; padding:10px 14px; grid-column: span 12; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-circle-info"></i> 1. Detail Ujian &amp; Jadwal
+          </div>
+
+          <div style="grid-column: span 8;" class="form-group">
+            <label class="form-label required-dot">Judul</label>
+            <input class="inp" name="judul" value="Tryiut UNBK" required />
+          </div>
+          <div style="grid-column: span 4;" class="form-group">
+            <label class="form-label">Jenis</label>
+            <input class="inp" value="Tryout UNBK" readonly style="opacity: 0.7;" />
+          </div>
+          <div style="grid-column: span 3;" class="form-group">
+            <label class="form-label">Durasi Menit</label>
+            <input class="inp" type="number" name="durasi_menit" min="1" value="60" />
+          </div>
+          <div style="grid-column: span 3;" class="form-group">
+            <label class="form-label">Opsi PG</label>
+            <input class="inp" type="number" name="opsi_pg_default" min="2" max="12" value="5" />
+          </div>
+          <div style="grid-column: span 3;" class="form-group">
+            <label class="form-label">Status</label>
+            <select class="sel" name="status">
+              <option value="draft" selected>Draft</option>
+              <option value="publish">Publish</option>
+            </select>
+          </div>
+          <div style="grid-column: span 3;" class="form-group">
+            <label class="form-label">Seed</label>
+            <select class="sel" name="shuffle_seed_mode">
+              <option value="per_siswa" selected>Per siswa</option>
+              <option value="same">Sama semua</option>
+            </select>
+          </div>
+          <div style="grid-column: span 6;" class="form-group">
+            <label class="form-label">Jadwal Mulai</label>
+            <input class="inp" type="datetime-local" name="jadwal_mulai" value="" />
+          </div>
+          <div style="grid-column: span 6;" class="form-group">
+            <label class="form-label">Jadwal Selesai</label>
+            <input class="inp" type="datetime-local" name="jadwal_selesai" value="" />
+          </div>
+
+          <!-- ADVANCED SETTINGS INNER BLOCK -->
+          <div style="grid-column: span 12; margin-top: 10px;">
+            <div class="wizard-section"
+              style="background:var(--s3); border:1px solid var(--line); border-radius:12px; padding:16px;">
+              <!-- Colored Header for Section 2 -->
+              <div
+                style="font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; color:#ffffff; background:var(--accent); border-radius:8px; padding:10px 14px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+                <i class="fa-solid fa-sliders"></i> 2. Pengaturan Ujian &amp; Keamanan
+              </div>
+
+              <div class="form-grid">
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="require_exambro" value="1"> <span>Wajib
+                      Exambro</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="use_access_code" value="1" checked>
+                    <span>Pakai kode akses</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="show_score_after_finish" value="1" checked>
+                    <span>Tampilkan nilai</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="show_answer_after_finish" value="1">
+                    <span>Tampilkan jawaban</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="show_key_after_finish" value="1">
+                    <span>Tampilkan kunci</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="require_webcam" value="1"> <span>Wajib
+                      webcam</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="essay_upload_enabled" value="1"> <span>Essay
+                      upload</span></label>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label class="setting-card"><input type="checkbox" name="essay_text_enabled" value="1" checked>
+                    <span>Essay teks</span></label>
+                </div>
+                <div style="grid-column: span 4;" class="form-group">
+                  <label class="form-label">Sesi Ujian</label>
+                  <input class="inp" name="exam_session" value="" placeholder="misal: Sesi 1" />
+                </div>
+                <div style="grid-column: span 4;" class="form-group">
+                  <label class="form-label">Catatan alokasi waktu</label>
+                  <input class="inp" name="time_allocation_note" value="" />
+                </div>
+                <div style="grid-column: span 4;" class="form-group">
+                  <label class="form-label">Mode jadwal</label>
+                  <select class="sel" name="schedule_mode">
+                    <option value="global" selected>Global</option>
+                    <option value="per_class">Per kelas</option>
+                  </select>
+                </div>
+                <div style="grid-column: span 12;" class="form-group">
+                  <label class="form-label">Tombol Selesai aktif saat sisa waktu</label>
+                  <div style="display:flex; gap:8px; align-items:center;">
+                    <input class="inp" type="number" name="finish_unlock_minutes" min="0" max="1440" value=""
+                      placeholder="Kosong = bebas" style="max-width:200px;" />
+                    <span style="font-size:12px; color:var(--t2);">menit</span>
+                  </div>
+                  <div style="font-size:11px; color:var(--t3); margin-top:2px;">
+                    Contoh 5: tombol Selesai baru aktif ketika sisa waktu &le; 5 menit. Kosong/0: bebas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="grid-column: span 6;" class="form-group">
+            <label class="form-label">Bab</label>
+            <input class="inp" name="bab" value="" />
+          </div>
+          <div style="grid-column: span 6;" class="form-group">
+            <label class="form-label">Tag</label>
+            <input class="inp" name="tag" value="" />
+          </div>
+        </div>
+
+        <!-- TARGET CLASS SECTION -->
+        <div style="margin-top:16px;">
+          <!-- Colored Header for Section 3 -->
+          <div
+            style="font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; color:#ffffff; background:var(--accent); border-radius:8px; padding:10px 14px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-users-viewfinder"></i> 3. Sasaran Kelas &amp; Pengacakan Soal
+          </div>
+
+          <label class="form-label">Kelas Target</label>
+          <div class="checklist-grid">
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-1"> X-1</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-2"> X-2</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-3"> X-3</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-4"> X-4</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-5"> X-5</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-6"> X-6</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-7"> X-7</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-8"> X-8</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-9"> X-9</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-10" checked>
+              X-10</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-11"> X-11</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="X-12"> X-12</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-1"> XI-1</label>
+            <label class="checklist-card"><input type="checkbox" name="checklist-card[]" value="XI-2"> XI-2</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-3"> XI-3</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-4"> XI-4</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-5"> XI-5</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-6"> XI-6</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-7"> XI-7</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-8"> XI-8</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-9"> XI-9</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-10"> XI-10</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-11"> XI-11</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XI-12"> XI-12</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-1"> XII-1</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-2"> XII-2</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-3"> XII-3</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-4"> XII-4</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-5"> XII-5</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-6"> XII-6</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-7"> XII-7</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-8"> XII-8</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-9"> XII-9</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-10">
+              XII-10</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-11">
+              XII-11</label>
+            <label class="checklist-card"><input type="checkbox" name="kelas_target_arr[]" value="XII-12">
+              XII-12</label>
+          </div>
+
+          <input type="hidden" id="edit_kelas_target_hidden" name="kelas_target" value="X-10">
+          <input type="hidden" id="edit_kelas_target_current" name="kelas_target_current" value="X-10">
+          <input type="hidden" name="kelas_target_original" value="X-10">
+          <input type="hidden" id="edit_kelas_target_changed" name="kelas_target_changed" value="0">
+        </div>
+
+        <div class="mt-2" style="display:flex; gap:16px;">
+          <label class="setting-card" style="width:fit-content;"><input type="checkbox" name="shuffle_questions"
+              value="1" checked> <span>Acak soal</span></label>
+          <label class="setting-card" style="width:fit-content;"><input type="checkbox" name="shuffle_opsi" value="1"
+              checked> <span>Acak opsi</span></label>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:20px 0;">
+
+        <!-- Colored Header for Section 4 -->
+        <div
+          style="font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; color:#ffffff; background:var(--accent); border-radius:8px; padding:10px 14px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+          <i class="fa-solid fa-edit"></i> 4. Edit Isi Soal Ujian
+        </div>
+        <div style="font-size:12px; color:var(--t3); margin-top:2px; margin-bottom:16px;">
+          Edit teks pertanyaan, opsi, kunci, dan gambar. Untuk mengganti gambar: gunakan kotak gambar di bawah setiap
+          soal/opsi/pernyataan, lalu upload/drag-drop/paste screenshot.
+        </div>
+
+        <!-- DYNAMIC QUESTIONS CONTAINER (RENDERED VIA JAVASCRIPT VARIABLE ITERATION) -->
+        <div id="questions_container"></div>
+
+        <!-- ADD NEW QUESTIONS PANEL -->
+        <div
+          style="font-family:'Poppins', sans-serif; font-weight:700; font-size:14px; color:var(--t1); margin-top:24px; border-top:1px dashed var(--line); padding-top:16px;">
+          Tambah Soal Baru ke Ujian Ini
+        </div>
+        <div style="font-size:12px; color:var(--t3); margin-top:2px;">
+          Opsional. Isi jumlah soal baru, klik Buat Form Tambahan, lalu simpan perubahan. Soal baru akan ditambahkan di
+          nomor terakhir.
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; margin-top:12px;">
+          <div class="form-group">
+            <label class="form-label">PG</label>
+            <input class="inp" type="number" id="edit_cnt_pg" min="0" max="50" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">PGK</label>
+            <input class="inp" type="number" id="edit_cnt_pgk" min="0" max="50" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">B/S</label>
+            <input class="inp" type="number" id="edit_cnt_bs" min="0" max="50" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Isian</label>
+            <input class="inp" type="number" id="edit_cnt_isian" min="0" max="50" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Essay</label>
+            <input class="inp" type="number" id="edit_cnt_essay" min="0" max="50" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Match</label>
+            <input class="inp" type="number" id="edit_cnt_match" min="0" max="50" value="0">
+          </div>
+        </div>
+
+        <button type="button" class="btn primary mt-3" id="btnBuildEditNew">
+          <i class="fa-solid fa-plus-circle"></i> Buat Form Soal Tambahan
+        </button>
+
+        <div id="edit_new_container" style="margin-top:16px;"></div>
+
+        <!-- SAVE BUTTON -->
+        <button class="btn primary ok mt-4 w-100" style="padding:14px; font-size:14px;"
+          onclick="return confirm('Simpan perubahan ujian ini?')">
+          <i class="fa-solid fa-save"></i> Simpan Perubahan Ujian
+        </button>
+
+        <input type="hidden" name="sm_show_score_after_finish_v5" value="1">
+        <input type="hidden" name="sm_show_score_after_finish_v4" value="1">
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    // ===== THEME TOGGLE =====
+    const themeToggle = document.getElementById('theme-toggle');
+    const getTheme = () => localStorage.getItem('theme') || 'dark';
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const icon = themeToggle.querySelector('i');
+      if (theme === 'dark') {
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        icon.className = 'fa-solid fa-moon';
+      }
+    };
+    setTheme(getTheme());
+    themeToggle.addEventListener('click', () => {
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+
+    // ===== TARGET CLASS SYNC SCRIPT (V54) =====
+    (function () {
+      const form = document.getElementById('formEditUjian');
+      if (!form) return;
+      const changed = document.getElementById('edit_kelas_target_changed');
+      const hidden = document.getElementById('edit_kelas_target_hidden');
+      const current = document.getElementById('edit_kelas_target_current');
+      const original = form.querySelector('input[name="kelas_target_original"]');
+      const originalCsv = (original && original.value ? String(original.value) : (hidden && hidden.value ? String(hidden.value) : ''));
+
+      function pickedKelas() {
+        return Array.from(form.querySelectorAll('input[name="kelas_target_arr[]"]:checked')).map(x => x.value).filter(Boolean);
+      }
+      function setCsvToBoxes(csv) {
+        const set = {};
+        String(csv || '').split(/[,;]+/).map(x => x.trim()).filter(Boolean).forEach(x => set[x] = true);
+        form.querySelectorAll('input[name="kelas_target_arr[]"]').forEach(cb => { cb.checked = !!set[cb.value]; });
+      }
+      function syncEditKelas() {
+        const picked = pickedKelas();
+        const csv = picked.join(',');
+        if (csv) {
+          if (hidden) hidden.value = csv;
+          if (current) current.value = csv;
+        } else if (originalCsv) {
+          setCsvToBoxes(originalCsv);
+          if (hidden) hidden.value = originalCsv;
+          if (current) current.value = originalCsv;
+          if (changed) changed.value = '0';
+        }
+      }
+      function ensureKelasTidakKosong() {
+        if (pickedKelas().length === 0 && originalCsv) {
+          setCsvToBoxes(originalCsv);
+          if (hidden) hidden.value = originalCsv;
+          if (current) current.value = originalCsv;
+          if (changed) changed.value = '0';
+        }
+      }
+      form.querySelectorAll('input[name="kelas_target_arr[]"]').forEach(cb => {
+        cb.addEventListener('change', () => { if (changed) changed.value = '1'; syncEditKelas(); });
+      });
+      [120, 600, 1400, 2600].forEach(ms => setTimeout(ensureKelasTidakKosong, ms));
+      form.addEventListener('submit', () => { ensureKelasTidakKosong(); if (changed && changed.value === '1') syncEditKelas(); }, true);
+    })();
+
+    // ===== QUESTIONS VARIABLE DATA =====
+    const questions = [
+      {
+        "index": 0,
+        "id": 1,
+        "tipe": "pg",
+        "stem": "(1) Transisi energi menuju sumber terbarukan merupakan sebuah keniscayaan global, tetapi juga menghadirkan paradoks. (2) Di satu sisi, teknologi seperti panel surya dan baterai kendaraan listrik sangat penting untuk mengurangi emisi karbon. (3) Di sisi lain, produksi teknologi ini bergantung pada penambangan mineral kritis seperti litium, kobalt, dan nikel yang sering kali merusak lingkungan dan memicu konflik sosial di negara-negara produsen. (4) Oleh karena itu, solusi transisi energi tidak bisa hanya berfokus pada teknologi, tetapi juga harus mempertimbangkan aspek keberlanjutan rantai pasok secara menyeluruh.\r\n\r\n(1) Transisi energi menuju sumber terbarukan merupakan sebuah keniscayaan global, tetapi juga menghadirkan paradoks. (2) Di satu sisi, teknologi seperti panel surya dan baterai kendaraan listrik sangat penting untuk mengurangi emisi karbon. (3) Di sisi lain, produksi teknologi ini bergantung pada penambangan mineral kritis seperti litium, kobalt, dan nikel yang sering kali merusak lingkungan dan memicu konflik sosial di negara-negara produsen. (4) Oleh karena itu, solusi transisi energi tidak bisa hanya berfokus pada teknologi, tetapi juga harus mempertimbangkan aspek keberlanjutan rantai pasok secara menyeluruh.\r\n\r\nApa gagasan utama paragraf tersebut?",
+        "correct": "C",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Pentingnya panel surya dan baterai untuk mengurangi emisi.",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "Dampak negatif penambangan mineral kritis bagi lingkungan.",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "Paradoks dalam transisi energi yang memerlukan solusi komprehensif.",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "Perbedaan antara teknologi energi terbarukan dan penambangan.",
+            "media": []
+          },
+          {
+            "key": "E",
+            "text": "Kegagalan teknologi dalam mengatasi masalah lingkungan.",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 1,
+        "id": 2,
+        "tipe": "pg",
+        "stem": "Penulisan ejaan yang benar dari kata berikutan adalah...",
+        "correct": "A",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "berikutan",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "berikutan",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "beri ikutan",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "berikut an",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sulit"
+      },
+      {
+        "index": 2,
+        "id": 3,
+        "tipe": "pg",
+        "stem": "Apa yang dimaksud dengan konjungsi?",
+        "correct": "A",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Kata penghubung",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "Kata ganti",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "Kata sifat",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "Kata kerja",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sulit"
+      },
+      {
+        "index": 3,
+        "id": 4,
+        "tipe": "pgk",
+        "stem": "Hampir 25 tahun lalu kami berpisah karena keluarga saya harus boyongan ke kota tempat kerja Ayah yang baru di luar pulau. Tak satupun barang tertinggal di rumah lama. Begitu juga dengan sahabatku, kami harus berpisah.\r\n\r\nBertemu dengannya setelah sekian lama, mengingatkan kembali pada pengalaman kami dahulu. Pengalaman yang menjadikan dia, walau tidak setiap waktu, selalu lekat di ingatan saya. Tentu dia mengingatnya pula, bahkan saya yakin rasa yang diidapnya lebih besar efeknya. Karena sebagai seorang sahabat, dia jelas jauh lebih tulus dan setia daripada saya. Tak terasa mata saya mulai berkaca- kaca.\r\n\r\nSaat malam  itu  saya  berada  di  sini, memperhatikannya belajar. Selesai belajar, dia menyuruh saya pulang karena hendak pergi mencari jangkrik. Saya langsung menyatakan ingin ikut, tapi dia keberatan. Ayah dan ibunya pun melarang. Saya sering mendengar cerita mengasyikan anak-anak beramai-ramai berangkat ke sawah selepas isya untuk mencari jangkrik. Sayang, Ayah tidak pernah membolehkan saya. Tapi malam itu saya nekat dan sahabat saya itu akhirnya tidak kuasa menolak. ”Tidak ganti baju?” tanya saya heran begitu dia langsung memimpin untuk berangkat. Itu hari Jumat. Seragam coklat Pramuka yang dikenakannya sejak pagi masih akan terpakai untuk bersekolah sehari lagi. Dia memang tidak memiliki banyak pakaian hingga seragam sekolah biasa dipakai kapan saja. Tapi memakainya untuk pergi ke sawah mencari jangkrik, rasanya sangat tidak elok.\r\n\r\nSaya mengambil alih obor dari tangannya. Rasanya belum terlalu lama kami berada di sana dan bumbung baru terisi beberapa ekor jangkrik ketika tiba-tiba angin berubah perangai. Kaget, pantat obor itu justru saya angkat tinggi-tinggi sehingga minyak mendorong sumbunya terlepas. Api dengan cepat berpindah membakar punggung saya! Terdengar teriakannya sembari melepaskan seragam coklatnya untuk dipakai menyabet punggung saya. Baju yang saya kenakan habis sepertiganya. Sahabat saya itu tanggap melingkupi tubuh saya dengan seragam coklatnya melihat saya mulai menangis.\r\ndan menggigil antara kesakitan dan kedinginan. Sadar saya membutuhkan pertolongan secepatnya, dia menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang. Napasnya memburu kelelahan, tapi rasa tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.\r\nKalimat mana saja dari dalam kutipan cerpen tersebut yang membuktikan karakter sahabat tokoh saya merupakan seorang yang setia kawan?\r\nPilihlah jawaban yang benar! Jawaban benar lebih dari satu.",
+        "correct": [
+          "C",
+          "D",
+          "E"
+        ],
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Saya langsung menyatakan ingin ikut, tapi dia keberatan.",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "Dia memang tidak memiliki banyak pakaian hingga seragam sekolah biasa dipakai kapan saja.",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "Sahabat  saya  itu  tanggap  melingkupi  tubuh  saya  dengan seragam coklatnya.",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "Dia menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang.",
+            "media": []
+          },
+          {
+            "key": "E",
+            "text": "Rasa tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 4,
+        "id": 5,
+        "tipe": "pgk",
+        "stem": "(1) Perubahan iklim yang semakin nyata dan ancaman terhadap kelestarian bumi menuntut kita untuk mencari solusi efektif dalam menjaga keseimbangan alam. (2) Salah satu solusi yang paling menjanjikan adalah penggunaan teknologi hijau. (3) Teknologi hijau juga dikenal sebagai teknologi ramah lingkungan. (4) Teknologi ini merupakan inovasi yang dirancang untuk mengatasi berbagai tantangan lingkungan global, terutama terkait dengan perubahan iklim.\r\n\r\n(1) Perubahan iklim, yang dipicu oleh peningkatan emisi gas rumah kaca akibat aktivitas manusia, menyebabkan cuaca ekstrem, suhu global yang meningkat, dan naiknya permukaan air laut. (2) Hal tersebut juga memicu deforestasi, polusi, dan mengancam keberagaman hayati di seluruh dunia. (3) Oleh karena itu, kita harus mengambil langkah tegas agar dampak perubahan iklim ini tidak semakin parah. (4) Teknologi hijau seperti energi terbarukan (tenaga surya, angin) dapat mengurangi ketergantungan pada bahan bakar fosil yang menjadi penyebab utama emisi gas rumah kaca planet ini.\r\n\r\n(1) Teknologi hijau juga sangat penting dalam upaya adaptasi terhadap dampak perubahan iklim yang sudah tidak bisa dihindari.  (2) Sistem pertanian presisi, infrastruktur tahan bencana alam, serta teknologi untuk menginvestigasi banjir dan kekeringan adalah contoh bagaimana teknologi hijau bisa membantu masyarakat beradaptasi dengan kondisi yang berubah.\r\n\r\n(1) Dengan kondisi bumi yang semakin menghadapi tantangan besar, seperti pemanasan global, polusi, kelangkaan sumber daya, dan hilangnya keanekaragaman hayati, penerapan teknologi hijau adalah keharusan. (2) Melalui teknologi hijau, kita dapat mengurangi dampak negatif terhadap lingkungan dan memperbaiki kualitas hidup.\r\nSumber: https://www.rri.co.id/iptek/1281411\r\n\r\nManakah fakta-fakta yang mendukung simpulan bahwa teknologi hijau berperan dalam perubahan iklim?\r\n\r\nPilihlah jawaban yang benar! Jawaban benar lebih dari satu.",
+        "correct": [
+          "A",
+          "C",
+          "E"
+        ],
+        "score_weight": 4,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Teknologi hijau merupakan inovasi yang dirancang untuk mengatasi berbagai tantangan lingkungan global, terutama terkait dengan perubahan iklim.",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "Perubahan iklim, yang dipicu oleh peningkatan emisi gas rumah kaca akibat aktivitas manusia, menyebabkan cuaca ekstrem, suhu global menurun, dan naiknya permukaan air laut.",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "Teknologi hijau seperti energi terbarukan (tenaga surya, angin) dapat mengurangi ketergantungan pada bahan bakar fosil.",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "Teknologi hijau juga sangat penting dalam upaya adaptasi terhadap dampak perubahan teknologi yang sudah tidak bisa dihindari.",
+            "media": []
+          },
+          {
+            "key": "E",
+            "text": "Melalui teknologi hijau, kita dapat mengurangi dampak negatif terhadap lingkungan dan memperbaiki kualitas hidup.",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 5,
+        "id": 6,
+        "tipe": "pgk",
+        "stem": "Hampir 25 tahun lalu kami berpisah karena keluarga saya harus boyongan ke kota tempat kerja Ayah yang baru di luar pulau. Tak satupun barang tertinggal di rumah lama. Begitu juga dengan sahabatku, kami harus berpisah.\r\n\r\nBertemu dengannya setelah sekian lama, mengingatkan kembali pada pengalaman kami dahulu. Pengalaman yang menjadikan dia, walau tidak setiap waktu, selalu lekat di ingatan saya. Tentu dia mengingatnya pula, bahkan saya yakin rasa yang diidapnya lebih besar efeknya. Karena sebagai seorang sahabat, dia jelas jauh lebih tulus dan setia daripada saya. Tak terasa mata saya mulai berkaca- kaca.\r\n\r\nSaat malam  itu  saya  berada  di  sini, memperhatikannya belajar. Selesai belajar, dia menyuruh saya pulang karena hendak pergi mencari jangkrik. Saya langsung menyatakan ingin ikut, tapi dia keberatan. Ayah dan ibunya pun melarang. Saya sering mendengar cerita mengasyikan anak-anak beramai-ramai berangkat ke sawah selepas isya untuk mencari jangkrik. Sayang, Ayah tidak pernah membolehkan saya. Tapi malam itu saya nekat dan sahabat saya itu akhirnya tidak kuasa menolak. ”Tidak ganti baju?” tanya saya heran begitu dia langsung memimpin untuk berangkat. Itu hari Jumat. Seragam coklat Pramuka yang dikenakannya sejak pagi masih akan terpakai untuk bersekolah sehari lagi. Dia memang tidak memiliki banyak pakaian hingga seragam sekolah biasa dipakai kapan saja. Tapi memakainya untuk pergi ke sawah mencari jangkrik, rasanya sangat tidak elok.\r\n\r\nSaya mengambil alih obor dari tangannya. Rasanya belum terlalu lama kami berada di sana dan bumbung baru terisi beberapa ekor jangkrik ketika tiba-tiba angin berubah perangai. Kaget, pantat obor itu justru saya angkat tinggi-tinggi sehingga minyak mendorong sumbunya terlepas. Api dengan cepat berpindah membakar punggung saya! Terdengar teriakannya sembari melepaskan seragam coklatnya untuk dipakai menyabet punggung saya. Baju yang saya kenakan habis sepertiganya. Sahabat saya itu tanggap melingkupi tubuh saya dengan seragam coklatnya melihat saya mulai menangis.\r\ndan menggigil antara kesakitan dan kedinginan. Sadar saya membutuhkan pertolongan secepatnya, dia menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang. Napasnya memburu kelelahan, tapi rasa tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.\r\nKalimat mana saja dari dalam kutipan cerpen tersebut yang membuktikan karakter sahabat tokoh saya merupakan seorang yang setia kawan?\r\nPilihlah jawaban yang benar! Jawaban benar lebih dari satu.",
+        "correct": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [
+          {
+            "key": "A",
+            "text": "Saya langsung menyatakan ingin ikut, tapi dia keberatan.",
+            "media": []
+          },
+          {
+            "key": "B",
+            "text": "Dia memang tidak memiliki banyak pakaian hingga seragam sekolah biasa dipakai kapan saja.",
+            "media": []
+          },
+          {
+            "key": "C",
+            "text": "Sahabat  saya  itu  tanggap  melingkupi  tubuh  saya  dengan seragam coklatnya.",
+            "media": []
+          },
+          {
+            "key": "D",
+            "text": "Dia menggendong saya lalu berlari sembari membujuk-bujuk saya untuk tetap tenang.",
+            "media": []
+          },
+          {
+            "key": "E",
+            "text": "Rasa tanggung jawab yang besar seperti memberinya kekuatan berlipat untuk tetap bersama saya.",
+            "media": []
+          }
+        ],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 6,
+        "id": 7,
+        "tipe": "bs",
+        "stem": "Sel merupakan unit terkecil dari makhluk hidup.",
+        "correct": true,
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 7,
+        "id": 8,
+        "tipe": "bs",
+        "stem": "DNA dan RNA adalah dua jenis asam nucleat yang terdapat dalam sel.",
+        "correct": true,
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 8,
+        "id": 9,
+        "tipe": "bs",
+        "stem": "(1) Perubahan iklim yang semakin nyata dan ancaman terhadap kelestarian bumi menuntut kita untuk mencari solusi efektif dalam menjaga keseimbangan alam. (2) Salah satu solusi yang paling menjanjikan adalah penggunaan teknologi hijau. (3) Teknologi hijau juga dikenal sebagai teknologi ramah lingkungan. (4) Teknologi ini merupakan inovasi yang dirancang untuk mengatasi berbagai tantangan lingkungan global, terutama terkait dengan perubahan iklim.\r\n\r\n(1) Perubahan iklim, yang dipicu oleh peningkatan emisi gas rumah kaca akibat aktivitas manusia, menyebabkan cuaca ekstrem, suhu global yang meningkat, dan naiknya permukaan air laut. (2) Hal tersebut juga memicu deforestasi, polusi, dan mengancam keberagaman hayati di seluruh dunia. (3) Oleh karena itu, kita harus mengambil langkah tegas agar dampak perubahan iklim ini tidak semakin parah. (4) Teknologi hijau seperti energi terbarukan (tenaga surya, angin) dapat mengurangi ketergantungan pada bahan bakar fosil yang menjadi penyebab utama emisi gas rumah kaca planet ini.\r\n\r\n(1) Teknologi hijau juga sangat penting dalam upaya adaptasi terhadap dampak perubahan iklim yang sudah tidak bisa dihindari.  (2) Sistem pertanian presisi, infrastruktur tahan bencana alam, serta teknologi untuk menginvestigasi banjir dan kekeringan adalah contoh bagaimana teknologi hijau bisa membantu masyarakat beradaptasi dengan kondisi yang berubah.\r\n\r\n(1) Dengan kondisi bumi yang semakin menghadapi tantangan besar, seperti pemanasan global, polusi, kelangkaan sumber daya, dan hilangnya keanekaragaman hayati, penerapan teknologi hijau adalah keharusan. (2) Melalui teknologi hijau, kita dapat mengurangi dampak negatif terhadap lingkungan dan memperbaiki kualitas hidup.\r\n\r\nSumber: https://www.rri.co.id/iptek/1281411/\r\nManakah kalimat yang memiliki penggunaan kata serapan yang tepat?\r\n\r\nTentukan Benar atau Salah pada setiap pernyataan berikut",
+        "correct": "",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 9,
+        "id": 10,
+        "tipe": "isian",
+        "stem": "Jelaskan pengertian majas.",
+        "correct": "",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [],
+        "left": [],
+        "right": [],
+        "level": "sulit"
+      },
+      {
+        "index": 10,
+        "id": 11,
+        "tipe": "essay",
+        "stem": "Jelaskan konsep pewarisan genetik dan peran DNA dalam proses tersebut.",
+        "correct": "",
+        "score_weight": 5,
+        "score_minus": 0,
+        "choices": [],
+        "left": [],
+        "right": [],
+        "level": "sedang"
+      },
+      {
+        "index": 11,
+        "id": 12,
+        "tipe": "match",
+        "stem": "Cocokkan proses biologi di kolom kiri dengan contohnya di kolom kanan.",
+        "correct": "",
+        "score_weight": 1,
+        "score_minus": 0,
+        "choices": [],
+        "left": [
+          "Adaptasi",
+          "Mutasi",
+          "Seleksi alam",
+          "Simbiosis",
+          "Dekomposisi"
+        ],
+        "right": [
+          "Perubahan warna bulu untuk menyamarkan diri",
+          "Perubahan genetik pada individu",
+          "Kelangsungan hidup individu yang lebih baik",
+          "Hubungan saling menguntungkan antara spesies",
+          "Proses penguraian bahan organik oleh mikroorganisme"
+        ],
+        "level": "sedang"
+      }
+    ];
+
+    // ===== QUESTION HTML RENDERER (ITERATIVE IMPLEMENTATION) =====
+    const container = document.getElementById('questions_container');
+
+    function getDropZoneHtml(soalId, fieldName, titleText) {
+      return `
+        <div class="img-drop" data-drop="" tabindex="0" title="Klik area ini lalu Ctrl+V untuk paste screenshot/gambar" data-ready="1">
+          <div class="drop-title"><i class="fa-solid fa-image" style="color:var(--accent-light);"></i> ${titleText}</div>
+          <div class="drop-help" style="margin-bottom:8px;">Gambar lama tetap dipakai jika tidak memilih gambar baru. Untuk mengganti: klik area ini lalu Ctrl+V, drag &amp; drop, atau klik Pilih Gambar.</div>
+          <input class="img-file" type="file" name="${fieldName}" accept="image/*" hidden />
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:stretch;">
+            <button class="btn primary" type="button" onclick="this.parentElement.previousElementSibling.previousElementSibling.click()" style="width: 100%;"><i class="fa-solid fa-upload"></i> Pilih / Paste Gambar Baru</button>
+            <input class="inp" style="width: 100%; padding:8px 12px; font-size:12px;" name="edit_items[${soalId}][q_image_url]" placeholder="atau masukan URL gambar baru https://..." />
+          </div>
+          <label class="checklist-card" style="margin-top:8px; width:100%; box-sizing:border-box; background:var(--s3); justify-content:center;"><input type="checkbox" name="edit_items[${soalId}][q_remove_media]" value="1"> <span>Hapus gambar lama</span></label>
+          <div class="img-preview"></div>
+        </div>
+      `;
+    }
+
+    function renderQuestions() {
+      container.innerHTML = '';
+      questions.forEach((q) => {
+        const box = document.createElement('div');
+        box.className = 'manual-box';
+        box.style.background = 'var(--s2)';
+        box.style.border = '1px solid var(--line)';
+        box.style.borderRadius = '12px';
+        box.style.padding = '16px';
+        box.style.marginTop = '16px';
+        
+        let correctHtml = '';
+        let optionsHtml = '';
+
+        if (q.tipe === 'pg') {
+          optionsHtml = `<div class="choices-grid">`;
+          ['A', 'B', 'C', 'D', 'E'].forEach((opt) => {
+            const choiceObj = q.choices.find(c => c.key === opt) || { text: "" };
+            optionsHtml += `
+              <div class="option-box">
+                <label class="form-label">Opsi ${opt}</label>
+                <input class="inp" name="edit_items[${q.id}][choices][${opt}]" value="${choiceObj.text}" />
+                
+                <div class="img-drop" style="background:var(--s4); border:1.5px dashed var(--line2); padding:8px; border-radius:6px; margin-top:8px;">
+                  <div style="font-size:11px; font-weight:700; color:var(--t2); margin-bottom:6px;"><i class="fa-solid fa-image"></i> Ganti gambar opsi ${opt}</div>
+                  <input class="img-file" type="file" name="edit_img[${q.id}][choices][${opt}]" accept="image/*" hidden />
+                  <div style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
+                    <button class="btn sm primary" type="button" onclick="this.parentElement.previousElementSibling.previousElementSibling.click()" style="width:100%; font-size:10px; padding:4px 8px;"><i class="fa-solid fa-upload"></i> Pilih Gambar</button>
+                    <input class="inp" style="padding:4px 6px; font-size:10px; width:100%;" name="edit_items[${q.id}][choice_image_url][${opt}]" placeholder="URL..." />
+                  </div>
+                  <label class="checklist-card" style="margin-top:6px; width:100%; box-sizing:border-box; background:var(--s3); padding:4px 6px; font-size:10px; justify-content:center;"><input type="checkbox" name="edit_items[${q.id}][choice_remove_media][${opt}]" value="1"> <span>Hapus gambar</span></label>
+                </div>
+              </div>
+            `;
+          });
+          optionsHtml += `</div>`;
+
+          correctHtml = `
+            <div class="form-group" style="margin-top:8px;">
+              <label class="form-label required-dot">Kunci Jawaban</label>
+              <select class="sel" name="edit_items[${q.id}][correct]">
+                ${['A', 'B', 'C', 'D', 'E'].map(opt => `<option value="${opt}" ${q.correct === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+              </select>
+            </div>
+          `;
+        }
+        else if (q.tipe === 'pgk') {
+          optionsHtml = `<div class="choices-grid">`;
+          ['A', 'B', 'C', 'D', 'E'].forEach((opt) => {
+            const choiceObj = q.choices.find(c => c.key === opt) || { text: "" };
+            const isChecked = Array.isArray(q.correct) ? q.correct.includes(opt) : false;
+            optionsHtml += `
+              <div class="option-box">
+                <label class="form-label">Opsi ${opt}</label>
+                <input class="inp" name="edit_items[${q.id}][choices][${opt}]" value="${choiceObj.text}" />
+                
+                <div class="img-drop" style="background:var(--s4); border:1.5px dashed var(--line2); padding:8px; border-radius:6px; margin-top:8px;">
+                  <div style="font-size:11px; font-weight:700; color:var(--t2); margin-bottom:6px;"><i class="fa-solid fa-image"></i> Ganti gambar opsi ${opt}</div>
+                  <input class="img-file" type="file" name="edit_img[${q.id}][choices][${opt}]" accept="image/*" hidden />
+                  <div style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
+                    <button class="btn sm primary" type="button" onclick="this.parentElement.previousElementSibling.previousElementSibling.click()" style="width:100%; font-size:10px; padding:4px 8px;"><i class="fa-solid fa-upload"></i> Pilih Gambar</button>
+                    <input class="inp" style="padding:4px 6px; font-size:10px; width:100%;" name="edit_items[${q.id}][choice_image_url][${opt}]" placeholder="URL..." />
+                  </div>
+                  <label class="checklist-card" style="margin-top:6px; width:100%; box-sizing:border-box; background:var(--s3); padding:4px 6px; font-size:10px; justify-content:center;"><input type="checkbox" name="edit_items[${q.id}][choice_remove_media][${opt}]" value="1"> <span>Hapus gambar</span></label>
+                </div>
+
+                <label class="checklist-card" style="margin-top:8px; width:100%; box-sizing:border-box; justify-content:center;"><input type="checkbox" name="edit_items[${q.id}][correct_multi][]" value="${opt}" ${isChecked ? 'checked' : ''}> <span>Kunci ${opt}</span></label>
+              </div>
+            `;
+          });
+          optionsHtml += `</div>`;
+        }
+        else if (q.tipe === 'bs') {
+          if (q.id === 9) {
+            optionsHtml = `
+              <div style="margin-top:12px;">
+                <b style="font-size:12px; color:var(--t1);"><i class="fa-solid fa-list-ul"></i> Pernyataan Benar/Salah</b>
+                <div class="bs-stmt-box">
+                  <label class="form-label">Pernyataan 1</label>
+                  <textarea class="inp" name="edit_items[9][statements][0][text]" rows="2">Kata “deforestasi” pada kalimat (2) paragraf kedua.</textarea>
+                  
+                  <div class="img-drop" style="background:var(--s4); border:1.5px dashed var(--line2); padding:8px; border-radius:6px; margin-top:8px;">
+                    <div style="font-size:11px; color:var(--t2); margin-bottom:6px;"><i class="fa-solid fa-image"></i> Gambar Pernyataan 1</div>
+                    <input class="img-file" type="file" name="edit_img[9][statements][0]" accept="image/*" hidden />
+                    <button class="btn sm primary" type="button" onclick="this.previousElementSibling.previousElementSibling.click()" style="width:100%;"><i class="fa-solid fa-upload"></i> Pilih Gambar</button>
+                  </div>
+                  <label class="form-label mt-2">Kunci</label>
+                  <select class="sel" name="edit_items[9][statements][0][answer]">
+                    <option value="benar" selected>Benar</option>
+                    <option value="salah">Salah</option>
+                  </select>
+                </div>
+
+                <div class="bs-stmt-box" style="margin-top:12px;">
+                  <label class="form-label">Pernyataan 2</label>
+                  <textarea class="inp" name="edit_items[9][statements][1][text]" rows="2">Kata “menginvestigasi” pada kalimat (2) paragraf ketiga.</textarea>
+                  
+                  <div class="img-drop" style="background:var(--s4); border:1.5px dashed var(--line2); padding:8px; border-radius:6px; margin-top:8px;">
+                    <div style="font-size:11px; color:var(--t2); margin-bottom:6px;"><i class="fa-solid fa-image"></i> Gambar Pernyataan 2</div>
+                    <input class="img-file" type="file" name="edit_img[9][statements][1]" accept="image/*" hidden />
+                    <button class="btn sm primary" type="button" onclick="this.previousElementSibling.previousElementSibling.click()" style="width:100%;"><i class="fa-solid fa-upload"></i> Pilih Gambar</button>
+                  </div>
+                  <label class="form-label mt-2">Kunci</label>
+                  <select class="sel" name="edit_items[9][statements][1][answer]">
+                    <option value="benar">Benar</option>
+                    <option value="salah" selected>Salah</option>
+                  </select>
+                </div>
+              </div>
+            `;
+          } else {
+            optionsHtml = `
+              <div style="margin-top:12px; font-weight:700; font-size:12px; color:var(--accent-light);">
+                <i class="fa-solid fa-circle-info"></i> Pernyataan Benar/Salah (Kunci: ${q.correct === true ? 'Benar' : 'Salah'})
+              </div>
+            `;
+          }
+        }
+        else if (q.tipe === 'isian') {
+          optionsHtml = `
+            <div class="form-group" style="margin-top:12px;">
+              <label class="form-label required-dot">Kunci Isian (pisah dengan titik koma jika multi-kunci)</label>
+              <input class="inp" name="edit_items[${q.id}][isian_kunci]" value="gaya bahasa yang digunakan untuk memperindah ungkapan" />
+            </div>
+          `;
+        }
+        else if (q.tipe === 'match') {
+          optionsHtml = `
+            <div class="alert alert-warning" style="margin-top:12px; background:rgba(99, 102, 241, 0.08); border:1px solid rgba(99, 102, 241, 0.2); color:var(--accent-light);">
+              <i class="fa-solid fa-circle-question"></i> Tipe Menjodohkan (Match) dapat diedit melalui JSON snapshot di bawah ini.
+            </div>
+          `;
+        }
+
+        const rawJsonStr = JSON.stringify({
+          p: q.tipe === 'pg' || q.tipe === 'pgk' ? {
+            stem: q.stem,
+            choices: q.choices,
+            correct: q.correct,
+            score_weight: q.score_weight,
+            score_minus: q.score_minus
+          } : (q.tipe === 'bs' ? (q.id === 9 ? {
+            stem: q.stem,
+            statements: [
+              { id: "1", text: "Kata “deforestasi” pada kalimat (2) paragraf kedua.", answer: true },
+              { id: "2", text: "Kata “menginvestigasi” pada kalimat (2) paragraf ketiga.", answer: false }
+            ],
+            score_weight: q.score_weight,
+            score_minus: q.score_minus
+          } : {
+            stem: q.stem,
+            answer: q.correct,
+            score_weight: q.score_weight,
+            score_minus: q.score_minus
+          }) : (q.tipe === 'match' ? {
+            stem: q.stem,
+            left: q.left,
+            right: q.right,
+            score_weight: q.score_weight,
+            score_minus: q.score_minus
+          } : {
+            stem: q.stem,
+            correct_text: q.tipe === 'isian' ? ["gaya bahasa yang digunakan untuk memperindah ungkapan"] : [],
+            score_weight: q.score_weight,
+            score_minus: q.score_minus
+          })),
+          q: q.stem,
+          tipe: q.tipe,
+          level: q.level
+        }, null, 4);
+
+        const innerMarkup = `
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--accent); padding-bottom:8px; margin-bottom:12px;">
+            <div style="font-weight:800; font-size:13px; color:var(--accent-light); display:flex; align-items:center; gap:6px;">
+              <i class="fa-solid fa-file-signature"></i> Soal #${q.id}
+            </div>
+            <span class="pill gray" style="border-color:var(--accent) !important; color:var(--accent-light) !important; font-weight:700;">${q.tipe.toUpperCase()}</span>
+          </div>
+
+          <input type="hidden" name="edit_items[${q.id}][tipe]" value="${q.tipe}" />
+          
+          <div class="form-group" style="margin-top:8px;">
+            <label class="form-label">Pertanyaan / Bacaan / Stimulus</label>
+            <textarea class="inp" name="edit_items[${q.id}][stem]" rows="3">${q.stem}</textarea>
+          </div>
+
+          ${getDropZoneHtml(q.id, `edit_img[${q.id}][q]`, 'Ganti / tambah gambar soal')}
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px;">
+            <div class="form-group">
+              <label class="form-label">Skor jika benar / maksimal</label>
+              <input class="inp" type="number" step="0.01" min="0" name="edit_items[${q.id}][score_weight]" value="${q.score_weight}" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Minus jika salah (opsional)</label>
+              <input class="inp" type="number" step="0.01" min="0" name="edit_items[${q.id}][score_minus]" value="${q.score_minus}" />
+            </div>
+          </div>
+
+          ${optionsHtml}
+          ${correctHtml}
+
+          <!-- Advanced JSON SNAPSHOT Details -->
+          <details style="margin-top:12px; border-top:1px dashed var(--line); padding-top:8px;">
+            <summary style="font-size:11px; font-weight:700; color:var(--t3); cursor:pointer;">Advanced JSON snapshot</summary>
+            <textarea class="inp" name="edit_items[${q.id}][raw_json]" rows="8" style="font-family:monospace; font-size:11px; background:var(--s3); margin-top:6px;">${escapeHtml(rawJsonStr)}</textarea>
+            <label class="checklist-card" style="margin-top:6px; width:100%; box-sizing:border-box;"><input type="checkbox" name="edit_items[${q.id}][use_raw_json]" value="1"> <span>Gunakan JSON ini saat menyimpan (mode ahli)</span></label>
+          </details>
+        `;
+
+        box.innerHTML = innerMarkup;
+        container.appendChild(box);
+      });
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Render questions initially
+    renderQuestions();
+
+    // ===== DYNAMIC BUILD EDIT NEW FORM =====
+    const btnBuildEditNew = document.getElementById('btnBuildEditNew');
+    const editNewContainer = document.getElementById('edit_new_container');
+    let addedCount = 0;
+
+    if (btnBuildEditNew && editNewContainer) {
+      btnBuildEditNew.onclick = () => {
+        const pgVal = parseInt(document.getElementById('edit_cnt_pg').value) || 0;
+        const pgkVal = parseInt(document.getElementById('edit_cnt_pgk').value) || 0;
+        const bsVal = parseInt(document.getElementById('edit_cnt_bs').value) || 0;
+        const isianVal = parseInt(document.getElementById('edit_cnt_isian').value) || 0;
+        const essayVal = parseInt(document.getElementById('edit_cnt_essay').value) || 0;
+        const matchVal = parseInt(document.getElementById('edit_cnt_match').value) || 0;
+
+        const totalToAdd = pgVal + pgkVal + bsVal + isianVal + essayVal + matchVal;
+        if (totalToAdd === 0) {
+          alert('Silakan isi jumlah soal baru yang ingin ditambahkan.');
+          return;
+        }
+
+        // Generate input form cards for added questions
+        let offset = questions.length + addedCount + 1;
+        let addedHtml = '';
+
+        function renderNewBlock(newId, typeName) {
+          return `
+            <div class="manual-box" style="border:1px solid var(--accent); background:var(--s3);">
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:8px;">
+                <b style="font-size:12px; color:var(--accent-light);">Soal Tambahan #${newId}</b>
+                <span class="pill blue">${typeName.toUpperCase()}</span>
+              </div>
+              <input type="hidden" name="new_items[${newId}][tipe]" value="${typeName}" />
+              
+              <div class="form-group" style="margin-top:8px;">
+                <label class="form-label">Pertanyaan Baru</label>
+                <textarea class="inp" name="new_items[${newId}][stem]" rows="3" placeholder="Tulis pertanyaan..."></textarea>
+              </div>
+              
+              <div class="form-grid" style="margin-top:8px;">
+                <div style="grid-column: span 6;" class="form-group">
+                  <label class="form-label">Skor Ujian</label>
+                  <input class="inp" type="number" step="0.01" name="new_items[${newId}][score_weight]" value="1" />
+                </div>
+                <div style="grid-column: span 6;" class="form-group">
+                  <label class="form-label">Minus</label>
+                  <input class="inp" type="number" step="0.01" name="new_items[${newId}][score_minus]" value="0" />
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Append new form blocks
+        for (let i = 0; i < pgVal; i++) addedHtml += renderNewBlock(offset++, 'pg');
+        for (let i = 0; i < pgkVal; i++) addedHtml += renderNewBlock(offset++, 'pgk');
+        for (let i = 0; i < bsVal; i++) addedHtml += renderNewBlock(offset++, 'bs');
+        for (let i = 0; i < isianVal; i++) addedHtml += renderNewBlock(offset++, 'isian');
+        for (let i = 0; i < essayVal; i++) addedHtml += renderNewBlock(offset++, 'essay');
+        for (let i = 0; i < matchVal; i++) addedHtml += renderNewBlock(offset++, 'match');
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = addedHtml;
+        editNewContainer.appendChild(wrapper);
+
+        addedCount += totalToAdd;
+
+        // Reset inputs
+        document.getElementById('edit_cnt_pg').value = 0;
+        document.getElementById('edit_cnt_pgk').value = 0;
+        document.getElementById('edit_cnt_bs').value = 0;
+        document.getElementById('edit_cnt_isian').value = 0;
+        document.getElementById('edit_cnt_essay').value = 0;
+        document.getElementById('edit_cnt_match').value = 0;
+      };
+    }
+  </script>
+</body>
+
+</html>

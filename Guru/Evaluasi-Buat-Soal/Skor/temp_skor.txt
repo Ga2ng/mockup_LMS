@@ -1,0 +1,142 @@
+<div class="card card-soft score-panel p-3 mb-3" id="scoreBox">
+    <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+      <div>
+        <h5 class="mb-1" style="font-weight:900"><i class="bi bi-trophy"></i> Rekap Skor Model Kurikulum — Tryiut UNBK</h5>
+        <div class="text-muted small">Kolom nilai muncul sesuai tipe soal: PG, PGK, B/S, ISIAN, ESSAY, MATCH. Nilai per kolom adalah skor yang didapat siswa pada soal tersebut.</div>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <a class="btn btn-success btn-sm" href="ujian_guru.php?school_id=8&amp;export=score_xlsx&amp;id=126"><i class="bi bi-file-earmark-excel"></i> Export XLSX Model Kurikulum</a>
+        <a class="btn btn-outline-secondary btn-sm" href="ujian_guru.php?school_id=8">Tutup Skor</a>
+      </div>
+    </div>
+
+        <div class="alert alert-info small mt-2 mb-2">
+      <b>Format:</b> kolom setelah <code>Keterangan</code> otomatis mengikuti urutan soal dan tipe soal. Contoh: <code>PG-1</code>, <code>PGK-2</code>, <code>B/S-3</code>, <code>ESSAY-4</code>. Baris <b>MAX POIN</b> menunjukkan bobot maksimal setiap soal.
+    </div>
+
+    <div class="row g-2 align-items-end mt-2 mb-2" id="v50ScoreFilterBox">
+      <div class="col-md-3">
+        <label class="small fw-bold">Filter kelas</label>
+        <select class="form-select form-select-sm" id="v50ScoreClassFilter">
+          <option value="">Semua kelas / semua siswa</option>
+                  </select>
+      </div>
+      <div class="col-md-5">
+        <label class="small fw-bold">Search siswa</label>
+        <input class="form-control form-control-sm" id="v50ScoreSearch" placeholder="Cari nama / NIS / NISN / kelas...">
+      </div>
+      <div class="col-md-4">
+        <div class="small text-muted"><b id="v50ScoreCount">0</b> siswa tampil dari 0 data skor.</div>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-2" style="max-height:620px">
+      <table id="v50ScoreTable" class="table table-sm table-bordered align-middle" style="font-size:12px;min-width:1200px">
+        <thead class="table-dark sticky-top">
+          <tr>
+                          <th>No</th>
+                          <th>Kelas / No Absen</th>
+                          <th>NIS</th>
+                          <th>NISN</th>
+                          <th>Nama</th>
+                          <th>Keterangan</th>
+                          <th>Konversi</th>
+                          <th>Awal Mengerjakan</th>
+                          <th>Akhir Mengerjakan</th>
+                          <th>Nilai</th>
+                          <th>Rank</th>
+                          <th>Keterangan</th>
+                          <th>PG-1</th>
+                          <th>PG-2</th>
+                          <th>PG-3</th>
+                          <th>PGK-4</th>
+                          <th>PGK-5</th>
+                          <th>PGK-6</th>
+                          <th>B/S-7</th>
+                          <th>B/S-8</th>
+                          <th>B/S-9</th>
+                          <th>ISIAN-10</th>
+                          <th>ESSAY-11</th>
+                          <th>MATCH-12</th>
+                        <th>Aksi</th>
+          </tr>
+          <tr class="table-warning">
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th>MAX POIN</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>4</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>1</th>
+                          <th>5</th>
+                          <th>1</th>
+                        <th></th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr><td colspan="25" class="text-muted">Belum ada siswa yang mengerjakan.</td></tr>
+                  </tbody>
+                <tfoot>
+                      <tr class="table-light">
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Jumlah Jawaban Benar</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tingkat Kesukaran</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td><td>Sukar</td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Daya Beda</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Pilihan Jawaban</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td>Surabaya, 29-06-2026</td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td>Waka Kurikulum</td><td></td><td></td><td></td><td>Guru Mapel</td>              <td></td>
+            </tr>
+                      <tr class="table-light">
+              <td></td><td></td><td></td><td></td><td>Wali Kelas X-10</td>              <td></td>
+            </tr>
+                  </tfoot>
+              </table>
+    </div>
+    <script>
+    (function(){
+      const box=document.getElementById('scoreBox'); if(!box) return;
+      const cls=document.getElementById('v50ScoreClassFilter');
+      const q=document.getElementById('v50ScoreSearch');
+      const count=document.getElementById('v50ScoreCount');
+      const rows=[...box.querySelectorAll('tr.v50-score-row')];
+      function norm(s){return String(s||'').toLowerCase().trim();}
+      function apply(){
+        const c=norm(cls&&cls.value), term=norm(q&&q.value); let shown=0;
+        rows.forEach(r=>{
+          const okClass=!c || norm(r.dataset.kelas)===c;
+          const okText=!term || norm(r.dataset.search).indexOf(term)>=0;
+          const ok=okClass && okText;
+          r.style.display=ok?'':'none'; if(ok) shown++;
+        });
+        if(count) count.textContent=shown;
+      }
+      cls&&cls.addEventListener('change',apply);
+      q&&q.addEventListener('input',apply);
+      apply();
+    })();
+    </script>
+  </div>

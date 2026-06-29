@@ -10,11 +10,33 @@
 
   <div class="form-group">
     <label class="form-label required-dot">Sumber Soal</label>
-    <select class="sel" name="source_card" id="source_card_select" required>
-      <option value="bank" selected>Bank Soal — Ambil otomatis</option>
-      <option value="ai">AI Cloud — Generate soal</option>
-      <option value="manual">Manual — Ketik biasa</option>
-    </select>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+      <!-- Card 1: Bank Soal -->
+      <div class="source-card" onclick="selectSource(this)" data-value="bank" style="border: 2px solid var(--accent); border-radius: 10px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--accent-dim); color: var(--t1);">
+        <div style="font-size: 24px; color: var(--accent-light); margin-bottom: 6px;">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <div style="font-weight: 600; font-size: 13px;">Bank Soal</div>
+        <div style="font-size: 10px; color: var(--t3);">Ambil otomatis</div>
+      </div>
+      <!-- Card 2: AI Cloud -->
+      <div class="source-card" onclick="selectSource(this)" data-value="ai" style="border: 2px solid var(--line); border-radius: 10px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--s3); color: var(--t1);">
+        <div style="font-size: 24px; color: var(--t3); margin-bottom: 6px;">
+          <i class="fa-solid fa-cloud"></i>
+        </div>
+        <div style="font-weight: 600; font-size: 13px;">AI Cloud</div>
+        <div style="font-size: 10px; color: var(--t3);">Generate soal</div>
+      </div>
+      <!-- Card 3: Manual -->
+      <div class="source-card" onclick="selectSource(this)" data-value="manual" style="border: 2px solid var(--line); border-radius: 10px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--s3); color: var(--t1);">
+        <div style="font-size: 24px; color: var(--t3); margin-bottom: 6px;">
+          <i class="fa-solid fa-pen"></i>
+        </div>
+        <div style="font-weight: 600; font-size: 13px;">Manual</div>
+        <div style="font-size: 10px; color: var(--t3);">Ketik biasa</div>
+      </div>
+    </div>
+    <input type="hidden" name="source_card" id="source_card_hidden" value="bank">
   </div>
 
   <!-- Conditional Panels for Source Selection -->
@@ -69,6 +91,15 @@
       <button type="button" class="btn sm" id="btnClearClass" style="padding:4px 8px; font-size:9px;"><i class="fa-solid fa-circle-xmark"></i> Kosongkan</button>
     </div>
     <div class="checklist-grid" id="kelas_choices_gen">
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-1"> <span>X-1</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-2"> <span>X-2</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-3"> <span>X-3</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-4"> <span>X-4</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-5"> <span>X-5</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-6"> <span>X-6</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-7"> <span>X-7</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-8"> <span>X-8</span></label>
+      <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-9"> <span>X-9</span></label>
       <label class="checklist-card"><input type="checkbox" class="kelas-check" value="X-10" checked> <span>X-10</span></label>
     </div>
   </div>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekap Skor Ujian - Panel Guru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --accent-dim: rgba(99, 102, 241, 0.15);
+      --accent-glow: rgba(99, 102, 241, 0.25);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 12px 8px;
+      box-sizing: border-box;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 0px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* Header styling */
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand .logo {
+      background: var(--accent);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .brand .t1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--t1);
+      line-height: 1.2;
+    }
+
+    .brand .t2 {
+      font-size: 12px;
+      color: var(--t3);
+      margin-top: 2px;
+    }
+
+    .row-btn {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--s1);
+      color: var(--t1);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-light);
+    }
+
+    .btn.bad {
+      background: rgba(244, 63, 94, 0.1);
+      color: #f43f5e;
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+
+    .btn.bad:hover {
+      background: #f43f5e;
+      color: #fff;
+      border-color: #f43f5e;
+    }
+
+    .btn.ok {
+      background: #22c55e;
+      color: #fff;
+      border-color: #22c55e;
+    }
+
+    .btn.ok:hover {
+      background: #1ea34d;
+      border-color: #1ea34d;
+    }
+
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--s1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--t1);
+      transition: all 0.15s;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--s3);
+      border-color: var(--line2);
+    }
+
+    /* Config Cards */
+    .config-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--t1);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .config-header i {
+      color: var(--accent-light);
+    }
+
+    /* Form elements */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--t2);
+    }
+
+    .inp,
+    .sel {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--inp-bg);
+      color: var(--t1);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+    }
+
+    .inp:focus,
+    .sel:focus {
+      border-color: var(--accent);
+    }
+
+    /* KPI Grid */
+    .kpi-grid-full {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .kpi-grid-full {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .kpi-grid-full {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .kpi-card {
+      background: var(--s1);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line2);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--line);
+    }
+
+    .kpi-card.kpi-total::before {
+      background: var(--t3);
+    }
+
+    .kpi-card.kpi-publish::before {
+      background: var(--green);
+    }
+
+    .kpi-card.kpi-draft::before {
+      background: var(--t4);
+    }
+
+    .kpi-card.kpi-token::before {
+      background: var(--amber);
+    }
+
+    .kpi-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--t3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--t1);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .kpi-card.kpi-token .kpi-value {
+      color: var(--amber);
+    }
+
+    .kpi-card.kpi-publish .kpi-value {
+      color: var(--green);
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      padding: 10px 14px;
+      background: var(--s3);
+      color: var(--t2);
+      font-weight: 700;
+      font-size: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--t2);
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: var(--s3);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .badge.success {
+      background: #22c55e;
+      color: #ffffff;
+      border: none;
+    }
+
+    .badge.danger {
+      background: #f43f5e;
+      color: #ffffff;
+      border: none;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      background: var(--s3);
+      border: 1px solid var(--line);
+      color: var(--t2);
+    }
+
+    .pill.gray {
+      background: var(--s2);
+      color: var(--t3);
+    }
+
+    .pill.warn {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+    
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .alert-info {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: var(--t1);
+      border-left: 4px solid var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- HEADER -->
+      <div class="head">
+        <div class="brand">
+          <div class="logo"><i class="fa-solid fa-trophy"></i></div>
+          <div>
+            <div class="t1">Rekap Skor &amp; Analisis Soal</div>
+            <div class="t2">AI Assessment Intelligence • Analisis Daya Beda dan Rekapitulasi Nilai Siswa</div>
+          </div>
+        </div>
+        <div class="row-btn">
+          <div class="theme-toggle-btn" id="theme-toggle"><i class="fa-solid fa-sun"></i></div>
+          <a class="btn" href="evaluasi_buat_soal_guru.html"><i class="fa-solid fa-arrow-left"></i> Kembali ke Evaluasi</a>
+          <a class="btn" href="skor.html"><i class="fa-solid fa-rotate"></i> Refresh</a>
+          <a class="btn bad" href="../Login/login.html"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="body" style="padding-top:12px">
+
+        <!-- KPI METRIC GRID -->
+        <div class="kpi-grid-full">
+          <div class="kpi-card kpi-total">
+            <span class="kpi-value">94</span>
+            <span class="kpi-label"><i class="fa-solid fa-file-lines"></i> Total Ujian</span>
+          </div>
+          <div class="kpi-card kpi-publish">
+            <span class="kpi-value">91</span>
+            <span class="kpi-label"><i class="fa-solid fa-circle-check"></i> Publish / Aktif</span>
+          </div>
+          <div class="kpi-card kpi-draft">
+            <span class="kpi-value">3</span>
+            <span class="kpi-label"><i class="fa-solid fa-circle-notch"></i> Draft / Persiapan</span>
+          </div>
+          <div class="kpi-card kpi-token">
+            <span class="kpi-value">50</span>
+            <span class="kpi-label"><i class="fa-solid fa-key"></i> Token Berjalan</span>
+          </div>
+        </div>
+
+        <!-- MAIN FULL WIDTH REKAP SECTION -->
+        <div class="config-card" id="scoreBox">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; border-bottom:1px solid var(--line); padding-bottom:12px;">
+            <div>
+              <div style="font-weight:900; font-size:16px; color:var(--t1); font-family:'Poppins', sans-serif;">
+                <i class="fa-solid fa-trophy" style="color:var(--amber);"></i> Rekap Skor Model Kurikulum — Tryout UNBK
+              </div>
+              <div style="font-size:12px; color:var(--t3); margin-top:4px; line-height:1.5;">
+                Kolom nilai muncul sesuai tipe soal: PG, PGK, B/S, ISIAN, ESSAY, MATCH. Nilai per kolom adalah skor yang didapat siswa pada soal tersebut.
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <a class="btn ok" href="#"><i class="fa-solid fa-file-excel"></i> Export XLSX Model Kurikulum</a>
+            </div>
+          </div>
+
+          <div class="alert alert-info">
+            <i class="fa-solid fa-circle-info" style="color:var(--accent-light); margin-right:4px;"></i>
+            <strong>Format:</strong> Kolom setelah <code>Keterangan</code> otomatis mengikuti urutan soal dan tipe soal. Contoh: <code>PG-1</code>, <code>PGK-2</code>, <code>B/S-3</code>, <code>ESSAY-4</code>. Baris <b>MAX POIN</b> menunjukkan bobot maksimal setiap soal.
+          </div>
+
+          <!-- FILTERS PANEL -->
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; align-items:flex-end;">
+            <div class="form-group">
+              <label class="form-label">Filter Kelas</label>
+              <select class="sel" id="v50ScoreClassFilter">
+                <option value="">Semua kelas / semua siswa</option>
+                <option value="X-10">X-10</option>
+                <option value="X-1">X-1</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex:2;">
+              <label class="form-label">Search Siswa</label>
+              <input class="inp" id="v50ScoreSearch" placeholder="Cari nama / NIS / NISN / kelas...">
+            </div>
+            <div style="font-size:12px; color:var(--t3); padding-bottom:12px;">
+              <span id="v50ScoreCount" style="font-weight:700; color:var(--accent-light);">3</span> siswa tampil dari 3 data skor.
+            </div>
+          </div>
+
+          <!-- DATA TABLE -->
+          <div style="overflow-x:auto; margin-top:8px;">
+            <table id="v50ScoreTable" style="font-size:12px; min-width:1400px;">
+              <thead>
+                <tr>
+                  <th style="width:50px;">No</th>
+                  <th>Kelas / No Absen</th>
+                  <th>NIS</th>
+                  <th>NISN</th>
+                  <th>Nama</th>
+                  <th>Keterangan</th>
+                  <th>Konversi</th>
+                  <th>Awal Mengerjakan</th>
+                  <th>Akhir Mengerjakan</th>
+                  <th>Nilai</th>
+                  <th>Rank</th>
+                  <th style="background:var(--accent-dim); color:var(--accent-light); font-weight:700;">MAX POIN</th>
+                  <th>PG-1</th>
+                  <th>PG-2</th>
+                  <th>PG-3</th>
+                  <th>PGK-4</th>
+                  <th>PGK-5</th>
+                  <th>PGK-6</th>
+                  <th>B/S-7</th>
+                  <th>B/S-8</th>
+                  <th>B/S-9</th>
+                  <th>ISIAN-10</th>
+                  <th>ESSAY-11</th>
+                  <th>MATCH-12</th>
+                  <th style="text-align:right;">Aksi</th>
+                </tr>
+                <tr style="background:rgba(245, 158, 11, 0.1); border-bottom:2px solid var(--line);">
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th style="background:rgba(245, 158, 11, 0.2); color:var(--amber); font-weight:800; text-align:center;">MAX POIN</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>4</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>5</th>
+                  <th>1</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Dummy Row 1 -->
+                <tr class="v50-score-row" data-kelas="x-10" data-search="ahmad hidayat 24001 0102030 X-10">
+                  <td>1</td>
+                  <td>X-10 / 02</td>
+                  <td>24001</td>
+                  <td>0102030</td>
+                  <td style="font-weight:700; color:var(--t1);">Ahmad Hidayat</td>
+                  <td>Selesai</td>
+                  <td>85.50</td>
+                  <td>2026-06-29 08:00:10</td>
+                  <td>2026-06-29 09:15:32</td>
+                  <td style="font-weight:800; color:var(--green);">85.50</td>
+                  <td><span class="pill gray">#2</span></td>
+                  <td>19 / 20</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td style="text-align:right;"><button class="btn sm bad" style="padding:2px 6px; font-size:10px;"><i class="fa-solid fa-rotate-left"></i> Reset</button></td>
+                </tr>
+
+                <!-- Dummy Row 2 -->
+                <tr class="v50-score-row" data-kelas="x-10" data-search="budi santoso 24002 0102031 X-10">
+                  <td>2</td>
+                  <td>X-10 / 05</td>
+                  <td>24002</td>
+                  <td>0102031</td>
+                  <td style="font-weight:700; color:var(--t1);">Budi Santoso</td>
+                  <td>Selesai</td>
+                  <td>78.20</td>
+                  <td>2026-06-29 08:02:15</td>
+                  <td>2026-06-29 09:20:45</td>
+                  <td style="font-weight:800; color:var(--green);">78.20</td>
+                  <td><span class="pill gray">#3</span></td>
+                  <td>17 / 20</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>4</td>
+                  <td style="text-align:right;"><button class="btn sm bad" style="padding:2px 6px; font-size:10px;"><i class="fa-solid fa-rotate-left"></i> Reset</button></td>
+                </tr>
+
+                <!-- Dummy Row 3 -->
+                <tr class="v50-score-row" data-kelas="x-10" data-search="citra lestari 24003 0102032 X-10">
+                  <td>3</td>
+                  <td>X-10 / 08</td>
+                  <td>24003</td>
+                  <td>0102032</td>
+                  <td style="font-weight:700; color:var(--t1);">Citra Lestari</td>
+                  <td>Selesai</td>
+                  <td>92.00</td>
+                  <td>2026-06-29 08:00:05</td>
+                  <td>2026-06-29 09:12:11</td>
+                  <td style="font-weight:800; color:var(--green);">92.00</td>
+                  <td><span class="pill gray">#1</span></td>
+                  <td>20 / 20</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>3</td>
+                  <td style="text-align:right;"><button class="btn sm bad" style="padding:2px 6px; font-size:10px;"><i class="fa-solid fa-rotate-left"></i> Reset</button></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr style="background:var(--s3); font-weight:700;">
+                  <td colspan="11"></td>
+                  <td>Jumlah Jawaban Benar</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td></td>
+                </tr>
+                <tr style="background:var(--s3); font-weight:700;">
+                  <td colspan="11"></td>
+                  <td>Tingkat Kesukaran</td>
+                  <td>Mudah</td>
+                  <td>Sedang</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Sedang</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td>Mudah</td>
+                  <td></td>
+                </tr>
+                <tr style="background:var(--s3); font-weight:700;">
+                  <td colspan="11"></td>
+                  <td>Daya Beda</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td>Baik</td>
+                  <td></td>
+                </tr>
+                <tr style="background:var(--s3); font-weight:700;">
+                  <td colspan="11"></td>
+                  <td>Pilihan Jawaban</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td></td>
+                </tr>
+                <tr style="background:var(--s2); font-size:11px; color:var(--t3);">
+                  <td colspan="25" style="padding:16px 10px;">
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+                      <div>Surabaya, 29-06-2026</div>
+                      <div style="text-align:right;">
+                        Waka Kurikulum: ___________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Guru Mapel: ___________________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Wali Kelas X-10: ___________________
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- PAGINATION FOOTER -->
+          <div class="footer-pagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; font-size:11px; color:var(--t3); padding-top:12px; border-top:1px solid var(--line);">
+            <div>Menampilkan 1-3 dari 3 data</div>
+            <div style="display:flex; gap:4px;">
+              <button class="btn sm" disabled style="padding:4px 8px; font-size:10px;"><i class="fa-solid fa-angle-left"></i></button>
+              <button class="btn sm primary" style="padding:4px 8px; font-size:10px;">1</button>
+              <button class="btn sm" disabled style="padding:4px 8px; font-size:10px;"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ===== THEME TOGGLE SCRIPT =====
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggle.onclick = () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    };
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      } else {
+        themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      }
+    }
+
+    // ===== FILTER AND SEARCH SCRIPT =====
+    (function () {
+      const box = document.getElementById('scoreBox');
+      if (!box) return;
+      const cls = document.getElementById('v50ScoreClassFilter');
+      const q = document.getElementById('v50ScoreSearch');
+      const count = document.getElementById('v50ScoreCount');
+      const rows = [...box.querySelectorAll('tr.v50-score-row')];
+      
+      function norm(s) { return String(s || '').toLowerCase().trim(); }
+      
+      function apply() {
+        const c = norm(cls && cls.value);
+        const term = norm(q && q.value);
+        let shown = 0;
+        
+        rows.forEach(r => {
+          const rKelas = r.getAttribute('data-kelas');
+          const rSearch = r.getAttribute('data-search');
+          const okClass = !c || norm(rKelas) === c;
+          const okText = !term || norm(rSearch).indexOf(term) >= 0;
+          const ok = okClass && okText;
+          r.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        
+        if (count) count.textContent = shown;
+      }
+      
+      if (cls) cls.addEventListener('change', apply);
+      if (q) q.addEventListener('input', apply);
+      apply();
+    })();
+  </script>
+</body>
+
+</html>
