@@ -1,0 +1,196 @@
+<main>
+    <section id="card" class="card">
+        <div class="qhead">
+            <div><span class="chip">No. 12</span> <span class="chip">MATCH</span> <span class="chip">Skor maks 1</span>
+            </div><span class="sub">Soal ID: 58</span>
+        </div>
+        <div class="stem">Cocokkan proses biologi di kolom kiri dengan contohnya di kolom kanan.</div>
+        <div class="mwrap"></div>
+        <div class="matchRow">
+            <div><b>A1</b>. Adaptasi</div>
+            <div class="arrow">→</div>
+            <div><select onchange="onChange()" data-match-left="0">
+                    <option value="">Pilih pasangan</option>
+                    <option value="0">B1. Perubahan warna bulu untuk menyamarkan diri</option>
+                    <option value="1">B2. Perubahan genetik pada individu</option>
+                    <option value="2">B3. Kelangsungan hidup individu yang lebih baik</option>
+                    <option value="3">B4. Hubungan saling menguntungkan antara spesies</option>
+                    <option value="4">B5. Proses penguraian bahan organik oleh mikroorganisme</option>
+                </select></div>
+        </div>
+        <div class="matchRow">
+            <div><b>A2</b>. Mutasi</div>
+            <div class="arrow">→</div>
+            <div><select onchange="onChange()" data-match-left="1">
+                    <option value="">Pilih pasangan</option>
+                    <option value="0">B1. Perubahan warna bulu untuk menyamarkan diri</option>
+                    <option value="1">B2. Perubahan genetik pada individu</option>
+                    <option value="2">B3. Kelangsungan hidup individu yang lebih baik</option>
+                    <option value="3">B4. Hubungan saling menguntungkan antara spesies</option>
+                    <option value="4">B5. Proses penguraian bahan organik oleh mikroorganisme</option>
+                </select></div>
+        </div>
+        <div class="matchRow">
+            <div><b>A3</b>. Seleksi alam</div>
+            <div class="arrow">→</div>
+            <div><select onchange="onChange()" data-match-left="2">
+                    <option value="">Pilih pasangan</option>
+                    <option value="0">B1. Perubahan warna bulu untuk menyamarkan diri</option>
+                    <option value="1">B2. Perubahan genetik pada individu</option>
+                    <option value="2">B3. Kelangsungan hidup individu yang lebih baik</option>
+                    <option value="3">B4. Hubungan saling menguntungkan antara spesies</option>
+                    <option value="4">B5. Proses penguraian bahan organik oleh mikroorganisme</option>
+                </select></div>
+        </div>
+        <div class="matchRow">
+            <div><b>A4</b>. Simbiosis</div>
+            <div class="arrow">→</div>
+            <div><select onchange="onChange()" data-match-left="3">
+                    <option value="">Pilih pasangan</option>
+                    <option value="0">B1. Perubahan warna bulu untuk menyamarkan diri</option>
+                    <option value="1">B2. Perubahan genetik pada individu</option>
+                    <option value="2">B3. Kelangsungan hidup individu yang lebih baik</option>
+                    <option value="3">B4. Hubungan saling menguntungkan antara spesies</option>
+                    <option value="4">B5. Proses penguraian bahan organik oleh mikroorganisme</option>
+                </select></div>
+        </div>
+        <div class="matchRow">
+            <div><b>A5</b>. Dekomposisi</div>
+            <div class="arrow">→</div>
+            <div><select onchange="onChange()" data-match-left="4">
+                    <option value="">Pilih pasangan</option>
+                    <option value="0">B1. Perubahan warna bulu untuk menyamarkan diri</option>
+                    <option value="1">B2. Perubahan genetik pada individu</option>
+                    <option value="2">B3. Kelangsungan hidup individu yang lebih baik</option>
+                    <option value="3">B4. Hubungan saling menguntungkan antara spesies</option>
+                    <option value="4">B5. Proses penguraian bahan organik oleh mikroorganisme</option>
+                </select></div>
+        </div>
+        <div class="foot"><button class="btn line" onclick="prevQ()">← Sebelumnya</button>
+            <div><button class="btn line" onclick="markReview()">Tandai Ragu</button> <button class="btn pri"
+                    onclick="nextQ()">Berikutnya →</button></div>
+        </div>
+    </section>
+    <section id="result" class="card result show" style="margin-top:16px">
+        <h2 style="margin-top:0">Hasil Coba Soal</h2>
+        <div class="stats" style="max-width:420px">
+            <div class="stat">
+                <div class="muted">Skor otomatis</div><b>0 / 14</b>
+            </div>
+            <div class="stat">
+                <div class="muted">Konversi</div><b>0</b>
+            </div>
+        </div>
+        <div class="sub">Catatan: Essay/manual tidak dihitung otomatis.</div>
+        <table class="resTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tipe</th>
+                    <th>Jawaban Coba</th>
+                    <th>Kunci</th>
+                    <th>Skor</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>PG</td>
+                    <td>A</td>
+                    <td>C</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>PG</td>
+                    <td>—</td>
+                    <td>A</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>PG</td>
+                    <td>—</td>
+                    <td>A</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>PGK</td>
+                    <td>—</td>
+                    <td>C, D, E</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Kosong</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>PGK</td>
+                    <td>—</td>
+                    <td>A, C, E</td>
+                    <td class="badText">0 / 4</td>
+                    <td>Kosong</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>PGK</td>
+                    <td>—</td>
+                    <td>A, B, C, D, E</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Kosong</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>BS</td>
+                    <td>—</td>
+                    <td>1. benar</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>BS</td>
+                    <td>—</td>
+                    <td>1. benar</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>BS</td>
+                    <td>—</td>
+                    <td>1. benar; 2. salah</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>ISIAN</td>
+                    <td>—</td>
+                    <td>gaya bahasa yang digunakan untuk memperindah ungkapan</td>
+                    <td class="badText">0 / 1</td>
+                    <td>Salah</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>ESSAY</td>
+                    <td>—</td>
+                    <td>Menjelaskan secara mendetail konsep pewarisan genetik dan peranan DNA.</td>
+                    <td class="badText">0 / 0</td>
+                    <td>Manual/Essay</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>MATCH</td>
+                    <td>—</td>
+                    <td></td>
+                    <td class="badText">0 / 1</td>
+                    <td>Benar</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
