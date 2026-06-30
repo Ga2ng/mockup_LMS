@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Pembayaran SPP Wali Murid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 12px 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 8px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .inp,
+        .sel {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus,
+        .sel:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .sel {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 12px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .config-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .config-header i {
+            color: var(--accent-light);
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 8px;
+        }
+
+        .info-label {
+            color: var(--t3);
+            font-size: 12px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--t2);
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--t2);
+        }
+
+        .status-box {
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 150px;
+            color: var(--t3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-wallet"></i></div>
+                    <div>
+                        <div class="t1">Pembayaran SPP Anak</div>
+                        <div class="t2">AI Assessment Intelligence • Kelola Tagihan &amp; Pembayaran Wali Murid</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../Dashboard/dashboard.html" class="btn"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- 2-COLUMN GRID -->
+            <div class="grid2">
+                <!-- COLUMN LEFT: IDENTITAS ANAK & FORM PEMBAYARAN -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Ringkasan Identitas Anak -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fa-solid fa-id-card"></i> Ringkasan Identitas Siswa
+                        </div>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-label">Nama Siswa / Anak</span>
+                                <span class="info-value">Aca</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">NISP / NIS</span>
+                                <span class="info-value">5001</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Kelas Aktif</span>
+                                <span class="info-value">X-10</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Nama Ortu / Wali</span>
+                                <span class="info-value">Wali Aca</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">No. WA Terdaftar</span>
+                                <span class="info-value">081234567890</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Pembayaran SPP -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fa-solid fa-cash-register"></i> Form Pengajuan Pembayaran
+                        </div>
+                        <form style="display: flex; flex-direction: column; gap: 14px;">
+                            <div class="form-group">
+                                <label class="form-label">Pilih Metode Pembayaran</label>
+                                <select class="sel" required>
+                                    <option value="smartlink_indomaret" selected>Indomaret / Alfamart (OTC)</option>
+                                    <option value="smartlink_va_bri">Virtual Account BRI</option>
+                                    <option value="smartlink_qris">QRIS (BRI/Mandiri/All-Pay)</option>
+                                    <option value="pintro_link">Pintro Link Mandiri</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Nominal Bayar (Rp)</label>
+                                <input class="inp" type="number" placeholder="kosongkan untuk bayar semua tagihan (Rp 350.000)">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">No. WA untuk Notifikasi Bukti Bayar</label>
+                                <input class="inp" type="text" value="081234567890" required>
+                            </div>
+
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="wa_notif" name="wa_notif" checked style="width: 16px; height: 16px; accent-color: var(--accent);">
+                                <label for="wa_notif" style="font-size: 12px; font-weight: 600; cursor: pointer; color: var(--t2);">Kirim notifikasi bukti bayar otomatis</label>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-top: 6px;">
+                                <button type="button" class="btn primary" style="padding: 12px;"><i class="fa-solid fa-file-invoice-dollar"></i> Generate Kode Pembayaran</button>
+                                <button type="button" class="btn" style="padding: 12px;"><i class="fa-solid fa-arrows-rotate"></i> Cek Status</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- COLUMN RIGHT: STATUS TAGIHAN & RIWAYAT -->
+                <div class="config-card">
+                    <div class="config-header">
+                        <i class="fa-solid fa-receipt"></i> Status Tagihan Aktif &amp; Riwayat
+                    </div>
+                    
+                    <!-- Tagihan Aktif Simulator -->
+                    <div class="status-box" style="align-items: flex-start; text-align: left; padding: 16px; min-height: auto; margin-bottom: 12px; border-left: 4px solid var(--amber);">
+                        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                            <span style="font-weight: 700; color: var(--t1); font-size: 12px;">Tagihan Juni 2026 (SPP Sekolah)</span>
+                            <span class="pill amber">PENDING</span>
+                        </div>
+                        <div style="font-family: monospace; font-size: 14px; font-weight: 700; margin: 8px 0; color: var(--amber);">
+                            Kode Pembayaran: OTC-ORANGTUA-5001-JUNI
+                        </div>
+                        <div style="font-size: 11px; color: var(--t3);">
+                            Nominal: <b>Rp 350.000</b><br>
+                            Bayar sebelum batas jatuh tempo tanggal 10 Juli 2026 melalui Kasir Swalayan.
+                        </div>
+                    </div>
+
+                    <!-- History logs -->
+                    <div style="margin-top: 10px;">
+                        <span style="font-weight: 700; font-size: 12px; color: var(--t2); display: block; margin-bottom: 8px;"><i class="fa-solid fa-history"></i> Riwayat Pembayaran Wali Murid</span>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid var(--line);">
+                                        <th style="padding: 6px 4px; text-align: left; background: none;">Bulan Tagihan</th>
+                                        <th style="padding: 6px 4px; text-align: left; background: none;">Metode</th>
+                                        <th style="padding: 6px 4px; text-align: right; background: none;">Jumlah</th>
+                                        <th style="padding: 6px 4px; text-align: center; background: none;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px dashed var(--line);">
+                                        <td style="padding: 8px 4px;">Mei 2026</td>
+                                        <td style="padding: 8px 4px;">VA BRI</td>
+                                        <td style="padding: 8px 4px; text-align: right; font-weight: 600;">Rp 350.000</td>
+                                        <td style="padding: 8px 4px; text-align: center;"><span class="pill green">LUNAS</span></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px dashed var(--line);">
+                                        <td style="padding: 8px 4px;">April 2026</td>
+                                        <td style="padding: 8px 4px;">QRIS Bank</td>
+                                        <td style="padding: 8px 4px; text-align: right; font-weight: 600;">Rp 350.000</td>
+                                        <td style="padding: 8px 4px; text-align: center;"><span class="pill green">LUNAS</span></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px dashed var(--line);">
+                                        <td style="padding: 8px 4px;">Maret 2026</td>
+                                        <td style="padding: 8px 4px;">Indomaret</td>
+                                        <td style="padding: 8px 4px; text-align: right; font-weight: 600;">Rp 350.000</td>
+                                        <td style="padding: 8px 4px; text-align: center;"><span class="pill green">LUNAS</span></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px dashed var(--line);">
+                                        <td style="padding: 8px 4px;">Februari 2026</td>
+                                        <td style="padding: 8px 4px;">VA BRI</td>
+                                        <td style="padding: 8px 4px; text-align: right; font-weight: 600;">Rp 350.000</td>
+                                        <td style="padding: 8px 4px; text-align: center;"><span class="pill green">LUNAS</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>

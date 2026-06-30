@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Portal Orang Tua Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .inp {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .inp:focus {
+            border-color: var(--accent);
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 0.8fr;
+            gap: 16px;
+            flex-grow: 1;
+            overflow: hidden;
+            align-items: stretch;
+        }
+
+        @media (max-width: 1024px) {
+            .grid3 {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+            .grid3 > div:first-child {
+                display: none !important; /* Hide left sidebar on tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                overflow: auto;
+            }
+            html {
+                height: auto;
+                overflow: auto;
+            }
+            .wrap {
+                height: auto;
+            }
+            .card {
+                height: auto;
+                overflow: visible;
+            }
+            .grid3 {
+                grid-template-columns: 1fr;
+                overflow: visible;
+                height: auto;
+            }
+        }
+
+        .config-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 8px;
+        }
+
+        .config-header i {
+            color: var(--accent-light);
+        }
+
+        .kpi-grid-full {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 900px) {
+            .kpi-grid-full {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-grid-full {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .kpi-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--line);
+        }
+
+        .kpi-card.kpi-siswa::before { background: var(--t3); }
+        .kpi-card.kpi-attempt::before { background: var(--t2); }
+        .kpi-card.kpi-submitted::before { background: var(--green); }
+        .kpi-card.kpi-started::before { background: var(--green); }
+        .kpi-card.kpi-avg::before { background: var(--accent); }
+        .kpi-card.kpi-live::before { background: var(--orange); }
+
+        .kpi-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--t3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .kpi-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--t1);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .list-log {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .list-log-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 10px;
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .list-log-item span {
+            font-size: 12px;
+            color: var(--t2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <div class="t1">Portal Orang Tua</div>
+                        <div class="t2">AI Assessment Intelligence • Selamat malam, Wali Aca <i class="fa-solid fa-moon" style="color: var(--accent-light);"></i></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- KPI METRIC GRID -->
+            <div class="kpi-grid-full">
+                <div class="kpi-card kpi-siswa">
+                    <span class="kpi-value">Aca</span>
+                    <span class="kpi-label">Nama Siswa</span>
+                </div>
+                <div class="kpi-card kpi-attempt">
+                    <span class="kpi-value">X-10</span>
+                    <span class="kpi-label">Kelas</span>
+                </div>
+                <div class="kpi-card kpi-submitted">
+                    <span class="kpi-value">5001</span>
+                    <span class="kpi-label">NIS</span>
+                </div>
+                <div class="kpi-card kpi-started">
+                    <span class="kpi-value" style="color: var(--green);">92%</span>
+                    <span class="kpi-label">Rasio Hadir</span>
+                </div>
+                <div class="kpi-card kpi-live">
+                    <span class="kpi-value" style="color: var(--orange);">Rp 350.000</span>
+                    <span class="kpi-label">Sisa Tagihan</span>
+                </div>
+                <div class="kpi-card kpi-avg">
+                    <span class="kpi-value" style="color: var(--accent-light);">87.5</span>
+                    <span class="kpi-label">Rerata Akademik</span>
+                </div>
+            </div>
+
+            <!-- 3-COLUMN RESPONSIVE GRID FOR FULL DESIGN -->
+            <div class="grid3">
+                
+                <!-- COLUMN 1: PANTAU AKADEMIK & TERBARU -->
+                <div style="display: flex; flex-direction: column; gap: 12px; height: 100%; overflow: hidden;">
+                    <!-- Ringkasan Nilai Terbaru -->
+                    <div class="config-card" style="flex-shrink: 0; height: auto;">
+                        <div class="config-header">
+                            <i class="fa-solid fa-graduation-cap"></i> Nilai Terakhir Anak
+                        </div>
+                        <p class="t2" style="font-size: 11px; line-height: 1.4; color: var(--t2);">
+                            Berikut adalah ringkasan nilai ujian terakhir yang disubmit oleh <b>Aca</b>:
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 6px; background: var(--s3); padding: 10px; border-radius: 8px; border: 1px solid var(--line);">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                                <span>Tryout Geografi:</span>
+                                <b style="color: var(--green);">83.3 / 100 (Tuntas)</b>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                                <span>Tugas Biologi 2:</span>
+                                <b style="color: var(--green);">90 / 100 (Tuntas)</b>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                                <span>Kuis Sejarah 1:</span>
+                                <b style="color: var(--green);">80 / 100 (Tuntas)</b>
+                            </div>
+                        </div>
+                        <a href="../Info-Nilai/info_nilai.html" class="btn primary" style="justify-content: center; font-size: 12px; padding: 8px;">
+                            <i class="fa-solid fa-book-open"></i> Lihat Laporan Nilai Lengkap
+                        </a>
+                    </div>
+
+                    <!-- KBM Status Info -->
+                    <div class="config-card" style="flex-grow: 1;">
+                        <div class="config-header">
+                            <i class="fa-solid fa-circle-info"></i> Sesi Belajar Hari Ini
+                        </div>
+                        <div style="background: var(--s3); border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <b style="color: var(--t1); font-size: 12px;">KBM Sekolah Aktif</b>
+                                <span class="pill green">SELESAI</span>
+                            </div>
+                            <span style="font-size: 11px; color: var(--t3);"><i class="fa-regular fa-clock"></i> Batas Sesi: 07:00 - 14:00 WIB</span>
+                            <span style="font-size: 11px; color: var(--t4);"><i class="fa-solid fa-shield-halved"></i> Absensi Terverifikasi Face Matcher</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMN 2: MENU UTAMA WALI & KEHADIRAN ANAK -->
+                <div style="display: flex; flex-direction: column; gap: 12px; height: 100%; overflow: hidden;">
+                    <!-- Menu Utama Portal Wali -->
+                    <div class="config-card" style="flex-shrink: 0; height: auto;">
+                        <div class="config-header">
+                            <i class="fa-solid fa-compass"></i> Menu Utama Portal
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <a href="../Pantau-Presensi/pantau_presesensi.html" class="btn"
+                                style="flex-direction: column; align-items: flex-start; padding: 10px; gap: 4px; height: 75px;">
+                                <span style="font-size: 18px; color: var(--green);"><i class="fa-solid fa-calendar-check"></i></span>
+                                <b style="font-size: 11px;">Pantau Presensi</b>
+                                <span class="t2" style="font-size: 8px; margin: 0; color: var(--t3);">Cek kehadiran harian anak</span>
+                            </a>
+
+                            <a href="../Info-Nilai/info_nilai.html" class="btn"
+                                style="flex-direction: column; align-items: flex-start; padding: 10px; gap: 4px; height: 75px;">
+                                <span style="font-size: 18px; color: var(--accent-light);"><i class="fa-solid fa-graduation-cap"></i></span>
+                                <b style="font-size: 11px;">Info &amp; Nilai</b>
+                                <span class="t2" style="font-size: 8px; margin: 0; color: var(--t3);">Lihat nilai &amp; tugas anak</span>
+                            </a>
+
+                            <a href="../Pembayaran-Orangtua/pembayaran_orangtua.html" class="btn"
+                                style="flex-direction: column; align-items: flex-start; padding: 10px; gap: 4px; height: 75px;">
+                                <span style="font-size: 18px; color: var(--orange);"><i class="fa-solid fa-wallet"></i></span>
+                                <b style="font-size: 11px;">Pembayaran SPP</b>
+                                <span class="t2" style="font-size: 8px; margin: 0; color: var(--t3);">Cek &amp; bayar tagihan sekolah</span>
+                            </a>
+
+                            <a href="../../Siswa/Pengumuman-Siswa/pengumuman_siswa.html" class="btn"
+                                style="flex-direction: column; align-items: flex-start; padding: 10px; gap: 4px; height: 75px;">
+                                <span style="font-size: 18px; color: var(--rose);"><i class="fa-solid fa-bullhorn"></i></span>
+                                <b style="font-size: 11px;">Pengumuman</b>
+                                <span class="t2" style="font-size: 8px; margin: 0; color: var(--t3);">Informasi terkini sekolah</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Kehadiran Mingguan Anak -->
+                    <div class="config-card" style="flex-grow: 1;">
+                        <div class="config-header">
+                            <i class="fa-solid fa-chart-simple"></i> Riwayat Kehadiran Anak Pekan Ini
+                        </div>
+                        <div class="list-log">
+                            <div class="list-log-item">
+                                <span><i class="fa-solid fa-calendar-day"></i> Senin, 29 Juni 2026</span>
+                                <span class="pill green">Hadir (07:05)</span>
+                            </div>
+                            <div class="list-log-item">
+                                <span><i class="fa-solid fa-calendar-day"></i> Selasa, 28 Juni 2026</span>
+                                <span class="pill green">Hadir (07:12)</span>
+                            </div>
+                            <div class="list-log-item">
+                                <span><i class="fa-solid fa-calendar-day"></i> Rabu, 27 Juni 2026</span>
+                                <span class="pill green">Hadir (07:01)</span>
+                            </div>
+                            <div class="list-log-item">
+                                <span><i class="fa-solid fa-calendar-day"></i> Kamis, 26 Juni 2026</span>
+                                <span class="pill amber">Sakit (Izin)</span>
+                            </div>
+                            <div class="list-log-item">
+                                <span><i class="fa-solid fa-calendar-day"></i> Jumat, 25 Juni 2026</span>
+                                <span class="pill green">Hadir (07:03)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMN 3: PENGUMUMAN WIDGET (RIGHT SIDEBAR) -->
+                <div class="config-card">
+                    <div class="config-header">
+                        <i class="fa-solid fa-bullhorn"></i> Pengumuman Wali Murid
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px; height: 100%;">
+                        <div style="border-left: 3px solid var(--accent); padding-left: 8px;">
+                            <span style="font-size: 9px; color: var(--t4);"><i class="fa-regular fa-clock"></i> 30 Juni 2026</span>
+                            <h4 style="font-size: 11px; font-weight: 700; color: var(--t1); margin: 2px 0;">Pelaksanaan Ujian PSAJ</h4>
+                            <p style="font-size: 10px; color: var(--t3); line-height: 1.4; margin-top: 2px;">Mohon pastikan anak Anda belajar di rumah dan mempersiapkan ujian dengan baik.</p>
+                        </div>
+                        
+                        <div style="border-left: 3px solid var(--amber); padding-left: 8px;">
+                            <span style="font-size: 9px; color: var(--t4);"><i class="fa-regular fa-clock"></i> 28 Juni 2026</span>
+                            <h4 style="font-size: 11px; font-weight: 700; color: var(--t1); margin: 2px 0;">Pembagian Rapor Semester</h4>
+                            <p style="font-size: 10px; color: var(--t3); line-height: 1.4; margin-top: 2px;">Undangan pembagian rapor akan dikirimkan ke nomor WA Ortu terdaftar.</p>
+                        </div>
+
+                        <div style="border-left: 3px solid var(--green); padding-left: 8px;">
+                            <span style="font-size: 9px; color: var(--t4);"><i class="fa-regular fa-clock"></i> 24 Juni 2026</span>
+                            <h4 style="font-size: 11px; font-weight: 700; color: var(--t1); margin: 2px 0;">Pembaruan Sistem SPP Online</h4>
+                            <p style="font-size: 10px; color: var(--t3); line-height: 1.4; margin-top: 2px;">Sistem pembayaran online sekarang mendukung pembayaran via Indomaret & Virtual Account.</p>
+                        </div>
+
+                        <a href="../../Siswa/Pengumuman-Siswa/pengumuman_siswa.html" class="btn" style="margin-top: auto; justify-content: center; font-size: 11px; padding: 8px;">
+                            <i class="fa-solid fa-list-ul"></i> Lihat Semua Pengumuman
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>
