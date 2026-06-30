@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Design System & Component Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 24px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 12px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-light);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 8px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .btn.orange {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: #ffffff;
+        }
+
+        .btn.orange:hover {
+            background: #ea580c;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 6px;
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .config-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .config-header i {
+            color: var(--accent-light);
+        }
+
+        .inp,
+        .sel {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus,
+        .sel:focus {
+            border-color: var(--accent);
+        }
+
+        .sel {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        /* Documentation & Specs grid layout */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .spec-table th, .spec-table td {
+            border: 1px solid var(--line);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .spec-table th {
+            background: var(--s3);
+            color: var(--t2);
+            font-weight: 700;
+        }
+
+        .spec-table td {
+            color: var(--t3);
+        }
+
+        .color-bubble {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid var(--line2);
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .code-block {
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--t2);
+            overflow-x: auto;
+            white-space: pre;
+            margin-top: 8px;
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        /* Viewfinder style */
+        .camera-viewfinder {
+            background: #000;
+            border: 2px solid var(--line2);
+            border-radius: 10px;
+            aspect-ratio: 4 / 3;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .viewfinder-indicator {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--green);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .viewfinder-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+        }
+
+        /* Exam Box Option style */
+        .opt-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .opt-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .opt-item.active {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .opt-idx {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--line2);
+            color: var(--t1);
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+        }
+
+        .opt-item.active .opt-idx {
+            background: var(--accent);
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-palette"></i></div>
+                    <div>
+                        <div class="t1">Design System & Blueprint Design Token</div>
+                        <div class="t2">Portal LMS Blueprint • Spesifikasi Figma &amp; CSS Tokens</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                </div>
+            </div>
+
+            <!-- INTRO -->
+            <p style="color: var(--t3); line-height: 1.6; font-size: 13px;">
+                Dokumen ini merupakan panduan spesifikasi dan blueprint desain lengkap untuk semua komponen antarmuka (UI Components) yang digunakan dalam Portal LMS. Gunakan data token warna, ukuran font, padding, border-radius, dan margin berikut untuk mereplikasi desain ke dalam Figma secara presisi.
+            </p>
+
+            <!-- SECTION 1: GLOBAL SYSTEM STYLES -->
+            <div class="section-title">
+                <i class="fa-solid fa-circle-nodes"></i> 1. Global Layout &amp; Card System
+            </div>
+            
+            <div class="spec-grid">
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Live Preview: Main Layout Container &amp; Inner Card</h4>
+                    
+                    <div class="config-card" style="box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                        <div class="config-header">
+                            <i class="fa-solid fa-cube"></i> Preview Container Widget
+                        </div>
+                        <p style="font-size: 12px; color: var(--t2);">Ini adalah visualisasi dari subclass `.config-card` yang digunakan untuk widget detail/form.</p>
+                        <div style="background: var(--s3); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font-size: 11px; border-left: 3px solid var(--accent-light);">
+                            <strong>Highlight Box:</strong> Sub-elemen alert/catatan dengan border-left tebal.
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Figma Specs: Blueprint Tokens</h4>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Class / Element</th>
+                                <th>Figma Value / Properties</th>
+                                <th>CSS Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Main Card (`.card`)</b></td>
+                                <td>Background: <code>S1</code>, Border: 1px solid <code>Line</code>, Border-Radius: 12px, Padding: 20px / 24px</td>
+                                <td><code>border-radius: 12px; padding: 20px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><b>Widget Card (`.config-card`)</b></td>
+                                <td>Background: <code>S2</code>, Border: 1px solid <code>Line</code>, Border-Radius: 14px, Padding: 20px</td>
+                                <td><code>border-radius: 14px; padding: 20px;</code></td>
+                            </tr>
+                            <tr>
+                                <td><b>Alert/Highlight Box</b></td>
+                                <td>Background: <code>S3</code>, Border-Left: 3px solid <code>Accent-Light</code>, Border-Radius: 6px/8px, Padding: 10px/12px</td>
+                                <td><code>border-left: 3px solid var(--accent-light);</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 2: COLOR SYSTEM -->
+            <div class="section-title">
+                <i class="fa-solid fa-droplet"></i> 2. Color System &amp; Dark/Light Mode Tokens
+            </div>
+
+            <div style="overflow-x: auto; margin-bottom: 12px;">
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Color Token Name</th>
+                            <th>Theme Mode</th>
+                            <th>Hex / HSL Code</th>
+                            <th>CSS Variable</th>
+                            <th>Visual Palette</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ACCENT Indigo -->
+                        <tr>
+                            <td rowspan="2" style="font-weight: 700; color: var(--accent-light);">Accent (Indigo)</td>
+                            <td>Shared / Light</td>
+                            <td><code>#6366f1</code></td>
+                            <td><code>--accent</code></td>
+                            <td><span class="color-bubble" style="background: #6366f1;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Light Accent Glow</td>
+                            <td><code>#818cf8</code></td>
+                            <td><code>--accent-light</code></td>
+                            <td><span class="color-bubble" style="background: #818cf8;"></span></td>
+                        </tr>
+
+                        <!-- GREEN Success -->
+                        <tr>
+                            <td rowspan="2" style="font-weight: 700; color: #22c55e;">Success (Green)</td>
+                            <td>Primary Solid</td>
+                            <td><code>#22c55e</code></td>
+                            <td><code>--green</code></td>
+                            <td><span class="color-bubble" style="background: #22c55e;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Dim Green</td>
+                            <td><code>#16a34a</code></td>
+                            <td><code>--green-dim</code></td>
+                            <td><span class="color-bubble" style="background: #16a34a;"></span></td>
+                        </tr>
+
+                        <!-- AMBER Pending -->
+                        <tr>
+                            <td rowspan="2" style="font-weight: 700; color: #f59e0b;">Warning (Amber)</td>
+                            <td>Primary Solid</td>
+                            <td><code>#f59e0b</code></td>
+                            <td><code>--amber</code></td>
+                            <td><span class="color-bubble" style="background: #f59e0b;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Dim Amber</td>
+                            <td><code>#d97706</code></td>
+                            <td><code>--amber-dim</code></td>
+                            <td><span class="color-bubble" style="background: #d97706;"></span></td>
+                        </tr>
+
+                        <!-- ORANGE Alert -->
+                        <tr>
+                            <td rowspan="2" style="font-weight: 700; color: #f97316;">Alert (Orange)</td>
+                            <td>Primary Solid</td>
+                            <td><code>#f97316</code></td>
+                            <td><code>--orange</code></td>
+                            <td><span class="color-bubble" style="background: #f97316;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Dim Orange</td>
+                            <td><code>#ea580c</code></td>
+                            <td><code>--orange-dim</code></td>
+                            <td><span class="color-bubble" style="background: #ea580c;"></span></td>
+                        </tr>
+
+                        <!-- ROSE Danger/Remedial -->
+                        <tr>
+                            <td style="font-weight: 700; color: #f43f5e;">Danger (Rose)</td>
+                            <td>Primary Solid</td>
+                            <td><code>#f43f5e</code></td>
+                            <td><code>--rose</code></td>
+                            <td><span class="color-bubble" style="background: #f43f5e;"></span></td>
+                        </tr>
+
+                        <!-- DARK MODE BACKGROUNDS & SYSTEM -->
+                        <tr>
+                            <td rowspan="5" style="font-weight: 700; color: #a1a1aa;">Dark Theme Surface</td>
+                            <td>Background Base</td>
+                            <td><code>#09090b</code></td>
+                            <td><code>--bg</code> (Dark)</td>
+                            <td><span class="color-bubble" style="background: #09090b;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Surface Card (`S1`)</td>
+                            <td><code>#111114</code></td>
+                            <td><code>--s1</code> (Dark)</td>
+                            <td><span class="color-bubble" style="background: #111114;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Surface Inner Content (`S2`)</td>
+                            <td><code>#18181c</code></td>
+                            <td><code>--s2</code> (Dark)</td>
+                            <td><span class="color-bubble" style="background: #18181c;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Highlight/Row bg (`S3`)</td>
+                            <td><code>#1e1e23</code></td>
+                            <td><code>--s3</code> (Dark)</td>
+                            <td><span class="color-bubble" style="background: #1e1e23;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Border Lines (`Line`)</td>
+                            <td><code>#27272d</code></td>
+                            <td><code>--line</code> (Dark)</td>
+                            <td><span class="color-bubble" style="background: #27272d;"></span></td>
+                        </tr>
+
+                        <!-- LIGHT MODE BACKGROUNDS & SYSTEM -->
+                        <tr>
+                            <td rowspan="5" style="font-weight: 700; color: #52525b;">Light Theme Surface</td>
+                            <td>Background Base</td>
+                            <td><code>#f1f2f6</code></td>
+                            <td><code>--bg</code> (Light)</td>
+                            <td><span class="color-bubble" style="background: #f1f2f6;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Surface Card (`S1`)</td>
+                            <td><code>#ffffff</code></td>
+                            <td><code>--s1</code> (Light)</td>
+                            <td><span class="color-bubble" style="background: #ffffff;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Surface Inner Content (`S2`)</td>
+                            <td><code>#f7f8fc</code></td>
+                            <td><code>--s2</code> (Light)</td>
+                            <td><span class="color-bubble" style="background: #f7f8fc;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Highlight/Row bg (`S3`)</td>
+                            <td><code>#eef0f6</code></td>
+                            <td><code>--s3</code> (Light)</td>
+                            <td><span class="color-bubble" style="background: #eef0f6;"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Border Lines (`Line`)</td>
+                            <td><code>#e2e4ec</code></td>
+                            <td><code>--line</code> (Light)</td>
+                            <td><span class="color-bubble" style="background: #e2e4ec;"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECTION 3: MOCKUP COMPONENTS EXAMPLES -->
+            <div class="section-title">
+                <i class="fa-solid fa-cubes"></i> 3. Mockup Component Library Previews
+            </div>
+
+            <!-- SUB-SECTION A: EXAM & WEBCAM -->
+            <div class="spec-grid">
+                <!-- Exam Card -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-graduation-cap"></i> Ujian Siswa Card Simulator</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 10px;">
+                        <div>
+                            <h4 style="font-weight: 700; font-size: 13px;">Soal No. 12 dari 40</h4>
+                            <span style="font-size: 11px; color: var(--t3);">Sisa Waktu: <b>01:24:05</b></span>
+                        </div>
+                        <span class="pill blue">Ujian Utama</span>
+                    </div>
+                    
+                    <p style="font-size: 12px; font-weight: 500; line-height: 1.5; color: var(--t1); margin-bottom: 8px;">
+                        Manakah dari berikut ini yang merupakan struktur lapisan bumi yang paling dalam dan memiliki suhu tertinggi?
+                    </p>
+
+                    <div class="opt-list">
+                        <div class="opt-item">
+                            <span class="opt-idx">A</span>
+                            <span style="font-size: 12px;">Kerak Bumi</span>
+                        </div>
+                        <div class="opt-item active">
+                            <span class="opt-idx">B</span>
+                            <span style="font-size: 12px;">Inti Dalam (Inner Core)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Webcam Card -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-camera"></i> Webcam Face Matcher Viewfinder</div>
+                    <div class="camera-viewfinder">
+                        <div class="viewfinder-indicator">
+                            <span></span> Scanning Face Matcher
+                        </div>
+                        <i class="fa-solid fa-user-shield" style="font-size: 42px; color: var(--accent-light); opacity: 0.85;"></i>
+                    </div>
+                    <button class="btn primary" style="justify-content: center;"><i class="fa-solid fa-camera"></i> Ambil Foto &amp; Submit Hadir</button>
+                </div>
+            </div>
+
+            <!-- SUB-SECTION B: BILLING & GRADED MAPEL -->
+            <div class="spec-grid">
+                <!-- SPP Card -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-receipt"></i> SPP Billing Invoice Card</div>
+                    <div style="background: var(--s3); border: 1px solid var(--line); border-radius: 8px; padding: 16px; border-left: 4px solid var(--amber); display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <span style="font-weight: 700; font-size: 12px; color: var(--t1);">Tagihan SPP (Juni 2026)</span>
+                            <span class="pill amber">PENDING</span>
+                        </div>
+                        <div style="font-family: monospace; font-size: 13px; font-weight: 700; color: var(--amber); margin-top: 4px;">
+                            Kode Bayar: OTC-SPP-5001-A2
+                        </div>
+                        <div style="font-size: 11px; color: var(--t3); line-height: 1.4;">
+                            Nominal Dibayar: <b>Rp 350.000</b>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mapel Card -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-star"></i> Mapel &amp; Grade Report Card</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; font-size: 13px;">FISIKA MEKANIKA</span>
+                        <span class="pill rose">REMEDIAL</span>
+                    </div>
+                    <div style="background: var(--s3); border-radius: 6px; padding: 10px; border-left: 3px solid var(--rose); font-size: 11px; line-height: 1.4;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+                            <span>Nilai Ujian:</span>
+                            <span style="color: var(--rose);">65 / 100</span>
+                        </div>
+                        <strong>Catatan:</strong> Perlu remidi bab Fluida Dinamis.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-SECTION C: SEARCH BAR & KPI -->
+            <div class="spec-grid">
+                <!-- Search filter bar -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-filter"></i> Responsive Search Filter Bar</div>
+                    <div style="display: flex; gap: 8px; width: 100%; align-items: center; flex-wrap: wrap;">
+                        <div style="position: relative; flex-grow: 1;">
+                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 12px; color: var(--t4); font-size: 12px;"></i>
+                            <input class="inp" type="text" placeholder="Cari nama tugas..." style="padding-left: 32px; height: 36px; padding-top: 0; padding-bottom: 0;">
+                        </div>
+                        <select class="sel" style="width: 120px; height: 36px; padding-top: 0; padding-bottom: 0;">
+                            <option value="">Kelas X-10</option>
+                        </select>
+                        <button class="btn primary" style="height: 36px; padding: 0 16px;"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                    </div>
+                </div>
+
+                <!-- KPI Metric -->
+                <div class="config-card">
+                    <div class="config-header"><i class="fa-solid fa-chart-line"></i> Dashboard KPI Metric Card</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="background: var(--s2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 10px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--green);"></div>
+                            <span style="font-size: 16px; font-weight: 800; color: var(--green);">92%</span>
+                            <span style="font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase;">Rasio Hadir</span>
+                        </div>
+                        <div style="background: var(--s2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 10px; text-align: center; display: flex; flex-direction: column; gap: 4px; position: relative; overflow: hidden;">
+                            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--accent);"></div>
+                            <span style="font-size: 16px; font-weight: 800; color: var(--accent-light);">87.5</span>
+                            <span style="font-size: 9px; font-weight: 700; color: var(--t3); text-transform: uppercase;">Rerata Nilai</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: BUTTONS & INTERACTIVE ELEMENTS -->
+            <div class="section-title">
+                <i class="fa-solid fa-circle-play"></i> 4. Buttons &amp; Action States
+            </div>
+
+            <div class="spec-grid">
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Live Preview: Button Catalog</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px; background: var(--s2); padding: 16px; border: 1px solid var(--line); border-radius: 8px;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn primary"><i class="fa-solid fa-paper-plane"></i> Primary Indigo</button>
+                            <button class="btn"><i class="fa-solid fa-gear"></i> Outline/Secondary</button>
+                            <button class="btn bad"><i class="fa-solid fa-trash"></i> Danger (Rose)</button>
+                            <button class="btn orange"><i class="fa-solid fa-bell"></i> Warning (Orange)</button>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; align-items: center;">
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-cloud-arrow-up"></i> Primary Small</button>
+                            <button class="btn btn-sm"><i class="fa-solid fa-arrows-rotate"></i> Secondary Small</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Figma Specs: Button Tokens</h4>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Button Type</th>
+                                <th>Padding (H x V)</th>
+                                <th>Border-Radius</th>
+                                <th>Typography Spec</th>
+                                <th>Color Fill / Stroke</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Standard Button</b></td>
+                                <td>16px x 10px</td>
+                                <td>8px</td>
+                                <td>Font-Weight: Semi-Bold (600)</td>
+                                <td>Fill: <code>--s2</code>, Stroke: 1px <code>--line</code></td>
+                            </tr>
+                            <tr>
+                                <td><b>Primary Accent</b></td>
+                                <td>16px x 10px</td>
+                                <td>8px</td>
+                                <td>Font-Weight: Semi-Bold (600)</td>
+                                <td>Fill: <code>--accent</code> (#6366f1)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Danger Button</b></td>
+                                <td>16px x 10px</td>
+                                <td>8px</td>
+                                <td>Font-Weight: Semi-Bold (600)</td>
+                                <td>Fill: <code>--rose</code> (#f43f5e)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Small Button</b></td>
+                                <td>12px x 6px</td>
+                                <td>6px</td>
+                                <td>Font-Weight: Semi-Bold (600)</td>
+                                <td>Various fills according to action context</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 5: BADGES & PILL LABELS -->
+            <div class="section-title">
+                <i class="fa-solid fa-certificate"></i> 5. Badges &amp; Status Pills (Solid BG + White Text)
+            </div>
+
+            <div class="spec-grid">
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Live Preview: Solid Status Pills</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px; background: var(--s2); padding: 16px; border: 1px solid var(--line); border-radius: 8px;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span class="pill green">Hadir / Lunas / Tuntas</span>
+                            <span class="pill amber">Pending / Sakit</span>
+                            <span class="pill orange">KBM Aktif</span>
+                            <span class="pill rose">Remedial / Absen / Bad</span>
+                            <span class="pill blue">Sudah Diunggah</span>
+                            <span class="pill gray">Belum Upload</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Figma Specs: Badge Tokens</h4>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Status Pill Type</th>
+                                <th>Hex Color Fill</th>
+                                <th>Text Color</th>
+                                <th>Padding &amp; Border Radius</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Green (Success/Hadir)</b></td>
+                                <td><code>#22c55e</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                            <tr>
+                                <td><b>Amber (Warning/Pending)</b></td>
+                                <td><code>#f59e0b</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                            <tr>
+                                <td><b>Orange (Alert/KBM)</b></td>
+                                <td><code>#f97316</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                            <tr>
+                                <td><b>Rose (Danger/Remedial)</b></td>
+                                <td><code>#f43f5e</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                            <tr>
+                                <td><b>Blue (Info/Uploaded)</b></td>
+                                <td><code>#3b82f6</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gray (Default/Idle)</b></td>
+                                <td><code>#6b7280</code></td>
+                                <td>White (<code>#ffffff</code>, 700)</td>
+                                <td>10px x 4px, Radius: 20px</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 6: SEARCH FILTER & INPUTS -->
+            <div class="section-title">
+                <i class="fa-solid fa-magnifying-glass"></i> 6. Search Inputs &amp; Dropdowns
+            </div>
+
+            <div class="spec-grid">
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Live Preview: Form Fields &amp; Search Filter</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px; background: var(--s2); padding: 16px; border: 1px solid var(--line); border-radius: 8px;">
+                        
+                        <!-- Search container representation -->
+                        <div style="position: relative; width: 100%;">
+                            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 13px; color: var(--t4);"></i>
+                            <input class="inp" type="text" placeholder="Search filter query..." style="padding-left: 36px;">
+                        </div>
+
+                        <!-- Dropdown Representation -->
+                        <select class="sel">
+                            <option value="">Option Item 1</option>
+                            <option value="">Option Item 2</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin-bottom: 8px; font-weight: 700;">Figma Specs: Input Elements</h4>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Element Type</th>
+                                <th>Padding</th>
+                                <th>Border &amp; Radius</th>
+                                <th>Interactive Focus State</th>
+                                <th>Font Specification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Input Field (`.inp`)</b></td>
+                                <td>14px x 10px</td>
+                                <td>1px solid <code>--line</code>, Radius: 8px</td>
+                                <td>Border changes to <code>--accent</code> (#6366f1)</td>
+                                <td>System UI, 13px, Regular (400)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Dropdown Select (`.sel`)</b></td>
+                                <td>14px x 10px (Right 32px)</td>
+                                <td>1px solid <code>--line</code>, Radius: 8px</td>
+                                <td>Custom SVG Chevron background arrow indicator</td>
+                                <td>System UI, 13px, Regular (400)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CODE BLUEPRINT SECTION -->
+            <div class="section-title">
+                <i class="fa-solid fa-code"></i> CSS Theme Variable Blueprint (Ready to Copy/Paste)
+            </div>
+            
+            <p style="font-size: 11px; color: var(--t3);">Gunakan variabel CSS di bawah ini sebagai landasan palet warna Figma Local Variables (Tokens):</p>
+            <div class="code-block">/* Core Palette Shared Colors */
+--accent: #6366f1;
+--accent-light: #818cf8;
+--green: #22c55e;
+--amber: #f59e0b;
+--orange: #f97316;
+--rose: #f43f5e;
+
+/* Dark Mode Tokens */
+--bg: #09090b;
+--s1: #111114;
+--s2: #18181c;
+--s3: #1e1e23;
+--line: #27272d;
+--t1: #fafafa;
+--t2: #e4e4e7;
+--t3: #a1a1aa;
+--t4: #71717a;
+
+/* Light Mode Tokens */
+--bg: #f1f2f6;
+--s1: #ffffff;
+--s2: #f7f8fc;
+--s3: #eef0f6;
+--line: #e2e4ec;
+--t1: #111118;
+--t2: #2d2d3a;
+--t3: #52525b;
+--t4: #a1a1aa;</div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>
