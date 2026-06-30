@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Token Dinamis Ujian • SMABAONE</title>
+    <title>Token Dinamis Ujian</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -522,28 +522,51 @@
             border: none;
         }
 
-        .pill {
+        /* ============================================
+       PILLS & TAGS (SOLID)
+       ============================================ */
+        .pill, .tag {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 2px 6px;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 10px;
             font-weight: 700;
-            border-radius: 4px;
-            background: var(--s3);
-            border: 1px solid var(--line);
-            color: var(--t2);
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+            white-space: nowrap;
         }
 
-        .pill.gray {
-            background: var(--s2);
-            color: var(--t3);
+        .tag {
+            border-radius: 6px;
         }
 
-        .pill.warn {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--amber);
-            border-color: rgba(245, 158, 11, 0.2);
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .pill.warn, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
         }
     </style>
 </head>

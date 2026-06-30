@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Pengumuman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 12px 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 8px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 6px;
+        }
+
+        .inp {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus {
+            border-color: var(--accent);
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .announcement-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .announcement-card:hover {
+            border-color: var(--line2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        .announcement-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--t1);
+        }
+
+        .announcement-content {
+            font-size: 13px;
+            color: var(--t2);
+            line-height: 1.6;
+        }
+
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--t3);
+            border-top: 1px dashed var(--line);
+            padding-top: 10px;
+            margin-top: 4px;
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            max-width: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div>
+                        <div class="t1">Pengumuman</div>
+                        <div class="t2">Aca • X-10 • NIS 5001 • school_id 8</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../Dashboard/dashboard_siswa.html" class="btn"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- SEARCH FILTER -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+                <form class="search-bar" method="GET">
+                    <input class="inp" type="text" name="q" placeholder="Cari pengumuman (judul / isi)...">
+                    <button class="btn primary"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                </form>
+                <span class="pill blue">Total: 4 Pengumuman</span>
+            </div>
+
+            <!-- ANNOUNCEMENTS LIST -->
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- 1 -->
+                <a href="#" class="announcement-card" style="border-left: 4px solid var(--accent);">
+                    <div class="announcement-title">Pelaksanaan Penilaian Sumatif Akhir Jenjang (PSAJ)</div>
+                    <div class="announcement-content">Diberitahukan kepada seluruh siswa kelas X bahwa pelaksanaan PSAJ Geografi akan dimulai pukul 08:00 WIB. Token pengerjaan dirilis di dashboard. Harap mempersiapkan perangkat dan jaringan internet masing-masing.</div>
+                    <div class="announcement-meta">
+                        <span><i class="fa-solid fa-calendar-alt"></i> Diposting pada: 30 Jun 2026 07:00</span>
+                        <span>Selengkapnya <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- 2 -->
+                <a href="#" class="announcement-card" style="border-left: 4px solid var(--amber);">
+                    <div class="announcement-title">Pengisian Biodata Rapor Semester Genap</div>
+                    <div class="announcement-content">Untuk keperluan pencetakan rapor, mohon siswa segera melengkapi nomor WA Ortu dan detail profil lainnya pada menu profil siswa masing-masing paling lambat akhir pekan ini.</div>
+                    <div class="announcement-meta">
+                        <span><i class="fa-solid fa-calendar-alt"></i> Diposting pada: 28 Jun 2026 09:30</span>
+                        <span>Selengkapnya <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- 3 -->
+                <a href="#" class="announcement-card" style="border-left: 4px solid var(--green);">
+                    <div class="announcement-title">Kunjungan Industri &amp; Outing Class 2026</div>
+                    <div class="announcement-content">Berikut adalah rincian pelaksanaan kunjungan industri untuk siswa kelas X ke Balai Meteorologi dan Geofisika yang akan dilaksanakan pada bulan depan. Surat persetujuan orang tua dapat diunduh di bagian materi.</div>
+                    <div class="announcement-meta">
+                        <span><i class="fa-solid fa-calendar-alt"></i> Diposting pada: 15 Jun 2026 10:00</span>
+                        <span>Selengkapnya <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <!-- 4 -->
+                <a href="#" class="announcement-card" style="border-left: 4px solid var(--orange);">
+                    <div class="announcement-title">pengumuman test</div>
+                    <div class="announcement-content">test pengumuman</div>
+                    <div class="announcement-meta">
+                        <span><i class="fa-solid fa-calendar-alt"></i> Diposting pada: 22 Feb 2026 13:38</span>
+                        <span>Selengkapnya <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- PAGINATION -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-top: 1px solid var(--line); padding-top: 20px;">
+                <span class="t2" style="font-size: 12px;">Halaman 1 dari 1</span>
+                <div class="row">
+                    <a href="#" class="btn btn-sm"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                    <a href="#" class="btn btn-sm">Next <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- FOOTER INFO -->
+            <div class="t2" style="text-align: center; font-size: 10px; color: var(--t4); margin-top: 30px; border-top: 1px dashed var(--line); padding-top: 15px;">
+                Sumber data: Tabel Pengumuman • Filter: school_id 8 • kelas X-10 • Jadwal tayang: publish_at s/d expire_at
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>

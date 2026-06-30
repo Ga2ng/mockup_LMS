@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Profil Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 12px 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 8px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .inp,
+        .sel {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus,
+        .sel:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .inp:disabled {
+            opacity: 0.5;
+            background: var(--s3);
+            cursor: not-allowed;
+        }
+
+        .sel {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 16px;
+            margin-top: 12px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .config-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .config-header i {
+            color: var(--accent-light);
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 8px;
+        }
+
+        .info-label {
+            color: var(--t3);
+            font-size: 12px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--t2);
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--t2);
+        }
+
+        .profile-avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: #fff;
+            font-size: 40px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 4px 14px var(--accent-glow);
+            border: 3px solid var(--line);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-user-circle"></i></div>
+                    <div>
+                        <div class="t1">Profil Siswa</div>
+                        <div class="t2">Selamat datang, Aca • Siswa Area</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../Dashboard/dashboard_siswa.html" class="btn"><i class="fa-solid fa-house"></i> Beranda</a>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- 2-COLUMN GRID -->
+            <div class="grid2">
+                <!-- COLUMN LEFT: PROFILE OVERVIEW & UPLOAD PHOTO -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Profile Card -->
+                    <div class="config-card">
+                        <div class="profile-avatar-container">
+                            <div class="profile-avatar">A</div>
+                            <div class="t1" style="font-size: 16px;">Aca</div>
+                            <div class="pill blue" style="font-size: 10px; padding: 4px 10px;">Siswa Aktif</div>
+                        </div>
+
+                        <div class="info-list" style="margin-top: 10px;">
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-id-card"></i> NIS</span>
+                                <span class="info-value">5001</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-school"></i> Kelas</span>
+                                <span class="info-value">X-10</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-venus-mars"></i> Jenis Kelamin</span>
+                                <span class="info-value">Perempuan (P)</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-mosque"></i> Agama</span>
+                                <span class="info-value">Islam</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-mobile-screen"></i> WA Siswa</span>
+                                <span class="info-value">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fa-solid fa-users"></i> WA Ortu</span>
+                                <span class="info-value">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Foto Profil -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fa-solid fa-camera"></i> Foto Profil Baru
+                        </div>
+                        <form style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="form-group">
+                                <label class="form-label">File Foto (JPG/PNG/WEBP • Max 2MB)</label>
+                                <input class="inp" type="file" name="photo" required>
+                            </div>
+                            <button type="submit" class="btn primary" style="justify-content: center; padding: 11px;">
+                                <i class="fa-solid fa-camera"></i> Update Foto Profil
+                            </button>
+                        </form>
+                        <span class="t2" style="font-size: 10px; color: var(--t4); margin: 0; line-height: 1.4;">
+                            * Foto profil akan disimpan otomatis ke <code>uploads/face/&lt;face_label&gt;/avatar.ext</code> dan mengisi <code>face_dir</code> absensi.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- COLUMN RIGHT: EDIT FORM & PASSWORD FORM -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Edit Profil -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fa-solid fa-user-pen"></i> Edit Detail Profil
+                        </div>
+                        <form style="display: flex; flex-direction: column; gap: 14px;">
+                            <div class="form-group">
+                                <label class="form-label">Nama Lengkap</label>
+                                <input class="inp" type="text" name="nama" value="Aca" placeholder="Nama Lengkap" required>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="form-group">
+                                    <label class="form-label">NIS (nomor_induk)</label>
+                                    <input class="inp" type="text" value="5001" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kelas</label>
+                                    <input class="inp" type="text" name="kelas" value="X-10" placeholder="contoh: X-10" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <select class="sel" name="jenis_kelamin" required>
+                                        <option value="">(kosong)</option>
+                                        <option value="L">L</option>
+                                        <option value="P" selected>P</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Agama</label>
+                                    <input class="inp" type="text" name="agama" value="Islam" placeholder="contoh: Islam" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="form-group">
+                                    <label class="form-label">No. WA Siswa</label>
+                                    <input class="inp" type="text" name="wa_siswa" placeholder="contoh: 08xxxx">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">No. WA Ortu / Wali</label>
+                                    <input class="inp" type="text" name="wa_ortu" placeholder="contoh: 08xxxx">
+                                </div>
+                            </div>
+
+                            <span class="t2" style="font-size: 10px; color: var(--t4); margin: 0; line-height: 1.4;">
+                                * Nomor Induk Siswa (NIS) terintegrasi dengan data pendaftaran utama dan tidak dapat diedit secara manual.
+                            </span>
+
+                            <button type="submit" class="btn primary" style="justify-content: center; padding: 12px; margin-top: 6px;">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Detail Profil
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Ganti Password -->
+                    <div class="config-card">
+                        <div class="config-header">
+                            <i class="fa-solid fa-lock"></i> Ganti Password Akun
+                        </div>
+                        <form style="display: flex; flex-direction: column; gap: 14px;">
+                            <div class="form-group">
+                                <label class="form-label">Password Lama</label>
+                                <input class="inp" type="password" name="old_password" placeholder="default: ptap2026" required>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="form-group">
+                                    <label class="form-label">Password Baru</label>
+                                    <input class="inp" type="password" name="new_password" placeholder="Minimal 8 karakter" minlength="8" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Ulangi Password Baru</label>
+                                    <input class="inp" type="password" name="new_password2" placeholder="Ulangi password baru" minlength="8" required>
+                                </div>
+                            </div>
+
+                            <span class="t2" style="font-size: 10px; color: var(--t4); margin: 0; line-height: 1.4;">
+                                * Keamanan data Anda terlindungi. Password minimal terdiri dari 8 karakter dan dienkripsi satu arah menggunakan <code>password_hash</code>.
+                            </span>
+
+                            <button type="submit" class="btn primary" style="justify-content: center; padding: 12px; margin-top: 6px;">
+                                <i class="fa-solid fa-key"></i> Perbarui Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>

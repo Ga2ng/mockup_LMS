@@ -125,7 +125,7 @@
             if(changed) changed.value='0';
           }
         }
-        window.smabaoneEnsureEditKelasV56=ensureKelasTidakKosong;
+        window.ensureEditKelasV56=ensureKelasTidakKosong;
         form.querySelectorAll('input[name="kelas_target_arr[]"]').forEach(cb=>{
           cb.addEventListener('change',()=>{ if(changed) changed.value='1'; syncEditKelas(); });
         });

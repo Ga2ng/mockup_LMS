@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Izin Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 12px 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 8px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .inp,
+        .sel,
+        .ta {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus,
+        .sel:focus,
+        .ta:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .sel {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a1a1aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .ta {
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 16px;
+            margin-top: 12px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .grid2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .config-card {
+            background: var(--s2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: 100%;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .config-header i {
+            color: var(--accent-light);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--t2);
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 12px 14px;
+            background: var(--s3);
+            color: var(--t2);
+            font-weight: 700;
+            font-size: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+        }
+
+        td {
+            padding: 12px 14px;
+            font-size: 13px;
+            color: var(--t2);
+            border-bottom: 1px solid var(--line);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: var(--s3);
+        }
+
+        .alert-info {
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--t2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div>
+                        <div class="t1">Izin Siswa</div>
+                        <div class="t2">Aca • X-10 • NIS: 5001 • school_id 8</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../Presesnsi-Siswa/presensi_siswa.html" class="btn"><i class="fa-solid fa-calendar-check"></i> Presensi</a>
+                    <a href="../Dashboard/dashboard_siswa.html" class="btn"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- 2-COLUMN GRID -->
+            <div class="grid2">
+                <!-- FORM AJUKAN IJIN -->
+                <div class="config-card">
+                    <div class="config-header">
+                        <i class="fa-solid fa-square-plus"></i> Ajukan Izin Baru
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 14px;">
+                        <div class="form-group">
+                            <label class="form-label">Jenis Izin</label>
+                            <select class="sel" name="jenis" required>
+                                <option value="sakit">SAKIT</option>
+                                <option value="izin" selected>IZIN</option>
+                                <option value="dispensasi">DISPENSASI</option>
+                            </select>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Mulai</label>
+                                <input class="inp" type="date" name="tanggal_mulai" value="2026-06-30" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Selesai</label>
+                                <input class="inp" type="date" name="tanggal_selesai" value="2026-06-30" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Alasan / Keterangan</label>
+                            <textarea class="ta" name="alasan" placeholder="Tulis singkat &amp; jelas alasan Anda..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Bukti Lampiran (Opsional)</label>
+                            <input class="inp" type="file" name="bukti" accept="image/*,application/pdf">
+                            <span class="t2" style="font-size: 10px; margin: 0; color: var(--t4);">Boleh surat dokter / surat dispensasi / dokumen PDF. Maks 8MB.</span>
+                        </div>
+
+                        <button class="btn primary" style="justify-content: center; font-size: 13px; padding: 12px; margin-top: 6px;">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Pengajuan Izin
+                        </button>
+                    </form>
+                </div>
+
+                <!-- NOTES AND ATTENTIONS -->
+                <div class="config-card">
+                    <div class="config-header">
+                        <i class="fa-solid fa-circle-exclamation"></i> Panduan Pengajuan
+                    </div>
+                    
+                    <div class="alert-info" style="margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px;">
+                        <i class="fa-solid fa-circle-info" style="color: var(--accent-light); margin-top: 3px; font-size: 14px;"></i>
+                        <div>
+                            <strong>Status Awal:</strong> Pengajuan baru akan berstatus <span class="pill blue">PENDING</span> sampai diperiksa oleh Wali Kelas atau guru BK.
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px; font-size: 12px; color: var(--t2); line-height: 1.6;">
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--green); margin-top: 3px;"></i>
+                            <span>Setelah disetujui (<b style="color: var(--green);">APPROVED</b>), status kehadiran Anda pada hari tersebut disesuaikan otomatis dan tidak dihitung terlambat.</span>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fa-solid fa-calendar-days" style="color: var(--accent-light); margin-top: 3px;"></i>
+                            <span>Pastikan rentang tanggal mulai dan selesai sesuai dengan durasi Anda berhalangan hadir.</span>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <i class="fa-solid fa-file-shield" style="color: var(--orange); margin-top: 3px;"></i>
+                            <span>Mengunggah bukti lampiran yang sah sangat disarankan untuk mempercepat proses persetujuan.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIWAYAT IJIN -->
+            <div class="config-card" style="margin-top: 20px;">
+                <div class="config-header" style="justify-content: space-between; align-items: center;">
+                    <span><i class="fa-solid fa-history"></i> Riwayat Pengajuan Izin</span>
+                    <span class="pill blue">Total: 5 Data</span>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th>Jenis &amp; Tanggal</th>
+                                <th style="width: 150px;">Status</th>
+                                <th style="width: 150px;">Bukti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#8021</td>
+                                <td>
+                                    <b style="color: var(--t1);">DISPENSASI</b><br>
+                                    <span style="font-size: 11px; color: var(--t3);">28 Jun 2026 s/d 28 Jun 2026</span><br>
+                                    <span style="font-size: 11px; color: var(--t4); font-style: italic;">"Mengikuti Olimpiade Matematika Kabupaten"</span>
+                                </td>
+                                <td><span class="pill blue">PENDING</span></td>
+                                <td><a href="#" style="color: var(--accent-light); font-weight: 600;"><i class="fa-solid fa-file-pdf"></i> surat_tugas.pdf</a></td>
+                            </tr>
+                            <tr>
+                                <td>#7892</td>
+                                <td>
+                                    <b style="color: var(--t1);">IZIN</b><br>
+                                    <span style="font-size: 11px; color: var(--t3);">20 Jun 2026 s/d 20 Jun 2026</span><br>
+                                    <span style="font-size: 11px; color: var(--t4); font-style: italic;">"Acara mendadak keluarga di luar kota"</span>
+                                </td>
+                                <td><span class="pill rose">REJECTED</span></td>
+                                <td><span style="color: var(--t4); font-size: 11px;">(tanpa lampiran)</span></td>
+                            </tr>
+                            <tr>
+                                <td>#7544</td>
+                                <td>
+                                    <b style="color: var(--t1);">SAKIT</b><br>
+                                    <span style="font-size: 11px; color: var(--t3);">15 Jun 2026 s/d 16 Jun 2026</span><br>
+                                    <span style="font-size: 11px; color: var(--t4); font-style: italic;">"Sakit demam, disarankan istirahat dokter"</span>
+                                </td>
+                                <td><span class="pill green">APPROVED</span></td>
+                                <td><a href="#" style="color: var(--accent-light); font-weight: 600;"><i class="fa-solid fa-file-image"></i> surat_dokter.jpg</a></td>
+                            </tr>
+                            <tr>
+                                <td>#7210</td>
+                                <td>
+                                    <b style="color: var(--t1);">SAKIT</b><br>
+                                    <span style="font-size: 11px; color: var(--t3);">01 Jun 2026 s/d 02 Jun 2026</span><br>
+                                    <span style="font-size: 11px; color: var(--t4); font-style: italic;">"Demam berdarah (DB) dirawat di RSUD"</span>
+                                </td>
+                                <td><span class="pill green">APPROVED</span></td>
+                                <td><a href="#" style="color: var(--accent-light); font-weight: 600;"><i class="fa-solid fa-file-pdf"></i> surat_rawat_inap.pdf</a></td>
+                            </tr>
+                            <tr>
+                                <td>#6988</td>
+                                <td>
+                                    <b style="color: var(--t1);">IZIN</b><br>
+                                    <span style="font-size: 11px; color: var(--t3);">10 Mei 2026 s/d 11 Mei 2026</span><br>
+                                    <span style="font-size: 11px; color: var(--t4); font-style: italic;">"Menghadiri pernikahan kakak kandung"</span>
+                                </td>
+                                <td><span class="pill green">APPROVED</span></td>
+                                <td><a href="#" style="color: var(--accent-light); font-weight: 600;"><i class="fa-solid fa-file-image"></i> surat_ortu.jpg</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>

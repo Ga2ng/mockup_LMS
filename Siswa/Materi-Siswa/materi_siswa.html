@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Materi &amp; Tugas Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-dim: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, .25);
+            --green: #22c55e;
+            --green-dim: #16a34a;
+            --green-border: #15803d;
+            --amber: #f59e0b;
+            --amber-dim: #d97706;
+            --amber-border: #b45309;
+            --orange: #f97316;
+            --orange-dim: #ea580c;
+            --orange-border: #c2410c;
+            --rose: #f43f5e;
+        }
+
+        [data-theme="dark"] {
+            --bg: #09090b;
+            --s1: #111114;
+            --s2: #18181c;
+            --s3: #1e1e23;
+            --s4: #242429;
+            --line: #27272d;
+            --line2: #32323a;
+            --t1: #fafafa;
+            --t2: #e4e4e7;
+            --t3: #a1a1aa;
+            --t4: #71717a;
+            --inp-bg: #111114;
+            --sb-thumb: #3f3f46;
+            --sb-thumb-hover: #52525b;
+        }
+
+        [data-theme="light"] {
+            --bg: #f1f2f6;
+            --s1: #ffffff;
+            --s2: #f7f8fc;
+            --s3: #eef0f6;
+            --s4: #e4e6ef;
+            --line: #e2e4ec;
+            --line2: #d0d3de;
+            --t1: #111118;
+            --t2: #2d2d3a;
+            --t3: #52525b;
+            --t4: #a1a1aa;
+            --inp-bg: #ffffff;
+            --sb-thumb: #cbd5e1;
+            --sb-thumb-hover: #94a3b8;
+            --accent-light: #4f46e5;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background .25s, color .25s;
+            padding: 12px 8px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--sb-thumb);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sb-thumb-hover);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 12px 8px;
+        }
+
+        .card {
+            background: var(--s1);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card .head {
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--accent-dim);
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .t1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1.2;
+        }
+
+        .t2 {
+            font-size: 11px;
+            color: var(--t3);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            color: var(--t1);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            color: #ffffff;
+        }
+
+        .btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        .btn.bad {
+            background: var(--rose);
+            border-color: var(--rose);
+            color: #ffffff;
+        }
+
+        .btn.bad:hover {
+            background: #e11d48;
+        }
+
+        .btn.orange {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: #ffffff;
+        }
+
+        .btn.orange:hover {
+            background: #d97706;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 6px;
+        }
+
+        .inp {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: var(--inp-bg);
+            color: var(--t1);
+            font-size: 12px;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        .inp:focus {
+            border-color: var(--accent);
+        }
+
+        /* ===== SOLID BADGES WITH WHITE TEXT ===== */
+        .pill, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            line-height: 1;
+        }
+        
+        .tag {
+            border-radius: 6px;
+        }
+
+        .pill.green, .tag.ok {
+            background: #22c55e !important;
+        }
+
+        .pill.amber, .tag.warn {
+            background: #f59e0b !important;
+        }
+
+        .pill.orange, .tag.orange {
+            background: #f97316 !important;
+        }
+
+        .pill.rose, .pill.bad, .tag.bad {
+            background: #f43f5e !important;
+        }
+
+        .pill.blue, .tag.blue {
+            background: #3b82f6 !important;
+        }
+
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+
+        .grid-materi {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-materi {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .materi-card {
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--s2);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .materi-card:hover {
+            border-color: var(--line2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+
+        .materi-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--t1);
+            line-height: 1.4;
+        }
+
+        .materi-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--t3);
+            flex-wrap: wrap;
+        }
+
+        .materi-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .instruction-box {
+            background: var(--s3);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            color: var(--t2);
+            line-height: 1.5;
+            border-left: 3px solid var(--accent-light);
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--line);
+            background: var(--s2);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--t1);
+            transition: all 0.15s;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--s3);
+            border-color: var(--line2);
+        }
+
+        .alert-info {
+            background: var(--s3);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--t2);
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <!-- HEADER -->
+            <div class="head">
+                <div class="brand">
+                    <div class="logo"><i class="fa-solid fa-book-open"></i></div>
+                    <div>
+                        <div class="t1">Materi &amp; Upload Tugas</div>
+                        <div class="t2">Aca • NIS 5001 • Kelas X-10 • school_id 8</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle theme"><i
+                            class="fa-solid fa-sun"></i></button>
+                    <a href="../Ujian-Siswa/ujian_siswa.html" class="btn"><i class="fa-solid fa-graduation-cap"></i> Ujian</a>
+                    <a href="../Dashboard/dashboard_siswa.html" class="btn"><i class="fa-solid fa-house"></i> Dashboard</a>
+                    <a href="../../Login/login.html" class="btn bad"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+
+            <!-- INFO BANNER -->
+            <div class="alert-info">
+                <i class="fa-solid fa-circle-info" style="color: var(--accent-light); margin-right: 6px;"></i>
+                Setiap materi bisa Anda buka lalu kirim <strong>hasil tugas</strong> dalam bentuk file. Jika Anda mengunggah ulang tugas pada materi yang sama, file lama otomatis akan <strong>diganti/diperbarui</strong>. Hasil pengumpulan tugas dapat langsung diperiksa oleh guru pengampu.
+            </div>
+
+            <!-- GRID MATERI -->
+            <div class="grid-materi">
+                <!-- 1 -->
+                <div class="materi-card">
+                    <div class="materi-title">KISI-KISI PSAJ GEOGRAFI</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-09 10:49:39</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_19_77_20260309_104939_40f273512f.pdf" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-pdf"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> baca
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 2 (Sudah diupload) -->
+                <div class="materi-card">
+                    <div class="materi-title">KISI-KISI PSAJ GEOGRAFI</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-09 09:42:56</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_19_77_20260309_094256_3f35192f28.pdf" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-pdf"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> silahkan pelajari kisi-kisi tersebut, selamat belajar semoga mendapatkan nilai yang maksimal
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; background: var(--s3); padding: 10px; border-radius: 6px; border: 1px solid var(--line);">
+                        <span style="font-size: 11px; color: var(--t3);"><i class="fa-solid fa-paperclip"></i> File Anda:</span>
+                        <a href="#" style="color: var(--accent-light); font-size: 12px; font-weight: 600;"><i class="fa-solid fa-file-pdf"></i> tugas_aca_geografi.pdf</a>
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill blue">Sudah Diunggah</span>
+                            <button class="btn btn-sm"><i class="fa-solid fa-arrows-rotate"></i> Update File</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 3 (Sudah dinilai) -->
+                <div class="materi-card">
+                    <div class="materi-title">Identitas trigonometri</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-09 09:19:52</span>
+                    </div>
+                    <a href="https://www.zenius.net/blog/rumus-rumus-trigonometri/" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-earth-americas"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> rangkum
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px; background: var(--s3); padding: 10px; border-radius: 6px; border: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 11px; color: var(--t3);"><i class="fa-solid fa-paperclip"></i> Rangkuman:</span>
+                            <span style="font-weight: 800; color: var(--green); font-size: 14px;">Nilai: 90 / 100</span>
+                        </div>
+                        <a href="#" style="color: var(--accent-light); font-size: 12px; font-weight: 600; margin-bottom: 4px;"><i class="fa-solid fa-file-word"></i> rangkuman_trigonometri.docx</a>
+                        <span style="font-size: 11px; color: var(--t4); font-style: italic; border-top: 1px dashed var(--line); padding-top: 4px;">Catatan Guru: "Rangkuman lengkap dan rapi sekali. Pertahankan!"</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <span class="pill green">Selesai Dinilai</span>
+                        <span style="font-size: 10px; color: var(--t4);">Terkunci</span>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="materi-card">
+                    <div class="materi-title">KISI-KISI PSAJ GEOGRAFI</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-09 07:57:57</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_19_77_20260309_075757_b7e0d4d3ae.pdf" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-pdf"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> silahkan pelajari kisi-kisi tersebut. selamat belajar, semoga mendapatkan hasil yang terbaik
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 5 -->
+                <div class="materi-card">
+                    <div class="materi-title">Materi bahasa jawa macapat</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-05 12:00:30</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_15_20260305_120030_1562f5cb2e.pdf" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-pdf"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> rangkum
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 6 -->
+                <div class="materi-card">
+                    <div class="materi-title">Menghitung luas daerah dengan integral</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-05 10:04:39</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_5_20260305_100439_3a43327568.jpg" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-image"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> Rangkum buku paket
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 7 -->
+                <div class="materi-card">
+                    <div class="materi-title">Materi Fluida Dinamis</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-05 09:56:54</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_24_20260305_095654_d5d5e203f2.pdf" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-pdf"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> Silahkan kalian pelajari kemudian buat rangkumannya dan dikumpulkan disini
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 8 -->
+                <div class="materi-card">
+                    <div class="materi-title">Materi Sejarah Tingkat Lanjut</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-05 09:40:11</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_64_20260305_094011_ac6f264620.docx" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-word"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> Silakan merangkum di buku tulis Sejarah Tingkat Lanjut, kemudian silakan upload di simekar
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 9 -->
+                <div class="materi-card">
+                    <div class="materi-title">APBN dan APBD</div>
+                    <div class="materi-meta">
+                        <span><i class="fa-solid fa-users"></i> Kelas X-10</span>
+                        <span><i class="fa-solid fa-clock"></i> 2026-03-05 09:11:11</span>
+                    </div>
+                    <a href="https://serverap.sapda.id/lms/uploads/materi/8_8_20260305_091111_165bcdd599.docx" target="_blank" class="btn orange btn-sm" style="align-self: flex-start;">
+                        <i class="fa-solid fa-file-word"></i> Buka / Download Materi
+                    </a>
+                    <div class="instruction-box">
+                        <strong>Tugas / Instruksi:</strong> baca
+                    </div>
+                    <form style="display: flex; flex-direction: column; gap: 8px;">
+                        <input class="inp" type="file" required>
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span class="pill gray">Belum upload</span>
+                            <button class="btn primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Tugas</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme toggler script -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const getTheme = () => localStorage.getItem('theme') || 'dark';
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        };
+        setTheme(getTheme());
+        themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+    </script>
+</body>
+
+</html>

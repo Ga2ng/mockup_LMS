@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Jurnal Harian Guru • SMABAONE</title>
+    <title>Jurnal Harian Guru</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -274,72 +274,55 @@
             border-color: var(--line2);
         }
 
-        .pill {
+        /* ============================================
+       PILLS & TAGS (SOLID)
+       ============================================ */
+        .pill, .tag {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 5px 11px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
+            color: #ffffff !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             border: none;
-            color: #fff;
+            line-height: 1;
             white-space: nowrap;
-        }
-
-        .pill.green {
-            background: var(--green);
-        }
-
-        .pill.accent {
-            background: var(--accent);
         }
 
         .tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-size: 10px;
-            font-weight: 700;
-            border: none;
-            color: #fff;
-            white-space: nowrap;
-            letter-spacing: 0.2px;
+            border-radius: 6px;
         }
 
-        .tag.hadir {
-            background: var(--green);
+        .pill.green, .tag.ok, .tag.hadir {
+            background: #22c55e !important;
         }
 
-        .tag.izin {
-            background: #6366f1;
+        .pill.amber, .tag.warn, .tag.sakit {
+            background: #f59e0b !important;
         }
 
-        .tag.sakit {
-            background: #f59e0b;
-            color: #000;
+        .pill.orange, .tag.orange, .tag.keluar {
+            background: #f97316 !important;
         }
 
-        .tag.alpa {
-            background: #f43f5e;
+        .pill.rose, .pill.bad, .tag.bad, .tag.alpa, .tag.pulang {
+            background: #f43f5e !important;
         }
 
-        .tag.tugas {
-            background: #0ea5e9;
+        .pill.blue, .tag.blue, .tag.izin, .tag.tugas {
+            background: #3b82f6 !important;
         }
 
+        .pill.gray, .tag.gray {
+            background: #6b7280 !important;
+        }
+        
         .tag.dispensasi {
-            background: #8b5cf6;
-        }
-
-        .tag.keluar {
-            background: #f97316;
-        }
-
-        .tag.pulang {
-            background: #ec4899;
+            background: #8b5cf6 !important;
         }
 
         /* ─── GRID STRETCH ─────────────────────────────────────────── */
